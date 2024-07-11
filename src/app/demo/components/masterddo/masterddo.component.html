@@ -1,6 +1,6 @@
 <div class="flex flex-wrap align-items-center justify-content-end mb-5">
     <div class="addstubutt"><p-button (click)="showDialog()"
-      label="ADD DATA"></p-button>
+      label="ADD DDO"></p-button>
     </div>
     <form [formGroup]="userForm" >
     <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
@@ -9,14 +9,14 @@
         
           <div class="formgrid grid">
             <div class="field col">
-                <label class="text-2xl" for="firstname2">Treasury Code*</label>
+                <label class="text-2xl" for="firstname2">Treasury Code<span class="red"> *</span></label>
                 <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="TreasuryCode">
                 <div *ngIf="userForm.get('TreasuryCode')?.invalid && userForm.get('TreasuryCode')?.touched" class="error">
                   Treasury Code is required and should not exceed 3 characters.
                 </div>
             </div>
             <div class="field col">
-                <label class="text-2xl" for="lastname2">Treasury Mstld*</label>
+                <label class="text-2xl" for="lastname2">Treasury Mstld<span class="red"> *</span></label>
                 <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="TreasuryMstld">
                 <div *ngIf="userForm.get('TreasuryMstld')?.invalid && userForm.get('TreasuryMstld')?.touched" class="error">
                   Treasury Mstld is required.
@@ -25,14 +25,14 @@
           </div>
           <div class="formgrid grid">
           <div class="field col">
-            <label class="text-2xl" for="firstname2">Code*</label>
+            <label class="text-2xl" for="firstname2">Code<span class="red"> *</span></label>
             <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Code">
             <div *ngIf="userForm.get('Code')?.invalid && userForm.get('Code')?.touched" class="error">
               Code is required.
             </div>
           </div>
           <div class="field col">
-            <label class="text-2xl" for="firstname2">Designation*</label>
+            <label class="text-2xl" for="firstname2">Designation<span class="red"> *</span></label>
             <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Designation">
             <div *ngIf="userForm.get('Designation')?.invalid && userForm.get('Designation')?.touched" class="error">
               Designation Mstld is required.
@@ -41,14 +41,14 @@
           </div>
           <div class="formgrid grid">
           <div class="field col">
-            <label class="text-2xl" for="lastname2">Designation Mstld*</label>
+            <label class="text-2xl" for="lastname2">Designation Mstld<span class="red"> *</span></label>
             <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="DesignationMstld">
             <div *ngIf="userForm.get('DesignationMstld')?.invalid && userForm.get('DesignationMstld')?.touched" class="error">
               Designation Mstld is required.
             </div>
           </div>
           <div class="field col">
-            <label class="text-2xl" for="firstname2">Phone*</label>
+            <label class="text-2xl" for="firstname2">Phone<span class="red"> *</span></label>
             <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Phone">
             <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error">
               Phone is required.

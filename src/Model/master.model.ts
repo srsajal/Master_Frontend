@@ -8,3 +8,13 @@ export interface Master{
     address : string,
     phone : string
 }
+
+export interface MasterTreasury{
+    id : number,
+    districtName : string,
+    districtCode : string,
+    code : string,
+    name : string
+    
+
+}
