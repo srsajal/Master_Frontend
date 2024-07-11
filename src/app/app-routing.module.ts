@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { MasterddoComponent } from './demo/components/masterddo/masterddo.component';
+import { MajorheadComponent } from './demo/components/majorhead/majorhead.component';
+import { SchemeheadComponent } from './demo/components/schemehead/schemehead.component';
+import { DepartmentComponent } from './demo/components/department/department.component';
+import { TreasuryComponent } from './demo/components/treasury/treasury.component';
 
 @NgModule({
     imports: [
@@ -12,10 +16,10 @@ import { MasterddoComponent } from './demo/components/masterddo/masterddo.compon
                 children: [
                     { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path:'masterDDO', component:MasterddoComponent},
-                   
-                    
-                   
-                   
+                    { path:'majorHead', component:MajorheadComponent},
+                    { path:'schemeHead', component:SchemeheadComponent},
+                    { path:'department', component:DepartmentComponent},
+                    { path:'treasury', component:TreasuryComponent}        
                 ]
             },
            
