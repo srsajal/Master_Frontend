@@ -82,6 +82,7 @@ export class MasterddoComponent implements OnInit {
   }
 
   submit(form : FormGroup){
+   // alert(this.userForm.value);
     this.http.post<Master>(this.apiUrl + 'AddMasterDdo', this.userForm.value).subscribe((res : any) =>{
       console.log(res);
       this.getData();
