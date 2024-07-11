@@ -18,3 +18,25 @@ export interface MasterTreasury{
     
 
 }
+
+export interface masterSchemeHead{
+    demandcode : number,
+    code : number,
+   // code : string,
+    name : string,
+minorheadid:number,
+    
+
+}
+
+export interface Masterdept{
+    id : number,
+    code : string,
+    name : string,
+    demandcode : string,
+    address : string,
+    pincode : number,
+    phoneno : string,
+    mobileno : string,
+    email : string,
+}

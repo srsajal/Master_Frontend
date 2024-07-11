@@ -11,3 +11,71 @@ $gutter: 1rem; //for primeflex grid system
 /* Demos */
 // @import "assets/demo/styles/flags/flags.css";
 // @import "assets/demo/styles/badges.scss";
+.layout-sidebar {
+	top: 6rem;
+	background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.p-divider .p-divider-content {
+	border-radius: 6px;
+	padding: 4px;
+	background: #99e2e5 !important;
+}
+
+.p-divider.p-divider-horizontal:before {
+	border-top: 1px #1c61afed !important;
+}
+
+.p-divider-solid.p-divider-horizontal:before {
+	border-top-style: dashed !important;
+}
+
+.p-divider.p-divider-horizontal .p-divider-content {
+	padding: 0.2rem 0.5rem !important;
+}
+
+.layout-topbar {
+	background-color: transparent !important;
+}
+.layout-topbar {
+	background-color: transparent !important;
+}
+
+.layout-main-container {
+	padding: 6rem 2rem 2rem 4rem;
+}
+
+.layout-topbar .layout-topbar-button:hover {
+	background-color: #37a9bd69;
+}
+
+.layout-sidebar {
+	top: 6rem;
+	background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.layout-topbar {
+	height: 4rem;
+	padding: 0 1rem;
+}
+
+.layout-menu ul a {
+	color: #ffffff;
+}
+
+.layout-menu .layout-root-menuitem > .layout-menuitem-root-text {
+	color: #ffffff;
+}
+.layout-menu ul a:hover {
+	background-color: #ffffff59;
+}
+.p-dialog {
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+.refbar {
+	background-color: rgb(195 195 195 / 21%);
+	padding: 5px;
+	border: 1px rgba(0, 0, 0, 0.1882352941) solid;
+	color: rgb(0 0 0 / 57%);
+}
