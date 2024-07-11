@@ -3,7 +3,7 @@
       label="ADD DDO"></p-button>
     </div>
     <form [formGroup]="userForm" >
-    <p-dialog class="custom-dialog" style="background-color: rgba(0, 0, 255, 0.5);" [header]="headertext" [closable]="true" [modal]="true"
+    <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
         [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
   
         
