@@ -23,7 +23,7 @@ export class MasterddoComponent implements OnInit {
   visible : boolean = false;
   id : number = 0;
   isSubUp : boolean = true;
-  headertext:string = 'Add Data';
+  headertext:string = 'Add DDO';
 
   http = inject(HttpClient);
   messageService = inject(MessageService)
@@ -112,7 +112,7 @@ export class MasterddoComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch student data by ID', life: 2000 });
       }
     );
-    this.headertext = 'Edit Data';
+    this.headertext = 'Edit DDO';
     this.visible = true;
     this.id = tmpid;
     this.isSubUp = false;
@@ -122,13 +122,13 @@ export class MasterddoComponent implements OnInit {
     form.reset();
     this.isSubUp = true;
     this.visible = false;
-    this.headertext = 'Add Data';
+    this.headertext = 'Add DDO';
   }
   hide(form: FormGroup) {
     form.reset();
     this.isSubUp = true;
     this.visible = false;
-    this.headertext = 'Add Data';
+    this.headertext = 'Add DDO';
   }
 
   update(form : FormGroup){
@@ -139,7 +139,7 @@ export class MasterddoComponent implements OnInit {
     form.reset();
     this.isSubUp = true;
     this.visible = false;
-    this.headertext = 'Add Data';
+    this.headertext = 'Add DDO';
     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
   }
 
