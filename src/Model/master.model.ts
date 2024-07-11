@@ -28,3 +28,15 @@ minorheadid:number,
     
 
 }
+
+export interface Masterdept{
+    id : number,
+    code : string,
+    name : string,
+    demandcode : string,
+    address : string,
+    pincode : number,
+    phoneno : string,
+    mobileno : string,
+    email : string,
+}
