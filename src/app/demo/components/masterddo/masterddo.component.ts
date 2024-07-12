@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import { Master } from 'src/Model/master.model';
+import { Code, MasterDdo } from 'src/Model/master.model';
 import { MhPrimeDynamicTableModule } from 'mh-prime-dynamic-table';
 
 
@@ -24,6 +24,7 @@ export class MasterddoComponent implements OnInit {
   id : number = 0;
   isSubUp : boolean = true;
   headertext:string = 'Add DDO';
+  codes : Code[] = [];
 
   http = inject(HttpClient);
   messageService = inject(MessageService)
@@ -66,24 +67,37 @@ export class MasterddoComponent implements OnInit {
       filterParameters: [],
     };
     this.getData();
+    this.getCodeFromTreasury();
     console.log(this.tableData);
   }
 
   getData() {
     this.http
-      .post<IapiResponce<DynamicTable<Master>>>(this.apiUrl + 'GetMasterDdo', this.tableQueryParameters)
+      .post<IapiResponce<DynamicTable<MasterDdo>>>(this.apiUrl + 'GetMasterDdo', this.tableQueryParameters)
       .subscribe((response: any) => {
         this.tableData = response.result;
         this.alldata = response.result.dataCount;
         console.log(this.tableData, response);
-        
-
       });
+  }
+  getCodeFromTreasury(){
+    this.http.get<Code[]>(this.apiUrl + 'GetTreasuryCode').subscribe((res:Code[]) => {
+      console.log(res);
+      this.codes= res;
+      console.log(res);
+      
+      this.userForm.markAllAsTouched();
+      this.userForm.markAsDirty();
+    },
+      error => {
+        console.error('Error fetching student data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch student data by ID', life: 2000 });
+      }
+    );
   }
 
   submit(form : FormGroup){
-   // alert(this.userForm.value);
-    this.http.post<Master>(this.apiUrl + 'AddMasterDdo', this.userForm.value).subscribe((res : any) =>{
+    this.http.post<MasterDdo>(this.apiUrl + 'AddMasterDdo', this.userForm.value).subscribe((res : MasterDdo) =>{
       console.log(res);
       this.getData();
     });
@@ -93,7 +107,7 @@ export class MasterddoComponent implements OnInit {
   }
 
   editData(tmpid: number) {
-    this.http.get<Master>(this.apiUrl + 'GetMasterDdoById?id=' + `${tmpid}`).subscribe((res:Master) => {
+    this.http.get<MasterDdo>(this.apiUrl + 'GetMasterDdoById?id=' + `${tmpid}`).subscribe((res:MasterDdo) => {
       console.log(res);
       this.userForm.patchValue({
         TreasuryCode: res.treasuryCode,
@@ -132,7 +146,7 @@ export class MasterddoComponent implements OnInit {
   }
 
   update(form : FormGroup){
-    this.http.put<Master>(this.apiUrl + 'UpdateMasterDdo?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
+    this.http.put<MasterDdo>(this.apiUrl + 'UpdateMasterDdo?id=' + `${this.id}` , this.userForm.value).subscribe((res : MasterDdo) =>{
       console.log(res);
       this.getData();
     });

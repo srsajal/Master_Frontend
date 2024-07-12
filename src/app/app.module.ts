@@ -28,6 +28,7 @@ import { MajorheadComponent } from './demo/components/majorhead/majorhead.compon
 import { SchemeheadComponent } from './demo/components/schemehead/schemehead.component';
 import { DepartmentComponent } from './demo/components/department/department.component';
 import { TreasuryComponent } from './demo/components/treasury/treasury.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -54,7 +55,7 @@ import { TreasuryComponent } from './demo/components/treasury/treasury.component
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        
+        DropdownModule        
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
