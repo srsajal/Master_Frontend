@@ -32,10 +32,8 @@ export class MasterddoComponent implements OnInit {
 
   userForm: FormGroup = new FormGroup({
     TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-    TreasuryMstld: new FormControl('', Validators.required),
     Code: new FormControl('', Validators.required),
     Designation: new FormControl('', Validators.required),
-    DesignationMstld: new FormControl(null, Validators.required),
     Address: new FormControl(''),
     Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
   });
@@ -111,10 +109,8 @@ export class MasterddoComponent implements OnInit {
       console.log(res);
       this.userForm.patchValue({
         TreasuryCode: res.treasuryCode,
-        TreasuryMstld: res.treasuryMstld,
         Code: res.code,
         Designation: res.designation,
-        DesignationMstld: res.designationMstld,
         Address: res.address,
         Phone: res.phone
       });
