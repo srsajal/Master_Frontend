@@ -80,12 +80,7 @@ export class MasterddoComponent implements OnInit {
   }
   getCodeFromTreasury(){
     this.http.get<Code[]>(this.apiUrl + 'GetTreasuryCode').subscribe((res:Code[]) => {
-      console.log(res);
       this.codes= res;
-      console.log(res);
-      
-      this.userForm.markAllAsTouched();
-      this.userForm.markAsDirty();
     },
       error => {
         console.error('Error fetching student data by ID:', error);
@@ -95,6 +90,7 @@ export class MasterddoComponent implements OnInit {
   }
 
   submit(form : FormGroup){
+    
     this.http.post<MasterDdo>(this.apiUrl + 'AddMasterDdo', this.userForm.value).subscribe((res : MasterDdo) =>{
       console.log(res);
       this.getData();
@@ -106,9 +102,8 @@ export class MasterddoComponent implements OnInit {
 
   editData(tmpid: number) {
     this.http.get<MasterDdo>(this.apiUrl + 'GetMasterDdoById?id=' + `${tmpid}`).subscribe((res:MasterDdo) => {
-      console.log(res);
       this.userForm.patchValue({
-        TreasuryCode: res.treasuryCode,
+        TreasuryCode:res.treasuryCode,
         Code: res.code,
         Designation: res.designation,
         Address: res.address,

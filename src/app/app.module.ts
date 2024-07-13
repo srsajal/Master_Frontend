@@ -23,7 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ToastModule} from 'primeng/toast';
 import { MhPrimeDynamicTableModule } from 'mh-prime-dynamic-table';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MajorheadComponent } from './demo/components/majorhead/majorhead.component';
 import { SchemeheadComponent } from './demo/components/schemehead/schemehead.component';
 import { DepartmentComponent } from './demo/components/department/department.component';
@@ -60,7 +60,7 @@ import { DropdownModule } from 'primeng/dropdown';
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, BrowserAnimationsModule, MessageService
+        PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient
     ],
     bootstrap: [AppComponent]
 })
