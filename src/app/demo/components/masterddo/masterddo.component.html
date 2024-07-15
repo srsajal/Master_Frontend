@@ -4,18 +4,20 @@
   <form [formGroup]="userForm">
     <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true" [(visible)]="visible"
       [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
-      <div class="formgrid grid">
 
-        <div class="mt-4">
-          <label class="text-2xl" for="firstname2">Select Treasury <span class="red"> *</span> : </label>
-          <p-dropdown class="ml-5" [options]="codes " formControlName="TreasuryCode" placeholder="Selecet Code"
-            optionLabel="code" optionValue="code"></p-dropdown>
-          <div *ngIf="userForm.get('TreasuryCode')?.invalid && userForm.get('TreasuryCode')?.touched" class="error">
-            Treasury Code is required.
-          </div>
+      <div class="mb-4">
+        <label class="text-2xl" for="firstname2">Select Treasury <span class="red"> *</span> : </label>
+        <p-dropdown class="ml-3" [style]="{'width':'72%'}" [options]="codes" formControlName="TreasuryCode"
+          placeholder="Select Treasury" optionLabel="name" optionValue="code">
+          <!-- <ng-template let-option pTemplate="item">
+            {{ option.code }} : {{ option.name }}
+          </ng-template> -->
+        </p-dropdown>
+        <div *ngIf="userForm.get('TreasuryCode')?.invalid && userForm.get('TreasuryCode')?.touched" class="error">
+          Treasury Code is required.
         </div>
       </div>
-      <div class="formgrid grid">
+      <div class="formgrid grid"> 
         <div class="field col">
           <label class="text-2xl" for="firstname2">DDO Code<span class="red"> *</span> :</label>
           <input id="firstname2" type="text"
@@ -58,7 +60,7 @@
       </div>
 
 
-      <div class="button-container" *ngIf="isSubUp; else elseBlock">
+      <div class="button-container" *ngIf="(dialogButts == 1); else elseBlock1">
         <div class="formgrid grid">
           <div class="col-9">
             <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
@@ -70,7 +72,8 @@
           </div>
         </div>
       </div>
-      <ng-template #elseBlock>
+      <ng-template #elseBlock1>
+        <div class="button-container" *ngIf="(dialogButts == 2); else elseBlock2">
         <div class="formgrid grid">
           <div class="col-9">
             <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
@@ -81,6 +84,17 @@
               icon="pi pi-check" iconPos="left" (click)="update(userForm)" [disabled]="userForm.invalid"></p-button>
           </div>
         </div>
+      </div>
+      </ng-template>
+      <ng-template #elseBlock2>
+        <div class="button-container" *ngIf="(dialogButts == 3)">
+        <div class="formgrid grid">
+          <div class="col">
+            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Close"
+              icon="pi pi-times" iconPos="left" (click)="hide(userForm)"></p-button>
+          </div>
+        </div>
+      </div>
       </ng-template>
 
     </p-dialog>
@@ -88,17 +102,8 @@
   <p-toast></p-toast>
 </div>
 
-<mh-prime-dynamic-table *ngIf="tableData!=null||tableData!=undefined"
-    size="small"
-    [numberRowsShown]="10"
-    [rowsPerPageOptions]="[10, 30, 50]"
-    [headers]="tableData.headers"
-    [data]="tableData.data"
-    rowSelectionMode="multiple"
-    [dataCount]="alldata"
-    [actionButtons]="actionButtonConfig"
-    (rowSelect)="handleRowSelection($event)"
-    (actionButtonClicked)="handleButtonClick($event)"
-    (queryParameterChange)="handQueryParameterChange($event)"
-  >
-  </mh-prime-dynamic-table>
+<mh-prime-dynamic-table *ngIf="tableData!=null||tableData!=undefined" size="small" [numberRowsShown]="10"
+  [rowsPerPageOptions]="[10, 30, 50]" [headers]="tableData.headers" [data]="tableData.data" rowSelectionMode="multiple"
+  [dataCount]="alldata" [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
+  (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)">
+</mh-prime-dynamic-table>

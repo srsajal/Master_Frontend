@@ -55,7 +55,8 @@ import { DropdownModule } from 'primeng/dropdown';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        DropdownModule        
+        DropdownModule
+            
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
