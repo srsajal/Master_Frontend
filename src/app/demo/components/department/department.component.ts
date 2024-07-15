@@ -27,14 +27,14 @@ export class DepartmentComponent implements OnInit {
   constructor() { }
 
   userForm: FormGroup = new FormGroup({
-    Code: new FormControl('', [Validators.required, Validators.maxLength(2)]),
-    Name: new FormControl(''),
-    Demand: new FormControl(''),
-    Address: new FormControl(''),
-    Pin: new FormControl('', [Validators.required, Validators.maxLength(6)]),
-    Phone: new FormControl(''),
-    Mobile: new FormControl(''),
-    Email: new FormControl('')
+    Code: new FormControl('', [Validators.required, Validators.maxLength(2),Validators.minLength(2)]),
+    Name: new FormControl('',[Validators.required,Validators.minLength(2)]),
+    Demand: new FormControl('',[Validators.required,Validators.minLength(1)]),
+    Address: new FormControl('',[Validators.required]),
+    Pin: new FormControl('', [Validators.required, Validators.maxLength(6),Validators.minLength(6)]),
+    Phone: new FormControl('',[Validators.required]),
+    Mobile: new FormControl('',[Validators.required]),
+    Email: new FormControl('',[Validators.required])
   });
 
   ngOnInit(): void {
@@ -106,8 +106,8 @@ export class DepartmentComponent implements OnInit {
       this.userForm.markAsDirty();
     },
       error => {
-        console.error('Error fetching student data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch student data by ID', life: 2000 });
+        console.error('Error fetching department data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch department data by ID', life: 2000 });
       }
     );
     this.visible = true;
