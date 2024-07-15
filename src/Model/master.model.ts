@@ -27,11 +27,11 @@ export interface Masterdept{
     id : number,
     code : string,
     name : string,
-    demandcode : string,
+    demandCode : string,
     address : string,
-    pincode : number,
-    phoneno : string,
-    mobileno : string,
+    pinCode : number,
+    phoneNumber : string,
+    mobileNumber : string,
     email : string,
 }
 
