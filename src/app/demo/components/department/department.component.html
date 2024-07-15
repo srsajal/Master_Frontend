@@ -9,44 +9,71 @@
         
           <div class="formgrid grid">
             <div class="field col">
-                <label for="firstname2">Code</label>
+                <label class="text-2xl" for="firstname2">Department Code <span class="red"> *</span></label>
                 <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Code">
-            </div>
-            <div class="field col">
-                <label for="lastname2">Name</label>
+                <div class="error" *ngIf="userForm.get('Code')?.touched && userForm.get('Code')?.invalid">
+                  <div *ngIf="userForm.get('Code')?.errors?.['required']">
+                    This field is required.
+                  </div>
+                  <div *ngIf="userForm.get('Code')?.errors?.['minlength']">
+                    Minimum length is 2 characters.
+                  </div>
+                  <div *ngIf="userForm.get('Code')?.errors?.['maxlength']">
+                    Maximum length is 2 characters.
+                  </div>
+                </div>
+              </div>
+              <div class="field col">
+                <label class="text-2xl" for="lastname2">Department Name<span class="red"> *</span></label>
                 <input id="lastname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Name">
-            </div>
+                <div class="error" *ngIf="userForm.get('Name')?.touched && userForm.get('Name')?.invalid">
+                  <div *ngIf="userForm.get('Name')?.errors?.['required']">
+                    This field is required.
+                  </div>
+                  <div *ngIf="userForm.get('Name')?.errors?.['minlength']">
+                    Minimum length is 2 characters.
+                  </div>
+                </div>
+              </div>
           </div>
 
           <div class="formgrid grid">
           <div class="field col">
-            <label for="firstname2">Demand Code</label>
-            <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Demand">
+            <label class="text-2xl" for="firstname2">Demand Code<span class="red"> *</span></label>
+            <input id="firstname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Demand">
+            <div class="error" *ngIf="userForm.get('Demand')?.touched && userForm.get('Demand')?.invalid">
+              <div *ngIf="userForm.get('Demand')?.errors?.['required']">
+                This field is required.
+              </div>
+              <div *ngIf="userForm.get('Demand')?.errors?.['minlength']">
+                Minimum length is 1 number.
+              </div>
+            </div>
           </div>
           <div class="field col">
-            <label for="firstname2">Address</label>
+            <label class="text-2xl" for="firstname2">Address<span class="red"> *</span></label>
             <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Address">
           </div>
           </div>
 
           <div class="formgrid grid">
           <div class="field col">
-            <label for="lastname2">Pin Code</label>
+            <label class="text-2xl" for="lastname2">Pin Code<span class="red"> *</span></label>
             <input id="lastname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Pin">
           </div>
           <div class="field col">
-            <label for="firstname2">Phone No.</label>
+            <label class="text-2xl" for="firstname2">Phone No.<span class="red"> *</span></label>
             <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Phone">
           </div>
           </div>
 
           <div class="formgrid grid">
             <div class="field col">
-              <label for="lastname2">Mobile No.</label>
+              <label class="text-2xl" for="lastname2">Mobile No.<span class="red"> *</span></label>
               <input id="lastname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Mobile">
             </div>
             <div class="field col">
-              <label for="firstname2">Email</label>
+              <label class="text-2xl" for="firstname2">Email<span class="red"> *</span></label>
               <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Email">
             </div>
             </div>
