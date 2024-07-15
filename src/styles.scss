@@ -11,11 +11,130 @@ $gutter: 1rem; //for primeflex grid system
 /* Demos */
 // @import "assets/demo/styles/flags/flags.css";
 // @import "assets/demo/styles/badges.scss";
-.layout-sidebar {
-	top: 6rem;
-	background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
-	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+:root {
+	scrollbar-width: thin !important;
+	/* Sets the width of the entire scrollbar */
+	scrollbar-color: #0000004a transparent;
+	/* Sets thumb color and transparent track */
 }
+
+/* width */
+::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f100;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: var(--prime_aqua);
+	border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: var(--prime_aqua);
+	filter: brightness(0.85);
+}
+
+/*------------CUSTOM---------------*/
+.layout-topbar-menu.layout-topbar-menu-mobile-active {
+	z-index: 5 !important;
+}
+
+.swal2-container {
+	z-index: 99999999 !important;
+}
+
+.loading-text {
+	top: 50% !important;
+}
+
+.customer-badge {
+	&.status-bill_received {
+		background: #b3e5fc !important;
+		color: #23547b !important;
+	}
+
+	&.status-retrun_memo_generated {
+		background: #ffcdd2;
+		color: #c63737;
+	}
+
+	&.status-da_froward {
+		background: #c8e6c9;
+		color: #256029;
+	}
+
+	&.status-da_objected {
+		background: #ffd8b2;
+		color: #805b36;
+	}
+
+	&.status-ac_froward {
+		background: #c8e6c9;
+		color: #256029;
+	}
+
+	&.status-ac_objected {
+		background: #ffd8b2;
+		color: #805b36;
+	}
+
+	&.status-to_froward {
+		background: #c8e6c9;
+		color: #256029;
+	}
+
+	&.status-to_objected {
+		background: #ffd8b2;
+		color: #805b36;
+	}
+
+	&.status-bill_clear {
+		background: #c8e6c9;
+		color: #256029;
+	}
+
+	&.status-bill_clear {
+		background: #c8e6c9;
+		color: #256029;
+	}
+
+	&.status-Global {
+		background: #eccfff;
+		color: #694382;
+	}
+
+	&.status-Local {
+		background: #b3e5fc;
+		color: #23547b;
+	}
+}
+
+// .card {
+// 	box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 7px 0 rgba(0, 0, 0, 0.12) !important;
+// 	background-image: url("./assets/img/wavy_lines.png");
+// 	background-repeat: no-repeat;
+// }
+
+.p-divider.p-divider-horizontal {
+	margin: 5px 0;
+}
+
+.t_cell {
+	border: 1px solid gray;
+	margin: 1px;
+}
+
+.gray {
+	filter: grayscale(100%);
+}
+
 .p-divider .p-divider-content {
 	border-radius: 6px;
 	padding: 4px;
@@ -34,9 +153,6 @@ $gutter: 1rem; //for primeflex grid system
 	padding: 0.2rem 0.5rem !important;
 }
 
-.layout-topbar {
-	background-color: transparent !important;
-}
 .layout-topbar {
 	background-color: transparent !important;
 }
@@ -60,6 +176,96 @@ $gutter: 1rem; //for primeflex grid system
 	padding: 0 1rem;
 }
 
+.p-scroller {
+}
+
+/* width */
+.p-scroller::-webkit-scrollbar {
+	width: 5px !important;
+	height: 0px !important;
+}
+
+/* Track */
+.p-scroller::-webkit-scrollbar-track {
+}
+
+/* Handle */
+.p-scroller::-webkit-scrollbar-thumb {
+	background: red !important;
+	border-radius: 10px !important;
+}
+
+/* Handle on hover */
+.p-scroller::-webkit-scrollbar-thumb:hover {
+	background: #b30000 !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+	text-align: center !important;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+	text-align: center !important;
+}
+
+// .p-dropdown {
+// 	width: 100% !important;
+// }
+
+.p-calendar {
+	width: 100% !important;
+}
+
+.table-responsive {
+	// overflow-x: scroll;
+}
+
+.p-button {
+	// overflow: visible !important;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+	border-radius: 5px;
+	margin: 4px 6px;
+}
+
+.p-dropdown-items-wrapper {
+	background: linear-gradient(358deg, #d1d1d1, #efefef);
+	border-radius: 5px;
+}
+
+.p-datepicker:not(.p-datepicker-inline) {
+	background: linear-gradient(358deg, #d1d1d1, #efefef);
+}
+
+div:where(.swal2-container).swal2-backdrop-show,
+div:where(.swal2-container).swal2-noanimation {
+	-webkit-backdrop-filter: blur(2px);
+	backdrop-filter: blur(2px);
+}
+
+.p-datepicker table td > span.p-highlight {
+	background-color: #7cd2e1;
+}
+
+.p-inputtext {
+	background-color: #fff;
+}
+
+.p-dialog .p-dialog-header {
+	padding: 0.5rem;
+	background: linear-gradient(0deg, #094241, #03ecf8, rgb(0, 15, 18));
+}
+
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+	background-color: black;
+}
+
+.p-dialog{
+
+}
+
 .layout-menu ul a {
 	color: #ffffff;
 }
@@ -67,11 +273,14 @@ $gutter: 1rem; //for primeflex grid system
 .layout-menu .layout-root-menuitem > .layout-menuitem-root-text {
 	color: #ffffff;
 }
+
 .layout-menu ul a:hover {
 	background-color: #ffffff59;
 }
+
 .p-dialog {
 	box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+	
 }
 .refbar {
 	background-color: rgb(195 195 195 / 21%);

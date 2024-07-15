@@ -2,10 +2,10 @@
   <div class="addstubutt"><p-button (click)="showDialog()" label="ADD DDO"></p-button>
   </div>
   <form [formGroup]="userForm">
-    <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true" [(visible)]="visible"
+    <p-dialog class="custom-dialog" [contentStyle]="{'background-color':'rgb(222, 248, 247)'}" [header]="headertext" [closable]="true" [modal]="true" [(visible)]="visible"
       [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
 
-      <div class="mb-4">
+      <div class="mb-4 mt-3">
         <label class="text-2xl" for="firstname2">Select Treasury <span class="red"> *</span> : </label>
         <p-dropdown class="ml-3" [style]="{'width':'72%'}" [options]="codes" formControlName="TreasuryCode"
           placeholder="Select Treasury" optionLabel="name" optionValue="code">
@@ -68,7 +68,7 @@
           </div>
           <div class="field col">
             <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Submit"
-              icon="pi pi-check" iconPos="left" (click)="submit(userForm)" [disabled]="userForm.invalid"></p-button>
+              icon="pi pi-check" iconPos="left" (click)="submit(userForm)" ></p-button>
           </div>
         </div>
       </div>
@@ -81,7 +81,7 @@
           </div>
           <div class="field col">
             <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update"
-              icon="pi pi-check" iconPos="left" (click)="update(userForm)" [disabled]="userForm.invalid"></p-button>
+              icon="pi pi-check" iconPos="left" (click)="update(userForm)"></p-button>
           </div>
         </div>
       </div>

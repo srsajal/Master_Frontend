@@ -101,14 +101,19 @@ export class MasterddoComponent implements OnInit {
   }
 
   submit(form: FormGroup) {
-
-    this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
-      console.log(res);
-      this.getData();
-    });
-    form.reset();
-    this.visible = false;
-    this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+    if(!this.userForm.invalid){
+      this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
+        console.log(res);
+        this.getData();
+      });
+      form.reset();
+      this.visible = false;
+      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+    }
+    else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'The form is invalid', life: 2000 });
+    }
+    
     // this.ngOnInit();
   }
 
@@ -159,15 +164,20 @@ export class MasterddoComponent implements OnInit {
   }
 
   update(form: FormGroup) {
-    this.masterService.updateMasterDDOById(this.id, this.userForm).subscribe((res: MasterDdo) => {
-      console.log(res);
-      this.getData();
-    });
-    form.reset();
-    this.dialogButts = 1;
-    this.visible = false;
-    this.headertext = 'ADD DDO DATA';
-    this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
+    if(!this.userForm.invalid){
+      this.masterService.updateMasterDDOById(this.id, this.userForm).subscribe((res: MasterDdo) => {
+        console.log(res);
+        this.getData();
+      });
+      form.reset();
+      this.dialogButts = 1;
+      this.visible = false;
+      this.headertext = 'ADD DDO DATA';
+      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
+    }
+    else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'The form is invalid', life: 2000 });
+    }
   }
 
   delData(tmpid: number) {
@@ -177,7 +187,7 @@ export class MasterddoComponent implements OnInit {
     },
       error => {
         console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to MasterDDO record', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterDDO record', life: 2000 });
       }
     );
   }
