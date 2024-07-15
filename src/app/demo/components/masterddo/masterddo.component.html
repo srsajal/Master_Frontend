@@ -1,94 +1,94 @@
 <div class="flex flex-wrap align-items-center justify-content-end mb-5">
-    <div class="addstubutt"><p-button (click)="showDialog()"
-      label="ADD DDO"></p-button>
-    </div>
-    <form [formGroup]="userForm" >
-    <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
-        [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
-  
-        
-          <div class="formgrid grid">
-            <div class="field col">
-                <label class="text-2xl" for="firstname2">Treasury Code<span class="red"> *</span></label>
-                <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="TreasuryCode">
-                <div *ngIf="userForm.get('TreasuryCode')?.invalid && userForm.get('TreasuryCode')?.touched" class="error">
-                  Treasury Code is required and should not exceed 3 characters.
-                </div>
-            </div>
-            <div class="field col">
-                <label class="text-2xl" for="lastname2">Treasury Mstld<span class="red"> *</span></label>
-                <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="TreasuryMstld">
-                <div *ngIf="userForm.get('TreasuryMstld')?.invalid && userForm.get('TreasuryMstld')?.touched" class="error">
-                  Treasury Mstld is required.
-                </div>
-            </div>
+  <div class="addstubutt"><p-button (click)="showDialog()" label="ADD DDO"></p-button>
+  </div>
+  <form [formGroup]="userForm">
+    <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true" [(visible)]="visible"
+      [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
+      <div class="formgrid grid">
+
+        <div class="mt-4">
+          <label class="text-2xl" for="firstname2">Select Treasury <span class="red"> *</span> : </label>
+          <p-dropdown class="ml-5" [options]="codes " formControlName="TreasuryCode" placeholder="Selecet Code"
+            optionLabel="code" optionValue="code"></p-dropdown>
+          <div *ngIf="userForm.get('TreasuryCode')?.invalid && userForm.get('TreasuryCode')?.touched" class="error">
+            Treasury Code is required.
           </div>
-          <div class="formgrid grid">
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col">
+          <label class="text-2xl" for="firstname2">DDO Code<span class="red"> *</span> :</label>
+          <input id="firstname2" type="text"
+            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            formControlName="Code">
+          <div *ngIf="userForm.get('Code')?.invalid && userForm.get('Code')?.touched" class="error">
+            Code is required.
+          </div>
+        </div>
+        <div class="field col">
+          <label class="text-2xl" for="firstname2">Phone<span class="red"> *</span> :</label>
+          <input id="firstname2" type="text"
+            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            formControlName="Phone">
+          <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error">
+            Phone is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col">
+          <label class="text-2xl" for="firstname2">Designation<span class="red"> *</span> :</label>
+          <input id="firstname2" type="text"
+            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            formControlName="Designation">
+          <div *ngIf="userForm.get('Designation')?.invalid && userForm.get('Designation')?.touched" class="error">
+            Designation is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col">
+          <label class="text-2xl" for="firstname2">Address :</label>
+          <input id="firstname2" type="text"
+            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            formControlName="Address">
+        </div>
+      </div>
+
+
+      <div class="button-container" *ngIf="isSubUp; else elseBlock">
+        <div class="formgrid grid">
+          <div class="col-9">
+            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
+              icon="pi pi-times" iconPos="left" (click)="cancel(userForm)"></p-button>
+          </div>
           <div class="field col">
-            <label class="text-2xl" for="firstname2">Code<span class="red"> *</span></label>
-            <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Code">
-            <div *ngIf="userForm.get('Code')?.invalid && userForm.get('Code')?.touched" class="error">
-              Code is required.
-            </div>
+            <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Submit"
+              icon="pi pi-check" iconPos="left" (click)="submit(userForm)" [disabled]="userForm.invalid"></p-button>
+          </div>
+        </div>
+      </div>
+      <ng-template #elseBlock>
+        <div class="formgrid grid">
+          <div class="col-9">
+            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
+              icon="pi pi-times" iconPos="left" (click)="cancel(userForm)"></p-button>
           </div>
           <div class="field col">
-            <label class="text-2xl" for="firstname2">Designation<span class="red"> *</span></label>
-            <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Designation">
-            <div *ngIf="userForm.get('Designation')?.invalid && userForm.get('Designation')?.touched" class="error">
-              Designation Mstld is required.
-            </div>
+            <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update"
+              icon="pi pi-check" iconPos="left" (click)="update(userForm)" [disabled]="userForm.invalid"></p-button>
           </div>
-          </div>
-          <div class="formgrid grid">
-          <div class="field col">
-            <label class="text-2xl" for="lastname2">Designation Mstld<span class="red"> *</span></label>
-            <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="DesignationMstld">
-            <div *ngIf="userForm.get('DesignationMstld')?.invalid && userForm.get('DesignationMstld')?.touched" class="error">
-              Designation Mstld is required.
-            </div>
-          </div>
-          <div class="field col">
-            <label class="text-2xl" for="firstname2">Phone<span class="red"> *</span></label>
-            <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Phone">
-            <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error">
-              Phone is required.
-            </div>
-          </div>
-          </div>
-          <div class="formgrid grid">
-            <div class="field col">
-              <label class="text-2xl" for="firstname2">Address</label>
-              <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Address">
-            </div>
-          </div>
-  
-          <div class="button-container" *ngIf="isSubUp; else elseBlock">
-            <div class="formgrid grid">
-              <div class="col-9">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel" icon="pi pi-times" iconPos="left" (click)="cancel(userForm)" ></p-button>
-              </div>
-              <div class="field col">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Submit" icon="pi pi-check" iconPos="left" (click)="submit(userForm)" [disabled]="userForm.invalid" ></p-button>
-              </div>
-            </div>
-          </div>
-          <ng-template #elseBlock>
-            <div class="formgrid grid">
-              <div class="col-9">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel" icon="pi pi-times" iconPos="left" (click)="cancel(userForm)" ></p-button>
-              </div>
-              <div class="field col">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update" icon="pi pi-check" iconPos="left" (click)="update(userForm)" [disabled]="userForm.invalid" ></p-button>
-              </div>
-            </div>
-          </ng-template>
-      
+        </div>
+      </ng-template>
+
     </p-dialog>
   </form>
   <p-toast></p-toast>
-  </div>
-  
-  <mh-prime-dynamic-table *ngIf="tableData!=null||tableData!=undefined"
+</div>
+
+<mh-prime-dynamic-table *ngIf="tableData!=null||tableData!=undefined"
     size="small"
     [numberRowsShown]="10"
     [rowsPerPageOptions]="[10, 30, 50]"

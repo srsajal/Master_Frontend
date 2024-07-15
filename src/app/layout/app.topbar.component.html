@@ -1,12 +1,14 @@
-<div class="layout-topbar">
-    <a class="layout-topbar-logo" routerLink="">
-        <img src="assets/layout/images/{{layoutService.config.colorScheme === 'light' ? 'logo-dark' : 'logo-white'}}.svg" alt="logo">
-        <span>IFMS</span>
-    </a>
-
+<div  style="position: fixed; height: 4rem; width: 100%; z-index: 997;  background-color: rgb(127, 208, 234)" class="{{layoutService.config.colorScheme === 'light' ? 'sub-nav' : 'sub-nav-dark'}}">
+   <div class="layout-topbar">
     <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
         <i class="pi pi-bars"></i>
     </button>
+    <a class="layout-topbar-logo" routerLink="">
+        <img src="assets/layout/images/{{ layoutService.config.colorScheme === 'light' ? 'logo_mini' : 'logo_dark_mini' }}.png" alt="logo" />
+        
+        <span> | masterManagement</span>
+    </a>
+
 
     <button #topbarmenubutton class="p-link layout-topbar-menu-button layout-topbar-button" (click)="layoutService.showProfileSidebar()">
         <i class="pi pi-ellipsis-v"></i>
@@ -26,4 +28,5 @@
             <span>Settings</span>
         </button>
     </div>
+</div>
 </div>

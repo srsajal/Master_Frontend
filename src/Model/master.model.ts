@@ -1,10 +1,8 @@
-export interface Master{
+export interface MasterDdo{
     id : number,
     treasuryCode : string,
-    treasuryMstld : number,
     code : string,
     designation : string,
-    designationMstld : number,
     address : string,
     phone : string
 }
@@ -15,8 +13,14 @@ export interface MasterTreasury{
     districtCode : string,
     code : string,
     name : string
-    
+}
 
+export interface masterSchemeHead{
+    demandcode : number,
+    code : number,
+   // code : string,
+    name : string,
+    minorheadid:number,
 }
 
 export interface Masterdept{
@@ -29,4 +33,10 @@ export interface Masterdept{
     phoneno : string,
     mobileno : string,
     email : string,
+}
+
+
+
+export interface Code {
+    code: string
 }
