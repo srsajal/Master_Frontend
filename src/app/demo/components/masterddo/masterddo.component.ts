@@ -111,7 +111,7 @@ export class MasterddoComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
     }
     else{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'The form is invalid', life: 2000 });
+      this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
     }
     
     // this.ngOnInit();
