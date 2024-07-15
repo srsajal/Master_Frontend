@@ -57,12 +57,12 @@ export class MasterddoComponent implements OnInit {
 
   tableInitialize() {
     this.actionButtonConfig = [
-      {
-        buttonIdentifier: 'view',
-        class: 'p-button-rounded p-button-raised',
-        icon: 'pi pi-eye',
-        lable: 'View',
-      },
+      // {
+      //   buttonIdentifier: 'view',
+      //   class: 'p-button-rounded p-button-raised',
+      //   icon: 'pi pi-eye',
+      //   lable: 'View',
+      // },
       {
         buttonIdentifier: 'edit',
         class: 'p-button-warning p-button-rounded p-button-raised',
@@ -109,7 +109,7 @@ export class MasterddoComponent implements OnInit {
     form.reset();
     this.visible = false;
     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
-    this.ngOnInit();
+    // this.ngOnInit();
   }
 
   editData(tmpid: number) {
@@ -144,7 +144,7 @@ export class MasterddoComponent implements OnInit {
     this.dialogButts = 1;
     this.visible = false;
     this.headertext = 'ADD DDO DATA';
-    this.ngOnInit();
+    // this.ngOnInit();
   }
   hide(form: FormGroup) {
     // this.formMaster = undefined;
@@ -153,7 +153,7 @@ export class MasterddoComponent implements OnInit {
     this.dialogButts = 1;
     this.visible = false;
     this.headertext = 'ADD DDO DATA';
-    this.ngOnInit();
+    // this.ngOnInit();
     console.log("test");
     
   }
@@ -182,27 +182,27 @@ export class MasterddoComponent implements OnInit {
     );
   }
 
-  viewData(tmpid : number){
-    this.masterService.getMasterDDOById(tmpid).subscribe((res: MasterDdo) => {
+  // viewData(tmpid : number){
+  //   this.masterService.getMasterDDOById(tmpid).subscribe((res: MasterDdo) => {
      
-      this.formMaster = res;
-      this.userForm = this.initializeMasterForm(true);
-      console.log(this.userForm);
+  //     this.formMaster = res;
+  //     this.userForm = this.initializeMasterForm(true);
+  //     console.log(this.userForm);
       
 
-      //this.userForm.markAllAsTouched();
-      //this.userForm.markAsDirty();
-    },
-      error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
-      }
-    );
-    this.headertext = 'VIEW DDO DATA';
-    this.visible = true;
-    this.id = tmpid;
-    this.dialogButts = 3;
-  }
+  //     //this.userForm.markAllAsTouched();
+  //     //this.userForm.markAsDirty();
+  //   },
+  //     error => {
+  //       console.error('Error fetching MasterDDO data by ID:', error);
+  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+  //     }
+  //   );
+  //   this.headertext = 'VIEW DDO DATA';
+  //   this.visible = true;
+  //   this.id = tmpid;
+  //   this.dialogButts = 3;
+  // }
 
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     // console.log(this.theRegistration);
@@ -220,9 +220,9 @@ export class MasterddoComponent implements OnInit {
   showDialog() {
     // console.log("showdialog called");
     this.visible = true;
-    this.userForm.reset();
-    this.userForm = this.initializeMasterForm(false);
-    console.log(this.userForm);
+    // this.userForm.reset();
+    // this.userForm = this.initializeMasterForm(false);
+    // console.log(this.userForm);
   }
 
   handleRowSelection($event: any) {
@@ -235,9 +235,9 @@ export class MasterddoComponent implements OnInit {
     else if (event.buttonIdentifier == "del") {
       this.delData(event.rowData.id);
     }
-    else if (event.buttonIdentifier == "view") {
-      this.viewData(event.rowData.id);
-    }
+    // else if (event.buttonIdentifier == "view") {
+    //   this.viewData(event.rowData.id);
+    // }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {
