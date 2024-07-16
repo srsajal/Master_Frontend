@@ -64,25 +64,21 @@ export class TreasuryComponent implements OnInit {
     console.log(this.tableData);
   }
 
-  // submit(){
-  //   this.http.post<MasterTreasury>(this.apiUrl + 'AddMasterTreasury', this.userForm).subscribe((res : any) =>{
-  //     console.log(res);
-  //     this.getData();
-  //     alert("Saved Successfully");
-  //   });
-  //   //form.reset();
-  //   this.visible=false;
-  //   this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
-  // }
+
   submit(form : FormGroup){
-    //alert(this.userForm.value);
-    this.http.post<MasterTreasury>(this.apiUrl + 'AddMasterTreasury', this.userForm.value).subscribe((res : any) =>{
-      console.log(res);
-      this.getData();
-    });
-    form.reset();
-    this.visible=false;
-    this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+    if(this.userForm.valid){
+      this.http.post<MasterTreasury>(this.apiUrl + 'AddMasterTreasury', this.userForm.value).subscribe((res : any) =>{
+        console.log(res);
+        this.getData();
+      });
+      form.reset();
+      this.visible=false;
+      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+    }
+    else{
+      this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Invalid Form', life: 2000 });
+    }
+   
   }
 
   getData() {

@@ -119,12 +119,10 @@
             <div *ngIf="userForm.get('pinCode')?.errors?.['required']">
               This field is required.
             </div>
-            <div *ngIf="userForm.get('pinCode')?.errors?.['minlength']">
-              Minimum length is 6 characters.
+            <div *ngIf="userForm.get('pinCode')?.errors?.['pattern']">
+              Invalid Pin Code.
             </div>
-            <div *ngIf="userForm.get('pinCode')?.errors?.['maxlength']">
-              Maximum length is 6 characters.
-            </div>
+           
           </div>
         </div>
         <div class="field col">
@@ -136,12 +134,10 @@
             <div *ngIf="userForm.get('phoneNumber')?.errors?.['required']">
               This field is required.
             </div>
-            <div *ngIf="userForm.get('phoneNumber')?.errors?.['minlength']">
-              Minimum length is 10 characters.
+            <div *ngIf="userForm.get('phoneNumber')?.errors?.['pattern']">
+              Invalid Phone Number.
             </div>
-            <div *ngIf="userForm.get('phoneNumber')?.errors?.['maxlength']">
-              Maximum length is 10 characters.
-            </div>
+            
           </div>
         </div>
       </div>
@@ -156,12 +152,11 @@
             <div *ngIf="userForm.get('mobileNumber')?.errors?.['required']">
               This field is required.
             </div>
-            <div *ngIf="userForm.get('mobileNumber')?.errors?.['minlength']">
-              Minimum length is 10 characters.
+            <div *ngIf="userForm.get('mobileNumber')?.errors?.['pattern']">
+              Invalid Mobile Number.
             </div>
-            <div *ngIf="userForm.get('mobileNumber')?.errors?.['maxlength']">
-              Maximum length is 10 characters.
-            </div>
+            
+           
           </div>
         </div>
         <div class="field col">

@@ -32,9 +32,9 @@ export class DepartmentComponent implements OnInit {
     name: new FormControl('', [Validators.required, Validators.minLength(2)]),
     demandCode: new FormControl('', [Validators.required, Validators.minLength(1)]),
     address: new FormControl('', [Validators.required]),
-    pinCode: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.minLength(6)]),
-    phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
-    mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
+    pinCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{6}')]),
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+    mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
     email: new FormControl('', [Validators.required, Validators.email])
   });
 
@@ -90,7 +90,7 @@ export class DepartmentComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
     }
     else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Form  Invalid !!', life: 2000 });
+      this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Form  Invalid !!', life: 2000 });
     }
 
   }
