@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import {Masterdept } from 'src/Model/master.model';
+import { Masterdept } from 'src/Model/master.model';
 import { DepartmentServiceService } from '../../service/MasterService/department-service.service';
 
 @Component({
@@ -17,25 +17,25 @@ export class DepartmentComponent implements OnInit {
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
-  alldata : number = 0;
-  headertext='Add Department';
-  visible : boolean = false;
-  id : number = 0;
-  isSubUp : boolean = true;
+  alldata: number = 0;
+  headertext = 'Add Department';
+  visible: boolean = false;
+  id: number = 0;
+  isSubUp: boolean = true;
 
   http = inject(HttpClient);
   messageService = inject(MessageService)
-  constructor(private deptservice:DepartmentServiceService) { }
+  constructor(private deptservice: DepartmentServiceService) { }
 
   userForm: FormGroup = new FormGroup({
-    code: new FormControl('', [Validators.required, Validators.maxLength(2),Validators.minLength(2)]),
-    name: new FormControl('',[Validators.required,Validators.minLength(2)]),
-    demandCode: new FormControl('',[Validators.required,Validators.minLength(1)]),
-    address: new FormControl('',[Validators.required]),
-    pinCode: new FormControl('', [Validators.required, Validators.maxLength(6),Validators.minLength(6)]),
-    phoneNumber: new FormControl('',[Validators.required, Validators.maxLength(10),Validators.minLength(10)]),
-    mobileNumber: new FormControl('',[Validators.required, Validators.maxLength(10),Validators.minLength(10)]),
-    email: new FormControl('',[Validators.required,Validators.email])
+    code: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    demandCode: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    address: new FormControl('', [Validators.required]),
+    pinCode: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.minLength(6)]),
+    phoneNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
+    mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(10)]),
+    email: new FormControl('', [Validators.required, Validators.email])
   });
 
   ngOnInit(): void {
@@ -70,34 +70,34 @@ export class DepartmentComponent implements OnInit {
 
   getData() {
     this.deptservice.getMasterDepartment(this.tableQueryParameters).subscribe((response: any) => {
-        this.tableData = response.result;
-        this.alldata = response.result.dataCount;
-        console.log(this.tableData, response);
-        
+      this.tableData = response.result;
+      this.alldata = response.result.dataCount;
+      console.log(this.tableData, response);
 
-      });
+
+    });
   }
 
-  submit(form : FormGroup){
-    if(!this.userForm.invalid){
+  submit(form: FormGroup) {
+    if (!this.userForm.invalid) {
       console.log(this.userForm.value);
-      this.deptservice.postMasterDepartment(this.userForm).subscribe((res : Masterdept) =>{
+      this.deptservice.postMasterDepartment(this.userForm).subscribe((res: Masterdept) => {
         console.log(res);
         this.getData();
       });
       form.reset();
-      this.visible=false;
+      this.visible = false;
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
     }
-    else{
+    else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Form  Invalid !!', life: 2000 });
     }
-   
+
   }
 
   editData(tmpid: number) {
-  
-    this.deptservice.getMasterDepartmentById(tmpid).subscribe((res:Masterdept) => {
+
+    this.deptservice.getMasterDepartmentById(tmpid).subscribe((res: Masterdept) => {
       console.log(res);
       this.userForm.patchValue({
         code: res.code,
@@ -107,9 +107,9 @@ export class DepartmentComponent implements OnInit {
         pinCode: res.pinCode,
         phoneNumber: res.phoneNumber,
         mobileNumber: res.mobileNumber,
-        email :  res.email
+        email: res.email
       });
-      this.headertext='Edit Profile';
+      this.headertext = 'Edit Profile';
       this.userForm.markAllAsTouched();
       this.userForm.markAsDirty();
     },
@@ -127,17 +127,17 @@ export class DepartmentComponent implements OnInit {
     form.reset();
     this.isSubUp = true;
     this.visible = false;
-    this.headertext='Add Department';
+    this.headertext = 'Add Department';
   }
   hide(form: FormGroup) {
     form.reset();
     this.isSubUp = true;
     this.visible = false;
-    this.headertext='Add Department';
+    this.headertext = 'Add Department';
   }
 
-  update(form : FormGroup){
-    this.deptservice.updateMasterDepartmentById(this.id, this.userForm).subscribe((res : any) =>{
+  update(form: FormGroup) {
+    this.deptservice.updateMasterDepartmentById(this.id, this.userForm).subscribe((res: any) => {
       console.log(res);
       this.getData();
     });
@@ -152,11 +152,11 @@ export class DepartmentComponent implements OnInit {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
-    error => {
-      console.error('Error deleting student data:', error);
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete record', life: 2000 });
-    }
-  );
+      error => {
+        console.error('Error deleting student data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete record', life: 2000 });
+      }
+    );
   }
 
   showDialog() {

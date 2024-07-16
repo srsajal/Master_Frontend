@@ -17,6 +17,7 @@ import { log } from 'console';
 })
 export class MasterddoComponent implements OnInit {
 
+
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
@@ -45,14 +46,14 @@ export class MasterddoComponent implements OnInit {
   //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
   // });
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.userForm.reset();
     this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
     this.getCodeFromTreasury();
     console.log("table reloaded");
-   
+
   }
 
   tableInitialize() {
@@ -101,7 +102,7 @@ export class MasterddoComponent implements OnInit {
   }
 
   submit(form: FormGroup) {
-    if(!this.userForm.invalid){
+    if (!this.userForm.invalid) {
       this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
         console.log(res);
         this.getData();
@@ -110,10 +111,10 @@ export class MasterddoComponent implements OnInit {
       this.visible = false;
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
     }
-    else{
+    else {
       this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
     }
-    
+
     // this.ngOnInit();
   }
 
@@ -160,11 +161,11 @@ export class MasterddoComponent implements OnInit {
     this.headertext = 'ADD DDO DATA';
     // this.ngOnInit();
     console.log("test");
-    
+
   }
 
   update(form: FormGroup) {
-    if(!this.userForm.invalid){
+    if (!this.userForm.invalid) {
       this.masterService.updateMasterDDOById(this.id, this.userForm).subscribe((res: MasterDdo) => {
         console.log(res);
         this.getData();
@@ -175,13 +176,13 @@ export class MasterddoComponent implements OnInit {
       this.headertext = 'ADD DDO DATA';
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
     }
-    else{
+    else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'The form is invalid', life: 2000 });
     }
   }
 
   delData(tmpid: number) {
-   this.masterService.deleteMasterDDOById(tmpid).subscribe(() => {
+    this.masterService.deleteMasterDDOById(tmpid).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
@@ -194,11 +195,11 @@ export class MasterddoComponent implements OnInit {
 
   // viewData(tmpid : number){
   //   this.masterService.getMasterDDOById(tmpid).subscribe((res: MasterDdo) => {
-     
+
   //     this.formMaster = res;
   //     this.userForm = this.initializeMasterForm(true);
   //     console.log(this.userForm);
-      
+
 
   //     //this.userForm.markAllAsTouched();
   //     //this.userForm.markAsDirty();
@@ -217,11 +218,11 @@ export class MasterddoComponent implements OnInit {
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
-      TreasuryCode: [{ value: this.formMaster?.treasuryCode?? '', disabled: isDisabled },Validators.required],
-      Code: [{ value: this.formMaster?.code?? '', disabled: isDisabled }, Validators.required],
-      Designation: [{ value: this.formMaster?.designation?? '', disabled: isDisabled }, Validators.required],
-      Address: [{ value: this.formMaster?.address?? '', disabled: isDisabled }, Validators.required],
-      Phone: [{ value: this.formMaster?.phone?? '', disabled: isDisabled }, Validators.required]
+      TreasuryCode: [{ value: this.formMaster?.treasuryCode ?? '', disabled: isDisabled }, Validators.required],
+      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
+      Designation: [{ value: this.formMaster?.designation ?? '', disabled: isDisabled }, Validators.required],
+      Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, Validators.required],
+      Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, Validators.required]
     });
 
     return _newForm;
@@ -256,5 +257,8 @@ export class MasterddoComponent implements OnInit {
       filterParameters: event.filterParameters || [],
     };
     this.getData();
+  }
+  handleSearch(event: any) {
+    console.log(event);
   }
 }
