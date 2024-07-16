@@ -78,10 +78,11 @@ export class SchemeheadComponent implements OnInit {
   }
 
   submit(form : FormGroup){
-    this.http.post<masterSchemeHead>(this.apiUrl + 'AddMasterDdo', this.userForm.value).subscribe((res : any) =>{
-      console.log(res);
-      this.getData();
-    });
+    console.log(this.userForm.value);
+    // this.http.post<masterSchemeHead>(this.apiUrl + 'AddMasterSCHEME_HEAD', this.userForm.value).subscribe((res : any) =>{
+    //   console.log(res);
+    //   this.getData();
+    // });
     form.reset();
     this.visible=false;
     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });

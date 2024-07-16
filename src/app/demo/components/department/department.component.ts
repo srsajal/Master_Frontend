@@ -4,7 +4,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import {Masterdept } from 'src/Model/master.model';
+import { Masterdept } from 'src/Model/master.model';
+import { DepartmentServiceService } from '../../service/MasterService/department-service.service';
 
 @Component({
   selector: 'app-department',
@@ -16,25 +17,25 @@ export class DepartmentComponent implements OnInit {
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
-  alldata : number = 0;
-  apiUrl = 'http://localhost:5271/api/MasterDepartment/'
-  visible : boolean = false;
-  id : number = 0;
-  isSubUp : boolean = true;
+  alldata: number = 0;
+  headertext = 'Add Department';
+  visible: boolean = false;
+  id: number = 0;
+  isSubUp: boolean = true;
 
   http = inject(HttpClient);
   messageService = inject(MessageService)
-  constructor() { }
+  constructor(private deptservice: DepartmentServiceService) { }
 
   userForm: FormGroup = new FormGroup({
-    Code: new FormControl('', [Validators.required, Validators.maxLength(2)]),
-    Name: new FormControl(''),
-    Demand: new FormControl(''),
-    Address: new FormControl(''),
-    Pin: new FormControl('', [Validators.required, Validators.maxLength(6)]),
-    Phone: new FormControl(''),
-    Mobile: new FormControl(''),
-    Email: new FormControl('')
+    code: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2)]),
+    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    demandCode: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    address: new FormControl('', [Validators.required]),
+    pinCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{6}')]),
+    phoneNumber: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+    mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+    email: new FormControl('', [Validators.required, Validators.email])
   });
 
   ngOnInit(): void {
@@ -68,46 +69,53 @@ export class DepartmentComponent implements OnInit {
   }
 
   getData() {
-    this.http
-      .post<IapiResponce<DynamicTable<Masterdept>>>(this.apiUrl + 'GetMasterDepartment', this.tableQueryParameters)
-      .subscribe((response: any) => {
-        this.tableData = response.result;
-        this.alldata = response.result.dataCount;
-        console.log(this.tableData, response);
-        
+    this.deptservice.getMasterDepartment(this.tableQueryParameters).subscribe((response: any) => {
+      this.tableData = response.result;
+      this.alldata = response.result.dataCount;
+      console.log(this.tableData, response);
 
-      });
+
+    });
   }
 
-  submit(form : FormGroup){
-    this.http.post<Masterdept>(this.apiUrl + 'AddMasterDepartment', this.userForm.value).subscribe((res : any) =>{
-      console.log(res);
-      this.getData();
-    });
-    form.reset();
-    this.visible=false;
-    this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+  submit(form: FormGroup) {
+    if (!this.userForm.invalid) {
+      console.log(this.userForm.value);
+      this.deptservice.postMasterDepartment(this.userForm).subscribe((res: Masterdept) => {
+        console.log(res);
+        this.getData();
+      });
+      form.reset();
+      this.visible = false;
+      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+    }
+    else {
+      this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Form  Invalid !!', life: 2000 });
+    }
+
   }
 
   editData(tmpid: number) {
-    this.http.get<Masterdept>(this.apiUrl + 'GetMasterDepartmentById?id=' + `${tmpid}`).subscribe((res:Masterdept) => {
+
+    this.deptservice.getMasterDepartmentById(tmpid).subscribe((res: Masterdept) => {
       console.log(res);
       this.userForm.patchValue({
-        Code: res.code,
-        Name: res.name,
-        Demand: res.demandcode,
-        Address: res.address,
-        Pin: res.pincode,
-        Phone: res.phoneno,
-        Mobile: res.mobileno,
-        Email :  res.email
+        code: res.code,
+        name: res.name,
+        demandCode: res.demandCode,
+        address: res.address,
+        pinCode: res.pinCode,
+        phoneNumber: res.phoneNumber,
+        mobileNumber: res.mobileNumber,
+        email: res.email
       });
+      this.headertext = 'Edit Profile';
       this.userForm.markAllAsTouched();
       this.userForm.markAsDirty();
     },
       error => {
-        console.error('Error fetching student data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch student data by ID', life: 2000 });
+        console.error('Error fetching department data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch department data by ID', life: 2000 });
       }
     );
     this.visible = true;
@@ -119,15 +127,17 @@ export class DepartmentComponent implements OnInit {
     form.reset();
     this.isSubUp = true;
     this.visible = false;
+    this.headertext = 'Add Department';
   }
   hide(form: FormGroup) {
     form.reset();
     this.isSubUp = true;
     this.visible = false;
+    this.headertext = 'Add Department';
   }
 
-  update(form : FormGroup){
-    this.http.put<Masterdept>(this.apiUrl + 'UpdateMasterDepartment?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
+  update(form: FormGroup) {
+    this.deptservice.updateMasterDepartmentById(this.id, this.userForm).subscribe((res: any) => {
       console.log(res);
       this.getData();
     });
@@ -138,15 +148,15 @@ export class DepartmentComponent implements OnInit {
   }
 
   delData(tmpid: number) {
-    this.http.delete(this.apiUrl + 'DeleteMasterDepartment?id=' + `${tmpid}`).subscribe(() => {
+    this.deptservice.deleteMasterDepartmentById(tmpid).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
-    error => {
-      console.error('Error deleting student data:', error);
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete record', life: 2000 });
-    }
-  );
+      error => {
+        console.error('Error deleting student data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete record', life: 2000 });
+      }
+    );
   }
 
   showDialog() {
