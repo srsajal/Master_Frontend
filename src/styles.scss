@@ -255,6 +255,7 @@ div:where(.swal2-container).swal2-noanimation {
 .p-dialog .p-dialog-header {
 	padding: 0.5rem;
 	background: linear-gradient(0deg, #094241, #03ecf8, rgb(0, 15, 18));
+	color: rgb(86, 2, 2);
 }
 
 
@@ -262,9 +263,23 @@ div:where(.swal2-container).swal2-noanimation {
 	background-color: black;
 }
 
-.p-dialog{
+// .p-dialog{
 
-}
+// }
+
+  .custom-dialog .p-dialog-content {
+	background-image: linear-gradient(to right, #4f98a7 0%, #517fa4 100%);
+	padding: 20px;
+	border-radius: 0 0 8px 8px; /* Adjust border-radius to match content area */
+	color: white; /* Adjust text color for better contrast */
+  }
+  
+  .custom-dialog .p-dialog {
+	background-image: linear-gradient(to right, #4f98a7 0%, #517fa4 100%);
+	padding: 0;
+	border-radius: 8px;
+	color: white; /* Adjust text color for better contrast */
+  }
 
 .layout-menu ul a {
 	color: #ffffff;

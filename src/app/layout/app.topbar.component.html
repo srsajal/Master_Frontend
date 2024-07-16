@@ -1,4 +1,5 @@
-<div  style="position: fixed; height: 4rem; width: 100%; z-index: 997;  background-color: rgb(127, 208, 234)" class="{{layoutService.config.colorScheme === 'light' ? 'sub-nav' : 'sub-nav-dark'}}">
+<div  style="position: fixed; height: 4rem; width: 100%; z-index: 997; background-image: linear-gradient( #4b8ec2 0%, #75b7ed 100%);
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;" class="{{layoutService.config.colorScheme === 'light' ? 'sub-nav' : 'sub-nav-dark'}}">
    <div class="layout-topbar">
     <button #menubutton class="p-link layout-menu-button layout-topbar-button" (click)="layoutService.onMenuToggle()">
         <i class="pi pi-bars"></i>
@@ -6,7 +7,7 @@
     <a class="layout-topbar-logo" routerLink="">
         <img src="assets/layout/images/{{ layoutService.config.colorScheme === 'light' ? 'logo_mini' : 'logo_dark_mini' }}.png" alt="logo" />
         
-        <span> | masterManagement</span>
+        <span> | Master Management</span>
     </a>
 
 
