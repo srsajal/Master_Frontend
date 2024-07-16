@@ -28,6 +28,7 @@ export class MasterddoComponent implements OnInit {
   dialogButts: number = 1;
   headertext: string = 'ADD DDO DATA';
   codes: Code[] = [];
+  getTCode : string = '';
   formMaster?: MasterDdo;
   fb = inject(FormBuilder);
 
@@ -54,6 +55,10 @@ export class MasterddoComponent implements OnInit {
     this.getCodeFromTreasury();
     console.log("table reloaded");
 
+  }
+
+  getTcode(){
+    this.getTCode = this.userForm.value.TreasuryCode;
   }
 
   tableInitialize() {
