@@ -28,8 +28,8 @@ export class MajorheadComponent implements OnInit {
   userForm: FormGroup = new FormGroup({
     // TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
     // TreasuryMstld: new FormControl('', Validators.required),
-    Code: new FormControl('', Validators.required),
-    Name: new FormControl('', Validators.required),
+    Code: new FormControl('', [Validators.required, Validators.maxLength(4)]),
+    Name: new FormControl('',),
     // DesignationMstld: new FormControl(null, Validators.required),
     // Address: new FormControl(''),
     // Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
@@ -128,7 +128,7 @@ export class MajorheadComponent implements OnInit {
   }
 
   update(form : FormGroup){
-    this.http.put<any>(this.apiUrl + 'UpdateMasterDdo?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
+    this.http.put<any>(this.apiUrl + 'UpdateMasterMAJORHEAD?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
       console.log(res);
       this.getData();
     });
