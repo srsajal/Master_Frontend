@@ -66,20 +66,20 @@
           <div class="button-container" *ngIf="isSubUp; else elseBlock">
             <div class="formgrid grid">
               <div class="col-9">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel" icon="pi pi-times" iconPos="left" (click)="cancel(userForm)" ></p-button>
+                <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel" styleClass="p-button-warning" icon="pi pi-times" iconPos="left" (click)="cancel(userForm)" ></p-button>
               </div>
               <div class="field col">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Submit" icon="pi pi-check" iconPos="left" (click)="submit(userForm)" [disabled]="userForm.invalid" ></p-button>
+                <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Submit" icon="pi pi-check" styleClass="p-button-success" iconPos="left" (click)="submit(userForm)" [disabled]="userForm.invalid" ></p-button>
               </div>
             </div>
           </div>
           <ng-template #elseBlock>
             <div class="formgrid grid">
               <div class="col-9">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel" icon="pi pi-times" iconPos="left" (click)="cancel(userForm)" ></p-button>
+                <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel" icon="pi pi-times" styleClass="p-button-warning" iconPos="left" (click)="cancel(userForm)" ></p-button>
               </div>
               <div class="field col">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update" icon="pi pi-check" iconPos="left" (click)="update(userForm)" [disabled]="userForm.invalid" ></p-button>
+                <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update" icon="pi pi-check" styleClass="p-button-success" iconPos="left" (click)="update(userForm)" [disabled]="userForm.invalid" ></p-button>
               </div>
             </div>
           </ng-template>
