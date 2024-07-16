@@ -111,13 +111,20 @@ export class MasterddoComponent implements OnInit {
       this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
         console.log(res);
         this.getData();
-      });
+        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+      },
+      error => {
+        console.error('Error adding MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+      }
+    );
       form.reset();
       this.visible = false;
-      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
     }
     else {
       this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
+      this.userForm.markAllAsTouched();
+      this.userForm.markAsDirty();
     }
 
     // this.ngOnInit();
