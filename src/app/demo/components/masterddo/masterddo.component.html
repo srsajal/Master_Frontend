@@ -82,14 +82,15 @@
       </div>
       <ng-template #elseBlock1>
         <div class="button-container" *ngIf="(dialogButts == 2); else elseBlock2">
-        <div class="formgrid grid">
-          <div class="col-9">
-            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
-              icon="pi pi-times" iconPos="left" styleClass="p-button-warning" (click)="cancel(userForm)"></p-button>
-          </div>
-          <div class="field col">
-            <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update"
-              icon="pi pi-check" iconPos="left" styleClass="p-button-success" (click)="update(userForm)"></p-button>
+          <div class="formgrid grid">
+            <div class="col-9">
+              <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
+                icon="pi pi-times" iconPos="left" styleClass="p-button-warning" (click)="cancel(userForm)"></p-button>
+            </div>
+            <div class="field col">
+              <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update"
+                icon="pi pi-check" iconPos="left" styleClass="p-button-success" (click)="update(userForm)"></p-button>
+            </div>
           </div>
         </div>
       </ng-template>
