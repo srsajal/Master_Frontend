@@ -20,6 +20,7 @@ export class MajorheadComponent implements OnInit {
   id : number = 0;
   isSubUp : boolean = true;
   headertext:string = 'Add MajorHeadData';
+  
 
   http = inject(HttpClient);
   messageService = inject(MessageService)
