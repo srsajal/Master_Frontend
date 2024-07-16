@@ -17,6 +17,7 @@ import { log } from 'console';
 })
 export class MasterddoComponent implements OnInit {
 
+
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
@@ -256,5 +257,8 @@ export class MasterddoComponent implements OnInit {
       filterParameters: event.filterParameters || [],
     };
     this.getData();
+  }
+  handleSearch(event: any) {
+    console.log(event);
   }
 }

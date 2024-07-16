@@ -17,9 +17,9 @@
         <label class="text-2xl" for="firstname2">Select Treasury <span class="red"> *</span> : </label>
         <p-dropdown class="ml-3" [style]="{'width':'72%'}" [options]="codes" formControlName="TreasuryCode"
           placeholder="Select Treasury" optionLabel="name" optionValue="code">
-          <!-- <ng-template let-option pTemplate="item">
+          <ng-template let-option pTemplate="item">
             {{ option.code }} : {{ option.name }}
-          </ng-template> -->
+          </ng-template>
         </p-dropdown>
         <div *ngIf="userForm.get('TreasuryCode')?.invalid && userForm.get('TreasuryCode')?.touched" class="error">
           Treasury Code is required.
@@ -113,5 +113,5 @@
 <mh-prime-dynamic-table *ngIf="tableData!=null||tableData!=undefined" size="small" [numberRowsShown]="10"
   [rowsPerPageOptions]="[10, 30, 50]" [headers]="tableData.headers" [data]="tableData.data" rowSelectionMode="multiple"
   [dataCount]="alldata" [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
-  (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)">
+  (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)" (searchKeyChange)="handleSearch($event)">
 </mh-prime-dynamic-table>
