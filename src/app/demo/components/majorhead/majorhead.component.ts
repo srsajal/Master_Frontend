@@ -136,6 +136,10 @@ export class MajorheadComponent implements OnInit {
   }
 
   update(form : FormGroup){
+    if(this.userForm.invalid){
+      this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'Form Update failed', life: 2000 });
+    }
+    else{
     this.http.put<any>(this.apiUrl + 'UpdateMasterMAJORHEAD?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
       console.log(res);
       this.getData();
@@ -146,6 +150,7 @@ export class MajorheadComponent implements OnInit {
     this.headertext = 'Add DDO';
     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
   }
+}
 
   delData(tmpid: number) {
     this.http.delete(this.apiUrl + 'DeleteMasterDdo?id=' + `${tmpid}`).subscribe(() => {
