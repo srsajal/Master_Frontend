@@ -35,6 +35,11 @@ export interface Masterdept{
     email : string,
 }
 
+export interface masterDeatailHead{
+    id : number,
+    code : string,
+    name : string,
+}
 
 
 export interface Code {
