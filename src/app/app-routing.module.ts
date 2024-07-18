@@ -9,6 +9,7 @@ import { DepartmentComponent } from './demo/components/department/department.com
 import { TreasuryComponent } from './demo/components/treasury/treasury.component';
 import { MasterdetailheadComponent } from './demo/components/masterdetailhead/masterdetailhead.component';
 import { MastersubdetailheadComponent } from './demo/components/mastersubdetailhead/mastersubdetailhead.component';
+import { MinorheadComponent } from './demo/components/minorhead/minorhead.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { MastersubdetailheadComponent } from './demo/components/mastersubdetailh
                     { path:'majorHead', component:MajorheadComponent},
                     { path:'schemeHead', component:SchemeheadComponent},
                     { path:'department', component:DepartmentComponent},
-                    { path:'treasury', component:TreasuryComponent}
+                    { path:'treasury', component:TreasuryComponent},
+                    { path:'minorhead', component:MinorheadComponent}
                 ]
             },
            

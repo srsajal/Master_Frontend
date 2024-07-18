@@ -60,7 +60,9 @@ export class AppMenuComponent implements OnInit {
                 { label: 'Detail Head', icon:'pi pi-fw pi-table', routerLink:['/detailHead']},
                 { label: 'Sub Detail Head', icon:'pi pi-fw pi-table', routerLink:['/subDetailHead']},
                 { label:'Department',icon:'pi pi-fw pi-table', routerLink:['/department']},
+               
                 { label:'Major Head',icon:'pi pi-fw pi-table', routerLink:['/majorHead']},
+                { label:'Minor Head', icon:'pi pi-fw pi-table', routerLink:['/minorhead']},
                 { label:'Scheme Head',icon:'pi pi-fw pi-table', routerLink:['/schemeHead']},
                 { label:'Treasury',icon:'pi pi-fw pi-table', routerLink:['/treasury']}
               
