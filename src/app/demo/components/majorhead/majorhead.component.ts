@@ -83,10 +83,17 @@ export class MajorheadComponent implements OnInit {
     this.http.post<any>(this.apiUrl + 'AddMasterMAJORHEAD', this.userForm.value).subscribe((res : any) =>{
       console.log(res);
       this.getData();
-    });
+      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+    },
+    error => {
+      console.error('Error adding MasterDDO data:', error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+    
+    }
+  );
     form.reset();
     this.visible=false;
-    this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+    
   }
 
   editData(tmpid: number) {
