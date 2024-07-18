@@ -14,37 +14,6 @@
     <form [formGroup]="userForm" >
     <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
         [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
-  
-        
-          <div class="formgrid grid">
-            <div class="field col">
-                <label class="text-2xl" for="firstname2">Department Code <span class="red"> *</span></label>
-                <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="code">
-                <div class="error" *ngIf="userForm.get('code')?.touched && userForm.get('code')?.invalid">
-                  <div *ngIf="userForm.get('code')?.errors?.['required']">
-                    This field is required.
-                  </div>
-                  <div *ngIf="userForm.get('code')?.errors?.['minlength']">
-                    Minimum length is 2 characters.
-                  </div>
-                  <div *ngIf="userForm.get('code')?.errors?.['maxlength']">
-                    Maximum length is 2 characters.
-                  </div>
-                </div>
-              </div>
-              <div class="field col">
-                <label class="text-2xl" for="lastname2">Department Name<span class="red"> *</span></label>
-                <input id="lastname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="name">
-                <div class="error" *ngIf="userForm.get('name')?.touched && userForm.get('name')?.invalid">
-                  <div *ngIf="userForm.get('name')?.errors?.['required']">
-                    This field is required.
-                  </div>
-                  <div *ngIf="userForm.get('name')?.errors?.['minlength']">
-                    Minimum length is 2 characters.
-                  </div>
-                </div>
-              </div>
-          </div>
 
 
       <div class="formgrid grid">
