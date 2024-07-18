@@ -31,6 +31,10 @@ import { TreasuryComponent } from './demo/components/treasury/treasury.component
 import { DropdownModule } from 'primeng/dropdown';
 import {DialogService, DynamicDialogConfig, DynamicDialogModule} from 'primeng/dynamicdialog';
 import { MasterddoformsComponent } from './demo/components/masterForms/masterddoforms/masterddoforms.component';
+import { MasterdetailheadComponent } from './demo/components/masterdetailhead/masterdetailhead.component';
+import { MastersubdetailheadComponent } from './demo/components/mastersubdetailhead/mastersubdetailhead.component';
+import { MasterdetailheadformComponent } from './demo/components/masterForms/masterdetailheadform/masterdetailheadform.component';
+import { MastersubdetailheadformComponent } from './demo/components/masterForms/mastersubdetailheadform/mastersubdetailheadform.component';
 
 
 
@@ -42,7 +46,11 @@ import { MasterddoformsComponent } from './demo/components/masterForms/masterddo
         SchemeheadComponent,
         DepartmentComponent,
         TreasuryComponent,
-        MasterddoformsComponent,    
+        MasterddoformsComponent,
+        MasterdetailheadComponent,
+        MastersubdetailheadComponent,
+        MasterdetailheadformComponent,
+        MastersubdetailheadformComponent,    
     ],
     imports: [
         AppRoutingModule,

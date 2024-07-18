@@ -56,7 +56,9 @@ export class AppMenuComponent implements OnInit {
         {
             label: 'Master Management Table',
             items: [
-                { label: 'Master DDO', icon:'pi pi-fw pi-table', routerLink:['/masterDDO']},
+                { label: 'DDO', icon:'pi pi-fw pi-table', routerLink:['/masterDDO']},
+                { label: 'Detail Head', icon:'pi pi-fw pi-table', routerLink:['/detailHead']},
+                { label: 'Sub Detail Head', icon:'pi pi-fw pi-table', routerLink:['/subDetailHead']},
                 { label:'Department',icon:'pi pi-fw pi-table', routerLink:['/department']},
                 { label:'Major Head',icon:'pi pi-fw pi-table', routerLink:['/majorHead']},
                 { label:'Scheme Head',icon:'pi pi-fw pi-table', routerLink:['/schemeHead']},
