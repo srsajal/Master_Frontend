@@ -92,10 +92,10 @@ export class SchemeheadComponent implements OnInit {
     this.http.get<masterSchemeHead>(this.apiUrl + 'GetMasterSCHEME_HEADById?id=' + `${tmpid}`).subscribe((res:masterSchemeHead) => {
       console.log(res);
       this.userForm.patchValue({
-   DemandCode: res.demandcode,
+    DemandCode: res.demandCode,
    Code:res.code,
    Name:res.name,
-   MinorHeadId:res.minorheadid
+   MinorHeadId:res.minorHeadId
       });
       this.userForm.markAllAsTouched();
       this.userForm.markAsDirty();
