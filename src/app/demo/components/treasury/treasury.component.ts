@@ -127,6 +127,10 @@ export class TreasuryComponent implements OnInit {
   }
 
   update(form : FormGroup){
+    if(this.userForm.invalid){
+      this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Invalid Form', life: 2000 });
+    }
+    else{
     this.http.put<MasterTreasury>(this.apiUrl + 'UpdateMasterTreasury?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
       console.log(res);
       this.getData();
@@ -136,6 +140,7 @@ export class TreasuryComponent implements OnInit {
     this.visible = false;
     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
   }
+}
   
 
   delData(tmpid: number) {
