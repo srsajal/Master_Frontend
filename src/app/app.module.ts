@@ -36,6 +36,7 @@ import { MastersubdetailheadComponent } from './demo/components/mastersubdetailh
 import { MasterdetailheadformComponent } from './demo/components/masterForms/masterdetailheadform/masterdetailheadform.component';
 import { MastersubdetailheadformComponent } from './demo/components/masterForms/mastersubdetailheadform/mastersubdetailheadform.component';
 import { MinorheadComponent } from './demo/components/minorhead/minorhead.component';
+import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhead.component';
 
 
 
@@ -52,7 +53,8 @@ import { MinorheadComponent } from './demo/components/minorhead/minorhead.compon
         MastersubdetailheadComponent,
         MasterdetailheadformComponent,
         MastersubdetailheadformComponent,
-        MinorheadComponent,    
+        MinorheadComponent,
+        SubmajorheadComponent,    
     ],
     imports: [
         AppRoutingModule,
