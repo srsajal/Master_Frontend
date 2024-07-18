@@ -19,7 +19,7 @@ import { TreasuryComponent } from './demo/components/treasury/treasury.component
                     { path:'majorHead', component:MajorheadComponent},
                     { path:'schemeHead', component:SchemeheadComponent},
                     { path:'department', component:DepartmentComponent},
-                    { path:'treasury', component:TreasuryComponent}        
+                    { path:'treasury', component:TreasuryComponent}
                 ]
             },
            

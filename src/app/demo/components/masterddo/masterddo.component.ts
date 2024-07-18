@@ -8,6 +8,8 @@ import { Code, MasterDdo } from 'src/Model/master.model';
 import { MhPrimeDynamicTableModule } from 'mh-prime-dynamic-table';
 import { MasterService } from '../../service/master.service';
 import { log } from 'console';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MasterddoformsComponent } from '../masterForms/masterddoforms/masterddoforms.component';
 
 
 @Component({
@@ -16,8 +18,6 @@ import { log } from 'console';
   styleUrls: ['./masterddo.component.scss']
 })
 export class MasterddoComponent implements OnInit {
-
-
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
@@ -25,19 +25,30 @@ export class MasterddoComponent implements OnInit {
   // apiUrl = 'http://localhost:5271/api/masterDDO/'
   visible: boolean = false;
   id: number = 0;
-  dialogButts: number = 1;
-  headertext: string = 'ADD DDO DATA';
   codes: Code[] = [];
-  getTCode : string = '';
-  formMaster?: MasterDdo;
-  fb = inject(FormBuilder);
-
-  http = inject(HttpClient);
+  // headertext: string = 'ADD DDO DATA';
+  dialogButts: number = 1;
+  
+  // http = inject(HttpClient);
   messageService = inject(MessageService);
   masterService = inject(MasterService);
-  constructor() { }
 
-  userForm: FormGroup = new FormGroup({});
+  ref: DynamicDialogRef | undefined;
+  constructor(public dialogService: DialogService, public config : DynamicDialogConfig) { }
+  show() {
+    this.ref = this.dialogService.open(MasterddoformsComponent, {
+      data:{
+        dialogButt : 1,
+        code : this.codes,
+        isDisable : false,
+        pgetData : this.getData.bind(this),
+
+      },
+      width: '50rem',
+      modal:true,
+      header: 'ADD DDO DATA' 
+    });
+  }
 
   // userForm: FormGroup = new FormGroup({
   //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
@@ -48,27 +59,23 @@ export class MasterddoComponent implements OnInit {
   // });
 
   ngOnInit(): void {
-    this.userForm.reset();
-    this.userForm = this.initializeMasterForm();
+    // this.userForm.reset();
+    // this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
     this.getCodeFromTreasury();
-    console.log("table reloaded");
+    // console.log("table reloaded");
 
-  }
-
-  getTcode(){
-    this.getTCode = this.userForm.value.TreasuryCode;
   }
 
   tableInitialize() {
     this.actionButtonConfig = [
-      // {
-      //   buttonIdentifier: 'view',
-      //   class: 'p-button-rounded p-button-raised',
-      //   icon: 'pi pi-eye',
-      //   lable: 'View',
-      // },
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
       {
         buttonIdentifier: 'edit',
         class: 'p-button-warning p-button-rounded p-button-raised',
@@ -92,7 +99,7 @@ export class MasterddoComponent implements OnInit {
     this.masterService.getMasterDDO(this.tableQueryParameters).subscribe((response: any) => {
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
-      console.log(this.tableData, response);
+      // console.log(this.tableData, response);
     });
   }
   getCodeFromTreasury() {
@@ -105,94 +112,26 @@ export class MasterddoComponent implements OnInit {
       }
     );
   }
+  
 
-  submit(form: FormGroup) {
-    if (!this.userForm.invalid) {
-      this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
-        console.log(res);
-        this.getData();
-        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
-      },
-      error => {
-        console.error('Error adding MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
-      }
-    );
-      form.reset();
-      this.visible = false;
-    }
-    else {
-      this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
-      this.userForm.markAllAsTouched();
-      this.userForm.markAsDirty();
-    }
 
-    // this.ngOnInit();
-  }
+
 
   editData(tmpid: number) {
-    this.masterService.getMasterDDOById(tmpid).subscribe((res: MasterDdo) => {
-      // this.userForm.patchValue({
-      //   TreasuryCode: res.treasuryCode,
-      //   Code: res.code,
-      //   Designation: res.designation,
-      //   Address: res.address,
-      //   Phone: res.phone
-      // });
-      // console.log(res);
-      this.formMaster = res;
-      this.userForm = this.initializeMasterForm();
-      console.log(this.userForm);
-      this.userForm.markAllAsTouched();
-      this.userForm.markAsDirty();
-    },
-      error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
-      }
-    );
-    this.headertext = 'EDIT DDO DATA';
-    this.visible = true;
-    this.id = tmpid;
-    this.dialogButts = 2;
-  }
-  cancel(form: FormGroup) {
-    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have Cancelled', life: 2000 });
-    form.reset();
-    this.dialogButts = 1;
-    this.visible = false;
-    this.headertext = 'ADD DDO DATA';
-    // this.ngOnInit();
-  }
-  hide(form: FormGroup) {
-    // this.formMaster = undefined;
-    // this.userForm = this.initializeMasterForm(false);
-    form.reset();
-    this.dialogButts = 1;
-    this.visible = false;
-    this.headertext = 'ADD DDO DATA';
-    // this.ngOnInit();
-    console.log("test");
+    this.ref = this.dialogService.open(MasterddoformsComponent, {
+      data:{
+        dialogButt : 2,
+        code : this.codes,
+        id : tmpid,
+        isDisable : false,
+        pgetData : this.getData.bind(this),
 
+      },
+      width: '50rem',
+      modal:true,
+      header: 'EDIT DDO DATA' 
+    });
   }
-
-  update(form: FormGroup) {
-    if (!this.userForm.invalid) {
-      this.masterService.updateMasterDDOById(this.id, this.userForm).subscribe((res: MasterDdo) => {
-        console.log(res);
-        this.getData();
-      });
-      form.reset();
-      this.dialogButts = 1;
-      this.visible = false;
-      this.headertext = 'ADD DDO DATA';
-      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
-    }
-    else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'The form is invalid', life: 2000 });
-    }
-  }
-
   delData(tmpid: number) {
     this.masterService.deleteMasterDDOById(tmpid).subscribe(() => {
       this.getData();
@@ -205,48 +144,42 @@ export class MasterddoComponent implements OnInit {
     );
   }
 
-  // viewData(tmpid : number){
-  //   this.masterService.getMasterDDOById(tmpid).subscribe((res: MasterDdo) => {
-
-  //     this.formMaster = res;
-  //     this.userForm = this.initializeMasterForm(true);
-  //     console.log(this.userForm);
 
 
-  //     //this.userForm.markAllAsTouched();
-  //     //this.userForm.markAsDirty();
-  //   },
-  //     error => {
-  //       console.error('Error fetching MasterDDO data by ID:', error);
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
-  //     }
-  //   );
-  //   this.headertext = 'VIEW DDO DATA';
-  //   this.visible = true;
-  //   this.id = tmpid;
-  //   this.dialogButts = 3;
+
+  viewData(tmpid : number){
+    this.masterService.getMasterDDOById(tmpid).subscribe((res: MasterDdo) => {
+      this.ref = this.dialogService.open(MasterddoformsComponent, {
+        data:{
+          dialogButt : 3,
+          code : this.codes,
+          id : tmpid,
+          isDisable : true,
+          // pgetData : this.getData.bind(this),
+  
+        },
+        width: '50rem',
+        modal:true,
+        header: 'EDIT DDO DATA' 
+      });
+      //this.userForm.markAllAsTouched();
+      //this.userForm.markAsDirty();
+    },
+      error => {
+        console.error('Error fetching MasterDDO data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+      }
+    );
+  }
+
+
+  // showDialog() {
+  // console.log("showdialog called");
+  // this.visible = true;
+  // this.userForm.reset();
+  // this.userForm = this.initializeMasterForm(false);
+  // console.log(this.userForm);
   // }
-
-  initializeMasterForm(isDisabled: boolean = false): FormGroup {
-    // console.log(this.theRegistration);
-    const _newForm = this.fb.group({
-      TreasuryCode: [{ value: this.formMaster?.treasuryCode ?? '', disabled: isDisabled }, Validators.required],
-      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
-      Designation: [{ value: this.formMaster?.designation ?? '', disabled: isDisabled }, Validators.required],
-      Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, Validators.required],
-      Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, Validators.required]
-    });
-
-    return _newForm;
-  }
-
-  showDialog() {
-    // console.log("showdialog called");
-    this.visible = true;
-    // this.userForm.reset();
-    // this.userForm = this.initializeMasterForm(false);
-    // console.log(this.userForm);
-  }
 
   handleRowSelection($event: any) {
     console.log("Download the details from above");
@@ -258,9 +191,9 @@ export class MasterddoComponent implements OnInit {
     else if (event.buttonIdentifier == "del") {
       this.delData(event.rowData.id);
     }
-    // else if (event.buttonIdentifier == "view") {
-    //   this.viewData(event.rowData.id);
-    // }
+    else if (event.buttonIdentifier == "view") {
+      this.viewData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {
