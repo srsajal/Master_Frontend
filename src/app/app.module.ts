@@ -29,6 +29,9 @@ import { SchemeheadComponent } from './demo/components/schemehead/schemehead.com
 import { DepartmentComponent } from './demo/components/department/department.component';
 import { TreasuryComponent } from './demo/components/treasury/treasury.component';
 import { DropdownModule } from 'primeng/dropdown';
+import {DialogService, DynamicDialogConfig, DynamicDialogModule} from 'primeng/dynamicdialog';
+import { MasterddoformsComponent } from './demo/components/masterForms/masterddoforms/masterddoforms.component';
+
 
 
 @NgModule({
@@ -38,7 +41,8 @@ import { DropdownModule } from 'primeng/dropdown';
         MajorheadComponent,
         SchemeheadComponent,
         DepartmentComponent,
-        TreasuryComponent
+        TreasuryComponent,
+        MasterddoformsComponent,    
     ],
     imports: [
         AppRoutingModule,
@@ -55,13 +59,13 @@ import { DropdownModule } from 'primeng/dropdown';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        DropdownModule
-            
+        DropdownModule,
+        DynamicDialogModule,      
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient
+        PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient, DialogService, DynamicDialogConfig
     ],
     bootstrap: [AppComponent]
 })

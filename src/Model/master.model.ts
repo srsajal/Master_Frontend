@@ -38,5 +38,6 @@ export interface Masterdept{
 
 
 export interface Code {
+    name: string
     code: string
 }
