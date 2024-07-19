@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import { masterSchemeHead } from 'src/Model/master.model';
+import { Code, masterSchemeHead } from 'src/Model/master.model';
 import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 // import { IapiResponce } from 'src/Model/iapi-responce';
@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./schemehead.component.scss']
 })
 export class SchemeheadComponent implements OnInit {
-  
+  codes: Code[] = [];
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
@@ -36,6 +36,7 @@ export class SchemeheadComponent implements OnInit {
  
 
   ngOnInit(): void {
+    this.getCodeFromMinorhead()
 
     this.actionButtonConfig = [
       // {
@@ -77,9 +78,20 @@ export class SchemeheadComponent implements OnInit {
 
       });
   }
-
+  getCodeFromMinorhead() {
+    this.http.get<Code[]>('http://localhost:5271/api/masterSCHEME_HEAD/GetMasterSCHEME_HEADfromMINORHEADId').subscribe({
+      next: (res: Code[]) => {
+        this.codes = res;
+      },
+      error: (error) => {
+        console.error('Error fetching codes from Treasury:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
+      }
+    });
+  }
   submit(form : FormGroup){
     console.log(this.userForm.value);
+    if(this.userForm.valid){
     const data =this.userForm.value
     this.http.post<masterSchemeHead>( 'http://localhost:5271/api/masterSCHEME_HEAD/AddmasterSCHEME-HEAD', data)
       .subscribe(
@@ -92,7 +104,9 @@ export class SchemeheadComponent implements OnInit {
           console.error('Error submitting form:', error);
           this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to submit form', life: 2000 });
         }
-      );
+      );}
+      else{
+        this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Invalid Form', life: 2000 });}
     form.reset();
     this.visible=false;
   }
@@ -101,17 +115,10 @@ export class SchemeheadComponent implements OnInit {
     this.http.get<masterSchemeHead>(this.apiUrl + 'GetMasterSCHEME_HEADById?id=' + `${tmpid}`).subscribe((res:masterSchemeHead) => {
       console.log(res);
       this.userForm.patchValue({
-<<<<<<< Updated upstream
-    DemandCode: res.demandCode,
-   Code:res.code,
-   Name:res.name,
-   MinorHeadId:res.minorHeadId
-=======
         demandCode: res.demandCode,
         code:res.code,
         name:res.name,
         minorHeadId:res.minorHeadId
->>>>>>> Stashed changes
       });
       this.userForm.markAllAsTouched();
       this.userForm.markAsDirty();
@@ -138,14 +145,18 @@ export class SchemeheadComponent implements OnInit {
   }
 
   update(form : FormGroup){
-    this.http.put<masterSchemeHead>(this.apiUrl + 'UpdateMasterSCHEME_HEAD?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
-      console.log(res);
-      this.getData();
-    });
+    if(this.userForm.valid){
+      this.http.put<masterSchemeHead>(this.apiUrl + 'UpdateMasterSCHEME_HEAD?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
+        console.log(res);
+        this.getData();
+      });
+    }
+  else{
     form.reset();
     this.isSubUp = true;
     this.visible = false;
     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
+  }
   }
 
   delData(tmpid: number) {

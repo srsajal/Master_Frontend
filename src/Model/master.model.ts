@@ -16,13 +16,8 @@ export interface MasterTreasury{
 }
 
 export interface masterSchemeHead{
-<<<<<<< Updated upstream
-    demandCode : number,
-    code : number,
-=======
     demandCode : string,
     code : string,
->>>>>>> Stashed changes
    // code : string,
     name : string,
     minorHeadId:number,
@@ -48,6 +43,7 @@ export interface masterDeatailHead{
 
 
 export interface Code {
+    id : number,
     name: string
     code: string
 }
