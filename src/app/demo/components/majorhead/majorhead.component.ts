@@ -15,7 +15,7 @@ export class MajorheadComponent implements OnInit {
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
   alldata : number = 0;
-  apiUrl = 'http://localhost:5271/api/MasterManegmentControllers/'
+  apiUrl = 'http://localhost:5271/api/masterMajorHead/'
   visible : boolean = false;
   id : number = 0;
   isSubUp : boolean = true;
@@ -156,7 +156,7 @@ export class MajorheadComponent implements OnInit {
 }
 
   delData(tmpid: number) {
-    this.http.delete(this.apiUrl + 'DeleteMasterDdo?id=' + `${tmpid}`).subscribe(() => {
+    this.http.delete(this.apiUrl + 'DeleteMasterMAJORHEAD?id=' + `${tmpid}`).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
