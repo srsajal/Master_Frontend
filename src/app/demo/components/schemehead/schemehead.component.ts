@@ -31,7 +31,7 @@ export class SchemeheadComponent implements OnInit {
     demandCode: new FormControl('', [Validators.required, Validators.maxLength(2)]),
     code: new FormControl('',  [Validators.required, Validators.maxLength(3)]),
     name: new FormControl('', Validators.required),
-    minorHeadId: new FormControl(null, Validators.required),
+    minorHeadId: new FormControl('', Validators.required),
   });
  
 

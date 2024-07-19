@@ -12,12 +12,12 @@
     </div> -->
     <form [formGroup]="userForm" >
     <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
-        [(visible)]="visible" [style]="{ width: '70rem' }" (onHide)="hide(userForm)">
+        [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
   
         <div class="mb-4 mt-3">
           <label class="text-2xl" for="firstname2">Select MinorHeadID<span class="red"> *</span> : </label>
-          <p-dropdown class="ml-3" [style]="{'width':'72%'}" [options]="codes" formControlName="minorHeadId"
-            placeholder="Select MinorHeadID"  optionLabel="name" optionValue="id">
+          <p-dropdown class="ml-3" [style]="{'width':'65%'}" [options]="codes" formControlName="minorHeadId"
+            placeholder="Select MinorHead ID"  optionLabel="name" optionValue="id">
             <ng-template let-option pTemplate="item">
             {{ option.id }}  {{ option.code }} : {{ option.name }}
             </ng-template>
