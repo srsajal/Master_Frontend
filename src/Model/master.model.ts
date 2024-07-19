@@ -60,3 +60,8 @@ export interface minorHead{
     name : string,
     sub_major_id : number,
 }
+export interface minorheadid {
+    id : number,
+    name: string
+    code: string
+}

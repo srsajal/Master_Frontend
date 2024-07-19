@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import { Code, masterSchemeHead } from 'src/Model/master.model';
+import { Code, masterSchemeHead, minorheadid } from 'src/Model/master.model';
 import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 // import { IapiResponce } from 'src/Model/iapi-responce';
@@ -12,7 +12,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./schemehead.component.scss']
 })
 export class SchemeheadComponent implements OnInit {
-  codes: Code[] = [];
+  codes: minorheadid[] = [];
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
@@ -79,8 +79,8 @@ export class SchemeheadComponent implements OnInit {
       });
   }
   getCodeFromMinorhead() {
-    this.http.get<Code[]>('http://localhost:5271/api/masterSCHEME_HEAD/GetMasterSCHEME_HEADfromMINORHEADId').subscribe({
-      next: (res: Code[]) => {
+    this.http.get<minorheadid[]>('http://localhost:5271/api/masterSCHEME_HEAD/GetMasterSCHEME_HEADfromMINORHEADId').subscribe({
+      next: (res: minorheadid[]) => {
         this.codes = res;
       },
       error: (error) => {
