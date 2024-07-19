@@ -50,8 +50,7 @@ export interface MasterSubDetailHead{
 
 
 export interface Code {
-    id : number,
-    name: string
+    name: string,
     code: string
 }
 export interface minorHead{
