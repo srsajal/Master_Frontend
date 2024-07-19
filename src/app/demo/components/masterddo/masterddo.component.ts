@@ -6,10 +6,10 @@ import { MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { Code, MasterDdo } from 'src/Model/master.model';
 import { MhPrimeDynamicTableModule } from 'mh-prime-dynamic-table';
-import { MasterService } from '../../service/master.service';
 import { log } from 'console';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MasterddoformsComponent } from '../masterForms/masterddoforms/masterddoforms.component';
+import { MasterService } from '../../service/MasterService/masterddo.service';
 
 
 @Component({

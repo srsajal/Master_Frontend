@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActionButtonConfig, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { MessageService } from 'primeng/api';
-import { Code, MasterDdo } from 'src/Model/master.model';
-import { MasterService } from '../../service/master.service';
+import { Code, MasterDdo, MasterDetailHead } from 'src/Model/master.model';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MasterdetailheadformComponent } from '../masterForms/masterdetailheadform/masterdetailheadform.component';
+import { MasterService } from '../../service/MasterService/masterddo.service';
+import { DetailheadService } from '../../service/MasterService/detailhead.service';
 
 @Component({
   selector: 'app-masterdetailhead',
@@ -16,16 +17,13 @@ export class MasterdetailheadComponent implements OnInit {
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
   alldata: number = 0;
-  // apiUrl = 'http://localhost:5271/api/masterDDO/'
   visible: boolean = false;
   id: number = 0;
   codes: Code[] = [];
-  // headertext: string = 'ADD DDO DATA';
   dialogButts: number = 1;
   
-  // http = inject(HttpClient);
   messageService = inject(MessageService);
-  masterService = inject(MasterService);
+  detailHeadService = inject(DetailheadService);
 
   ref: DynamicDialogRef | undefined;
   constructor(public dialogService: DialogService, public config : DynamicDialogConfig) { }
@@ -44,21 +42,9 @@ export class MasterdetailheadComponent implements OnInit {
     });
   }
 
-  // userForm: FormGroup = new FormGroup({
-  //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-  //   Code: new FormControl('', Validators.required),
-  //   Designation: new FormControl('', Validators.required),
-  //   Address: new FormControl(''),
-  //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
-  // });
-
   ngOnInit(): void {
-    // this.userForm.reset();
-    // this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
-    this.getCodeFromTreasury();
-    // console.log("table reloaded");
 
   }
 
@@ -90,27 +76,11 @@ export class MasterdetailheadComponent implements OnInit {
     };
   }
   getData() {
-    this.masterService.getMasterDDO(this.tableQueryParameters).subscribe((response: any) => {
+    this.detailHeadService.getMasterDetailHead(this.tableQueryParameters).subscribe((response: any) => {
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
-      // console.log(this.tableData, response);
     });
   }
-  getCodeFromTreasury() {
-    this.masterService.getMasterCodeTreasury().subscribe((res: Code[]) => {
-      this.codes = res;
-    },
-      error => {
-        console.error('Error fetching codes from Treasury:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
-      }
-    );
-  }
-  
-
-
-
-
   editData(tmpid: number) {
     this.ref = this.dialogService.open(MasterdetailheadformComponent, {
       data:{
@@ -127,7 +97,7 @@ export class MasterdetailheadComponent implements OnInit {
     });
   }
   delData(tmpid: number) {
-    this.masterService.deleteMasterDDOById(tmpid).subscribe(() => {
+    this.detailHeadService.deleteMasterDetailHeadById(tmpid).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
@@ -142,22 +112,18 @@ export class MasterdetailheadComponent implements OnInit {
 
 
   viewData(tmpid : number){
-    this.masterService.getMasterDDOById(tmpid).subscribe((res: MasterDdo) => {
+    this.detailHeadService.getMasterDetailHeadById(tmpid).subscribe((res: MasterDetailHead) => {
       this.ref = this.dialogService.open(MasterdetailheadformComponent, {
         data:{
           dialogButt : 3,
           code : this.codes,
           id : tmpid,
           isDisable : true,
-          // pgetData : this.getData.bind(this),
-  
         },
         width: '50rem',
         modal:true,
         header: 'VIEW DETAIL HEAD DATA' 
       });
-      //this.userForm.markAllAsTouched();
-      //this.userForm.markAsDirty();
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);
@@ -165,15 +131,6 @@ export class MasterdetailheadComponent implements OnInit {
       }
     );
   }
-
-
-  // showDialog() {
-  // console.log("showdialog called");
-  // this.visible = true;
-  // this.userForm.reset();
-  // this.userForm = this.initializeMasterForm(false);
-  // console.log(this.userForm);
-  // }
 
   handleRowSelection($event: any) {
     console.log("Download the details from above");
