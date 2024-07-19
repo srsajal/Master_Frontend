@@ -2,8 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MasterService } from 'src/app/demo/service/master.service';
-import { Code, masterDeatailHead } from 'src/Model/master.model';
+import { DetailheadService } from 'src/app/demo/service/MasterService/detailhead.service';
+import { Code, MasterDetailHead } from 'src/Model/master.model';
 
 @Component({
   selector: 'app-masterdetailheadform',
@@ -15,7 +15,7 @@ export class MasterdetailheadformComponent implements OnInit {
   id : number = 0;
   isDisable : boolean = false;
   //getTCode : string = '';
-  formMaster?: masterDeatailHead;
+  formMaster?: MasterDetailHead;
   
   codes: Code[] = [];
   userForm: FormGroup = new FormGroup({});
@@ -23,7 +23,7 @@ export class MasterdetailheadformComponent implements OnInit {
   pgetData:() => void;
 
   fb = inject(FormBuilder);
-  masterService = inject(MasterService);
+  detailHeadService = inject(DetailheadService);
   messageService = inject(MessageService);
   constructor(public config : DynamicDialogConfig, public ref : DynamicDialogRef) {
     this.id = config.data.id;
@@ -46,7 +46,7 @@ export class MasterdetailheadformComponent implements OnInit {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
      
-      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
+      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required, Validators.maxLength(2)]],
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required],
       
     });
@@ -55,62 +55,62 @@ export class MasterdetailheadformComponent implements OnInit {
   }
 
   submit() {
-    // if (this.userForm.valid) {
-    //   this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
-    //     console.log(res);
-    //     this.pgetData();
-    //     this.ref.close();
-    //     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
-    //   },
-    //   error => {
-    //     console.error('Error adding MasterDDO data:', error);
-    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
-    //     this.ref.close();
-    //   }
-    // );
-    //   // form.reset();
-    // }
-    // else {
-    //   this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
-    //   this.userForm.markAllAsTouched();
-    //   this.userForm.markAsDirty();
-    // }
+    if (this.userForm.valid) {
+      this.detailHeadService.postMasterDetailHead(this.userForm).subscribe((res: MasterDetailHead) => {
+        console.log(res);
+        this.pgetData();
+        this.ref.close();
+        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+      },
+      error => {
+        console.error('Error adding MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        this.ref.close();
+      }
+    );
+      // form.reset();
+    }
+    else {
+      this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
+      this.userForm.markAllAsTouched();
+      this.userForm.markAsDirty();
+    }
   }
 
   getDataById() {
-    // this.masterService.getMasterDDOById(this.id).subscribe((res: MasterDdo) => {
-    //   this.formMaster = res;
-    //   this.userForm = this.initializeMasterForm(this.isDisable);
-    //   // console.log(res, this,this.dialogButts);
-    // },
-    //   error => {
-    //     console.error('Error fetching MasterDDO data by ID:', error);
-    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
-    //   }
-    // );
+    this.detailHeadService.getMasterDetailHeadById(this.id).subscribe((res: MasterDetailHead) => {
+      this.formMaster = res;
+      this.userForm = this.initializeMasterForm(this.isDisable);
+      // console.log(res, this,this.dialogButts);
+    },
+      error => {
+        console.error('Error fetching MasterDDO data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+      }
+    );
   }
 
   update() {
-    // if (this.userForm.valid) {
-    //   this.masterService.updateMasterDDOById(this.id, this.userForm).subscribe((res: MasterDdo) => {
-    //     console.log(res);
-    //     this.pgetData();
-    //     this.ref.close();
-    //   },
-    //   error => {
-    //     console.error('Error adding MasterDDO data:', error);
-    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
-    //     this.ref.close();
-    //   }    
-    // );
-    //   this.dialogButts = 1;
-    //   this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
-    // }
-    // else {
-    //   this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
-    //   this.userForm.markAllAsTouched();
-    //   this.userForm.markAsDirty();
-    // }
+    if (this.userForm.valid) {
+      this.detailHeadService.updateMasterDetailHeadById(this.id, this.userForm).subscribe((res: MasterDetailHead) => {
+        console.log(res);
+        this.pgetData();
+        this.ref.close();
+      },
+      error => {
+        console.error('Error adding MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        this.ref.close();
+      }    
+    );
+      this.dialogButts = 1;
+      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
+    }
+    else {
+      this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
+      this.userForm.markAllAsTouched();
+      this.userForm.markAsDirty();
+    }
   }
 
   

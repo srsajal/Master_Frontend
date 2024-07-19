@@ -3,33 +3,38 @@
         <!-- <div class="addstubutt"><p-button (click)="showDialog()" label="ADD DDO"></p-button>
     </div> -->
         <form [formGroup]="userForm">
-           
-            
+
+
             <div class="formgrid grid">
                 <div class="field col">
-                    <label class="text-2xl" for="firstname2">Code<span class="red"> *</span> :</label>
+                    <label class="text-2xl" for="firstname2">Detail Head Code<span class="red"> *</span> :</label>
                     <input id="firstname2" type="text"
                         class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                         formControlName="Code">
-                    <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error">
-                        Phone is required.
+                    <div class="error" *ngIf="userForm.get('Code')?.touched && userForm.get('Code')?.invalid">
+                        <div *ngIf="userForm.get('Code')?.errors?.['required']">
+                            Detail Head is required.
+                        </div>
+                        <div *ngIf="userForm.get('Code')?.errors?.['maxlength']">
+                            Maximum length should 2.
+                        </div>
                     </div>
                 </div>
                 <div class="field col">
-                    <label class="text-2xl" for="firstname2">Name<span class="red"> *</span> :</label>
+                    <label class="text-2xl" for="firstname2">Detail Head Name<span class="red"> *</span> :</label>
                     <input id="firstname2" type="text"
                         class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                         formControlName="Name">
-                    <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error">
-                        Phone is required.
+                    <div *ngIf="userForm.get('Name')?.invalid && userForm.get('Name')?.touched" class="error">
+                        Detail head name is required.
                     </div>
                 </div>
             </div>
 
-            
 
 
-            <div class="button-container" *ngIf="(dialogButts == 1); else elseBlock1">
+
+            <div class="button-container" *ngIf="(dialogButts == 1); else elseBlockUpdate">
                 <div class="formgrid grid">
                     <div class="col-8">
                         <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
@@ -43,8 +48,8 @@
                     </div>
                 </div>
             </div>
-            <ng-template #elseBlock1>
-                <div class="button-container" *ngIf="(dialogButts == 2);else elseBlock2">
+            <ng-template #elseBlockUpdate>
+                <div class="button-container" *ngIf="(dialogButts == 2);else elseBlockView">
                     <div class="formgrid grid">
                         <div class="col-9">
                             <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
@@ -59,16 +64,16 @@
                     </div>
                 </div>
             </ng-template>
-            <ng-template #elseBlock2>
+            <ng-template #elseBlockView>
                 <div class="button-container" *ngIf="(dialogButts == 3)">
-                  <div class="formgrid grid">
-                    <div class="col">
-                      <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Close"
-                        icon="pi pi-times" iconPos="left" (click)="hide()"></p-button>
+                    <div class="formgrid grid">
+                        <div class="col">
+                            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Close"
+                                icon="pi pi-times" iconPos="left" (click)="hide()"></p-button>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </ng-template>
+            </ng-template>
 
         </form>
         <!-- <p-toast></p-toast> -->

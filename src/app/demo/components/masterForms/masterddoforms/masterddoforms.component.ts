@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { MasterService } from 'src/app/demo/service/master.service';
 import { Code, MasterDdo } from 'src/Model/master.model';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MasterService } from 'src/app/demo/service/MasterService/masterddo.service';
 
 @Component({
   selector: 'app-masterddoforms',
