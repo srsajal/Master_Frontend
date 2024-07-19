@@ -1,6 +1,7 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { LayoutService } from './service/app.layout.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-menu',
@@ -56,11 +57,16 @@ export class AppMenuComponent implements OnInit {
         {
             label: 'Master Management Table',
             items: [
-                { label: 'Master DDO', icon:'pi pi-fw pi-table', routerLink:['/masterDDO']},
+                { label: 'DDO', icon:'pi pi-fw pi-table', routerLink:['/masterDDO']},
+                { label: 'Detail Head', icon:'pi pi-fw pi-table', routerLink:['/detailHead']},
+                { label: 'Sub Detail Head', icon:'pi pi-fw pi-table', routerLink:['/subDetailHead']},
                 { label:'Department',icon:'pi pi-fw pi-table', routerLink:['/department']},
+               
                 { label:'Major Head',icon:'pi pi-fw pi-table', routerLink:['/majorHead']},
+                { label:'Minor Head', icon:'pi pi-fw pi-table', routerLink:['/minorhead']},
                 { label:'Scheme Head',icon:'pi pi-fw pi-table', routerLink:['/schemeHead']},
-                { label:'Treasury',icon:'pi pi-fw pi-table', routerLink:['/treasury']}
+                { label:'Treasury',icon:'pi pi-fw pi-table', routerLink:['/treasury']},
+                { label:'Sub Major Head', icon:'pi pi-fw pi-table', routerLink:['/submajorhead']},
               
             ]
         },

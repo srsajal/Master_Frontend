@@ -7,6 +7,10 @@ import { MajorheadComponent } from './demo/components/majorhead/majorhead.compon
 import { SchemeheadComponent } from './demo/components/schemehead/schemehead.component';
 import { DepartmentComponent } from './demo/components/department/department.component';
 import { TreasuryComponent } from './demo/components/treasury/treasury.component';
+import { MasterdetailheadComponent } from './demo/components/masterdetailhead/masterdetailhead.component';
+import { MastersubdetailheadComponent } from './demo/components/mastersubdetailhead/mastersubdetailhead.component';
+import { MinorheadComponent } from './demo/components/minorhead/minorhead.component';
+import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhead.component';
 
 @NgModule({
     imports: [
@@ -16,10 +20,14 @@ import { TreasuryComponent } from './demo/components/treasury/treasury.component
                 children: [
                     { path: '', loadChildren: () => import('./demo/components/dashboard/dashboard.module').then(m => m.DashboardModule) },
                     { path:'masterDDO', component:MasterddoComponent},
+                    { path:'detailHead', component:MasterdetailheadComponent},
+                    { path:'subDetailHead', component:MastersubdetailheadComponent},
                     { path:'majorHead', component:MajorheadComponent},
                     { path:'schemeHead', component:SchemeheadComponent},
                     { path:'department', component:DepartmentComponent},
-                    { path:'treasury', component:TreasuryComponent}        
+                    { path:'treasury', component:TreasuryComponent},
+                    { path:'minorhead', component:MinorheadComponent},
+                    { path:'submajorhead', component:SubmajorheadComponent},
                 ]
             },
            

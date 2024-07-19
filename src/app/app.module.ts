@@ -29,6 +29,15 @@ import { SchemeheadComponent } from './demo/components/schemehead/schemehead.com
 import { DepartmentComponent } from './demo/components/department/department.component';
 import { TreasuryComponent } from './demo/components/treasury/treasury.component';
 import { DropdownModule } from 'primeng/dropdown';
+import {DialogService, DynamicDialogConfig, DynamicDialogModule} from 'primeng/dynamicdialog';
+import { MasterddoformsComponent } from './demo/components/masterForms/masterddoforms/masterddoforms.component';
+import { MasterdetailheadComponent } from './demo/components/masterdetailhead/masterdetailhead.component';
+import { MastersubdetailheadComponent } from './demo/components/mastersubdetailhead/mastersubdetailhead.component';
+import { MasterdetailheadformComponent } from './demo/components/masterForms/masterdetailheadform/masterdetailheadform.component';
+import { MastersubdetailheadformComponent } from './demo/components/masterForms/mastersubdetailheadform/mastersubdetailheadform.component';
+import { MinorheadComponent } from './demo/components/minorhead/minorhead.component';
+import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhead.component';
+
 
 
 @NgModule({
@@ -38,7 +47,14 @@ import { DropdownModule } from 'primeng/dropdown';
         MajorheadComponent,
         SchemeheadComponent,
         DepartmentComponent,
-        TreasuryComponent
+        TreasuryComponent,
+        MasterddoformsComponent,
+        MasterdetailheadComponent,
+        MastersubdetailheadComponent,
+        MasterdetailheadformComponent,
+        MastersubdetailheadformComponent,
+        MinorheadComponent,
+        SubmajorheadComponent,    
     ],
     imports: [
         AppRoutingModule,
@@ -55,13 +71,13 @@ import { DropdownModule } from 'primeng/dropdown';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        DropdownModule
-            
+        DropdownModule,
+        DynamicDialogModule,      
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient
+        PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient, DialogService, DynamicDialogConfig
     ],
     bootstrap: [AppComponent]
 })

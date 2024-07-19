@@ -16,11 +16,11 @@ export interface MasterTreasury{
 }
 
 export interface masterSchemeHead{
-    demandcode : number,
-    code : number,
+    demandCode : string,
+    code : string,
    // code : string,
     name : string,
-    minorheadid:number,
+    minorHeadId:number,
 }
 
 export interface Masterdept{
@@ -35,8 +35,27 @@ export interface Masterdept{
     email : string,
 }
 
+export interface MasterDetailHead{
+    id : number,
+    code : string,
+    name : string,
+}
+
+export interface MasterSubDetailHead{
+    id: number,
+    code: string,
+    name: string,
+    DetailHeadId: number
+}
 
 
 export interface Code {
+    name: string,
     code: string
+}
+export interface minorHead{
+    id : number,
+    code : string,
+    name : string,
+    sub_major_id : number,
 }

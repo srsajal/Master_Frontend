@@ -1,23 +1,18 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
+import { Component, inject, OnInit } from '@angular/core';
+import { ActionButtonConfig, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { MessageService } from 'primeng/api';
-import { IapiResponce } from 'src/Model/iapi-responce';
-import { Code, MasterDdo } from 'src/Model/master.model';
-import { MhPrimeDynamicTableModule } from 'mh-prime-dynamic-table';
-import { log } from 'console';
+import { DetailheadService } from '../../service/MasterService/detailhead.service';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MasterddoformsComponent } from '../masterForms/masterddoforms/masterddoforms.component';
-import { MasterService } from '../../service/MasterService/masterddo.service';
-
+import { MastersubdetailheadformComponent } from '../masterForms/mastersubdetailheadform/mastersubdetailheadform.component';
+import { MasterDetailHead, MasterSubDetailHead } from 'src/Model/master.model';
+import { SubdetailheadService } from '../../service/MasterService/subdetailhead.service';
 
 @Component({
-  selector: 'app-masterddo',
-  templateUrl: './masterddo.component.html',
-  styleUrls: ['./masterddo.component.scss']
+  selector: 'app-mastersubdetailhead',
+  templateUrl: './mastersubdetailhead.component.html',
+  styleUrls: ['./mastersubdetailhead.component.scss']
 })
-export class MasterddoComponent implements OnInit {
+export class MastersubdetailheadComponent implements OnInit {
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
@@ -25,18 +20,18 @@ export class MasterddoComponent implements OnInit {
   // apiUrl = 'http://localhost:5271/api/masterDDO/'
   visible: boolean = false;
   id: number = 0;
-  codes: Code[] = [];
+  codes: MasterDetailHead[] = [];
   // headertext: string = 'ADD DDO DATA';
   dialogButts: number = 1;
   
   // http = inject(HttpClient);
   messageService = inject(MessageService);
-  masterService = inject(MasterService);
+  subDetailHeadService = inject(SubdetailheadService);
 
   ref: DynamicDialogRef | undefined;
   constructor(public dialogService: DialogService, public config : DynamicDialogConfig) { }
   show() {
-    this.ref = this.dialogService.open(MasterddoformsComponent, {
+    this.ref = this.dialogService.open(MastersubdetailheadformComponent, {
       data:{
         dialogButt : 1,
         code : this.codes,
@@ -46,25 +41,15 @@ export class MasterddoComponent implements OnInit {
       },
       width: '50rem',
       modal:true,
-      header: 'ADD DDO DATA' 
+      header: 'ADD SUB DETAIL HEAD DATA' 
     });
   }
 
-  // userForm: FormGroup = new FormGroup({
-  //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-  //   Code: new FormControl('', Validators.required),
-  //   Designation: new FormControl('', Validators.required),
-  //   Address: new FormControl(''),
-  //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
-  // });
 
   ngOnInit(): void {
-    // this.userForm.reset();
-    // this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
-    this.getCodeFromTreasury();
-    // console.log("table reloaded");
+    this.getGetCodeFromDetailHead();
 
   }
 
@@ -96,14 +81,13 @@ export class MasterddoComponent implements OnInit {
     };
   }
   getData() {
-    this.masterService.getMasterDDO(this.tableQueryParameters).subscribe((response: any) => {
+    this.subDetailHeadService.getMasterSubDetailHead(this.tableQueryParameters).subscribe((response: any) => {
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
-      // console.log(this.tableData, response);
     });
   }
-  getCodeFromTreasury() {
-    this.masterService.getMasterCodeTreasury().subscribe((res: Code[]) => {
+  getGetCodeFromDetailHead() {
+    this.subDetailHeadService.getDetailHeadCode().subscribe((res: MasterDetailHead[]) => {
       this.codes = res;
     },
       error => {
@@ -118,7 +102,7 @@ export class MasterddoComponent implements OnInit {
 
 
   editData(tmpid: number) {
-    this.ref = this.dialogService.open(MasterddoformsComponent, {
+    this.ref = this.dialogService.open(MastersubdetailheadformComponent, {
       data:{
         dialogButt : 2,
         code : this.codes,
@@ -129,11 +113,11 @@ export class MasterddoComponent implements OnInit {
       },
       width: '50rem',
       modal:true,
-      header: 'EDIT DDO DATA' 
+      header: 'EDIT SUB DETAIL HEAD DATA' 
     });
   }
   delData(tmpid: number) {
-    this.masterService.deleteMasterDDOById(tmpid).subscribe(() => {
+    this.subDetailHeadService.deleteMasterSubDetailHeadById(tmpid).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
@@ -148,11 +132,11 @@ export class MasterddoComponent implements OnInit {
 
 
   viewData(tmpid : number){
-    this.masterService.getMasterDDOById(tmpid).subscribe((res: MasterDdo) => {
-      this.ref = this.dialogService.open(MasterddoformsComponent, {
+    this.subDetailHeadService.getMasterSubDetailHeadById(tmpid).subscribe((res: MasterSubDetailHead) => {
+      this.ref = this.dialogService.open(MastersubdetailheadformComponent, {
         data:{
           dialogButt : 3,
-          code : this.codes,
+          // code : this.codes,
           id : tmpid,
           isDisable : true,
           // pgetData : this.getData.bind(this),
@@ -160,7 +144,7 @@ export class MasterddoComponent implements OnInit {
         },
         width: '50rem',
         modal:true,
-        header: 'EDIT DDO DATA' 
+        header: 'VIEW SUB DETAIL HEAD DATA' 
       });
       //this.userForm.markAllAsTouched();
       //this.userForm.markAsDirty();
@@ -206,4 +190,5 @@ export class MasterddoComponent implements OnInit {
   handleSearch(event: any) {
     console.log(event);
   }
+
 }
