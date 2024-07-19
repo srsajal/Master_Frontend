@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
+import { Code } from 'src/Model/master.model';
 
 @Component({
   selector: 'app-submajorhead',
@@ -16,9 +17,12 @@ export class SubmajorheadComponent implements OnInit {
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
   alldata : number = 0;
-  apiUrl = 'http://localhost:5271/api/MasterManegmentControllers/'
+  apiUrl = 'http://localhost:5271/api/masterSubMajorHead/'
+  aurl = 'http://localhost:5271/api/masterSubMajorHead/'
+
   visible : boolean = false;
   id : number = 0;
+  codes: Code[] = [];
   isSubUp : boolean = true;
   headertext:string = 'ADD SubMajorHead';
   
@@ -28,14 +32,15 @@ export class SubmajorheadComponent implements OnInit {
   constructor() { }
 
   userForm: FormGroup = new FormGroup({
-    
-    Code: new FormControl('', [Validators.required, Validators.maxLength(4)]),
+    majorheadcode: new FormControl('', [Validators.required, Validators.maxLength(4)]),
+    Code: new FormControl('', [Validators.required, Validators.maxLength(2)]),
     Name: new FormControl('',[Validators.required]),
-    id: new FormControl('', [Validators.required, Validators.maxLength(4)]),
+
     
   });
 
   ngOnInit(): void {
+    this.getmajorHeadcode();
     this.actionButtonConfig = [
       
       {
@@ -62,7 +67,7 @@ export class SubmajorheadComponent implements OnInit {
 
   getData() {
     this.http
-      .post<IapiResponce<DynamicTable<any>>>(this.apiUrl + 'GetMasterMAJORHEAD', this.tableQueryParameters)
+      .post<IapiResponce<DynamicTable<any>>>(this.apiUrl + 'GetMastersubmajorhead', this.tableQueryParameters)
       .subscribe((response: any) => {
         this.tableData = response.result;
         this.alldata = response.result.dataCount;
@@ -72,12 +77,25 @@ export class SubmajorheadComponent implements OnInit {
       });
   }
 
+  getmajorHeadcode() {
+    this.http
+      .get<Code[]>(this.aurl + 'GetMajorHeadcode', )
+      .subscribe((res: Code[]) => {
+        this.codes = res;
+      },
+        error => {
+          console.error('Error fetching codes from Treasury:', error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
+        }
+      );
+  }
+
   submit(form : FormGroup){
     if(this.userForm.invalid){
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
     }
     else {
-    this.http.post<any>(this.apiUrl + 'AddMasterMAJORHEAD', this.userForm.value).subscribe((res : any) =>{
+    this.http.post<any>(this.apiUrl + 'AddMasterSubmajorHead', this.userForm.value).subscribe((res : any) =>{
       console.log(res);
       this.getData();
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
@@ -94,13 +112,13 @@ export class SubmajorheadComponent implements OnInit {
   }
 
   editData(tmpid: number) {
-    this.http.get<any>(this.apiUrl + 'GetMasterMAJORHEADById?id=' + `${tmpid}`).subscribe((res:any) => {
+    this.http.get<any>(this.apiUrl + 'GetMasterMastersubMajorHeadById?id=' + `${tmpid}`).subscribe((res:any) => {
       console.log(res);
       this.userForm.patchValue({
-        
+        majorheadcode:res.majorheadcode,
         Code: res.code,
         Name: res.name,
-        id: res.code,
+       
         
       });
       this.userForm.markAllAsTouched();
@@ -116,6 +134,7 @@ export class SubmajorheadComponent implements OnInit {
     this.id = tmpid;
     this.isSubUp = false;
   }
+  
   cancel(form: FormGroup) {
     this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have Cancelled', life: 2000 });
     form.reset();
@@ -135,7 +154,7 @@ export class SubmajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'Form Update failed', life: 2000 });
     }
     else{
-    this.http.put<any>(this.apiUrl + 'UpdateMasterMAJORHEAD?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
+    this.http.put<any>(this.apiUrl + 'UpdateMastersubMajorHead?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
       console.log(res);
       this.getData();
     });
@@ -148,7 +167,7 @@ export class SubmajorheadComponent implements OnInit {
 }
 
   delData(tmpid: number) {
-    this.http.delete(this.apiUrl + 'DeleteMasterDdo?id=' + `${tmpid}`).subscribe(() => {
+    this.http.delete(this.apiUrl + 'DeleteMasterMAJORHEAD?id=' + `${tmpid}`).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
@@ -186,4 +205,5 @@ export class SubmajorheadComponent implements OnInit {
     };
     this.getData();
   }
+  
 }

@@ -12,7 +12,18 @@
       <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
           [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
     
-          
+          <div class="mb-4 mt-3">
+            <label class="text-2xl" for="firstname2">Select MajorHead_ID <span class="red"> *</span> : </label>
+            <p-dropdown class="ml-3" [style]="{'width':'72%'}" [options]="codes" formControlName="majorheadcode"
+              placeholder="Select MajorHead_ID" optionLabel="code" optionValue="code"optionValue="id" >
+              <ng-template let-option pTemplate="item">
+                {{ option.code }} : {{ option.name }}
+              </ng-template>
+            </p-dropdown>
+            <div *ngIf="userForm.get('majorheadcode')?.invalid && userForm.get('majorheadcode')?.touched" class="error">
+              MajorHead_ID Code is required.
+            </div>
+          </div>
           
             <div class="formgrid grid">
             <div class="field col">
@@ -30,16 +41,6 @@
               </div>
             </div>
           </div>
-          <div class="formgrid grid">
-            <div class="field col">
-              <label class="text-2xl" for="firstname2">SubMajorId<span class="red"> *</span></label>
-              <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="id">
-              <div *ngIf="userForm.get('Code')?.invalid && userForm.get('Code')?.touched" class="error">
-                Code is required.
-              </div>
-          
-            </div>
-        </div>
             <div class="button-container" *ngIf="isSubUp; else elseBlock">
               <div class="formgrid grid">
                 <div class="col-9">
