@@ -24,18 +24,19 @@ export class SchemeheadComponent implements OnInit {
 
   http = inject(HttpClient);
   messageService = inject(MessageService)
-  headertext:string = 'Add Data';
+  headertext:string = 'Add SchemeHeadData';
   constructor() { }
 
   userForm: FormGroup = new FormGroup({
-    DemandCode: new FormControl('', [Validators.required, Validators.maxLength(2)]),
-    Code: new FormControl('',  [Validators.required, Validators.maxLength(3)]),
-    Name: new FormControl('', Validators.required),
-    MinorHeadId: new FormControl(null, Validators.required),
+    demandCode: new FormControl('', [Validators.required, Validators.maxLength(2)]),
+    code: new FormControl('',  [Validators.required, Validators.maxLength(3)]),
+    name: new FormControl('', Validators.required),
+    minorHeadId: new FormControl(null, Validators.required),
   });
  
 
   ngOnInit(): void {
+
     this.actionButtonConfig = [
       // {
       //   buttonIdentifier: 'view',
@@ -79,30 +80,38 @@ export class SchemeheadComponent implements OnInit {
 
   submit(form : FormGroup){
     console.log(this.userForm.value);
-    // this.http.post<masterSchemeHead>(this.apiUrl + 'AddMasterSCHEME_HEAD', this.userForm.value).subscribe((res : any) =>{
-    //   console.log(res);
-    //   this.getData();
-    // });
+    const data =this.userForm.value
+    this.http.post<masterSchemeHead>( 'http://localhost:5271/api/masterSCHEME_HEAD/AddmasterSCHEME-HEAD', data)
+      .subscribe(
+        (res:any) => {
+          console.log(res);
+          this.getData();
+          this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+        },
+        (error: any) => {
+          console.error('Error submitting form:', error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to submit form', life: 2000 });
+        }
+      );
     form.reset();
     this.visible=false;
-    this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
   }
 
   editData(tmpid: number) {
     this.http.get<masterSchemeHead>(this.apiUrl + 'GetMasterSCHEME_HEADById?id=' + `${tmpid}`).subscribe((res:masterSchemeHead) => {
       console.log(res);
       this.userForm.patchValue({
-    DemandCode: res.demandCode,
-   Code:res.code,
-   Name:res.name,
-   MinorHeadId:res.minorHeadId
+        demandCode: res.demandCode,
+        code:res.code,
+        name:res.name,
+        minorHeadId:res.minorHeadId
       });
       this.userForm.markAllAsTouched();
       this.userForm.markAsDirty();
     },
       error => {
-        console.error('Error fetching student data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch student data by ID', life: 2000 });
+        console.error('Error fetching Data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch data', life: 2000 });
       }
     );
     this.visible = true;
@@ -122,7 +131,7 @@ export class SchemeheadComponent implements OnInit {
   }
 
   update(form : FormGroup){
-    this.http.put<masterSchemeHead>(this.apiUrl + 'UpdateMasterDdo?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
+    this.http.put<masterSchemeHead>(this.apiUrl + 'UpdateMasterSCHEME_HEAD?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
       console.log(res);
       this.getData();
     });
@@ -133,7 +142,7 @@ export class SchemeheadComponent implements OnInit {
   }
 
   delData(tmpid: number) {
-    this.http.delete(this.apiUrl + 'DeleteMasterDdo?id=' + `${tmpid}`).subscribe(() => {
+    this.http.delete('http://localhost:5271/api/masterSCHEME_HEAD/DeleteMasterSchemeHead?id=' + `${tmpid}`).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },

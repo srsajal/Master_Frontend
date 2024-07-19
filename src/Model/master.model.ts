@@ -16,8 +16,8 @@ export interface MasterTreasury{
 }
 
 export interface masterSchemeHead{
-    demandCode : number,
-    code : number,
+    demandCode : string,
+    code : string,
    // code : string,
     name : string,
     minorHeadId:number,
