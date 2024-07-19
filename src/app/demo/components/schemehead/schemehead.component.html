@@ -12,9 +12,20 @@
     </div> -->
     <form [formGroup]="userForm" >
     <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
-        [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
+        [(visible)]="visible" [style]="{ width: '70rem' }" (onHide)="hide(userForm)">
   
-        
+        <div class="mb-4 mt-3">
+          <label class="text-2xl" for="firstname2">Select MinorHeadID<span class="red"> *</span> : </label>
+          <p-dropdown class="ml-3" [style]="{'width':'72%'}" [options]="codes" formControlName="minorHeadId"
+            placeholder="Select MinorHeadID"  optionLabel="name" optionValue="id">
+            <ng-template let-option pTemplate="item">
+            {{ option.id }}  {{ option.code }} : {{ option.name }}
+            </ng-template>
+          </p-dropdown>
+          <div *ngIf="userForm.get('minorHeadId')?.invalid && userForm.get('minorHeadId')?.touched" class="error">
+            MinorHeadID is required.
+          </div>
+        </div>
           <div class="formgrid grid">
             <div class="field col">
                 <label class="text-2xl" for="firstname2">Demand Code*</label>
@@ -36,18 +47,19 @@
             <label class="text-2xl" for="firstname2">SchemeHead Name*</label>
             <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="name">
             <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched" class="error">
-              Designation Mstld is required.
+              SchemeHead Name is required.
             </div>
           </div>
           </div>
-          <div class="formgrid grid">
-          <div class="field col">
-            <label class="text-2xl" for="lastname2">Minor Head Id*</label>
-            <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="minorHeadId">
-            <div *ngIf="userForm.get('minorHeadId')?.invalid && userForm.get('minorHeadId')?.touched" class="error">
-              Minor Head ID is required.
+          <!-- <div class="formgrid grid">
+            <div class="field col">
+              <label class="text-2xl" for="lastname2">Minor Head Id*</label>
+              <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="minorHeadId">
+              <div *ngIf="userForm.get('minorHeadId')?.invalid && userForm.get('minorHeadId')?.touched" class="error">
+                Minor Head ID is required.
+              </div>
             </div>
-          </div>
+          </div> -->
           <!-- <div class="field col">
             <label class="text-2xl" for="firstname2">Phone*</label>
             <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Phone">
@@ -55,7 +67,7 @@
               Phone is required.
             </div>
           </div> -->
-          </div>
+         
           <!-- <div class="formgrid grid">
             <div class="field col">
               <label class="text-2xl" for="firstname2">Address</label>
