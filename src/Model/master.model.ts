@@ -64,3 +64,8 @@ export interface minorheadid {
     name: string
     code: string
 }
+export interface majorHead{
+    
+    code : string,
+    name : string,
+}
