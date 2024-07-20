@@ -5,6 +5,7 @@ import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'm
 import { MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { MhPrimeDynamicTableModule } from 'mh-prime-dynamic-table';
+import { MastermajorheadService } from '../../service/MasterService/mastermajorhead.service';
 @Component({
   selector: 'app-majorhead',
   templateUrl: './majorhead.component.html',
@@ -20,6 +21,7 @@ export class MajorheadComponent implements OnInit {
   id : number = 0;
   isSubUp : boolean = true;
   headertext:string = 'Add MajorHeadData';
+  majorHeadService = inject(MastermajorheadService)
   
 
   http = inject(HttpClient);
@@ -67,14 +69,10 @@ export class MajorheadComponent implements OnInit {
   }
 
   getData() {
-    this.http
-      .post<IapiResponce<DynamicTable<any>>>(this.apiUrl + 'GetMasterMAJORHEAD', this.tableQueryParameters)
-      .subscribe((response: any) => {
+    this.majorHeadService.getMHData(this.tableQueryParameters).subscribe((response: any) => {
         this.tableData = response.result;
         this.alldata = response.result.dataCount;
         console.log(this.tableData, response);
-         
-
       });
   }
 
@@ -83,7 +81,7 @@ export class MajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
     }
     else {
-    this.http.post<any>(this.apiUrl + 'AddMasterMAJORHEAD', this.userForm.value).subscribe((res : any) =>{
+    this.majorHeadService.postData(this.userForm).subscribe((res : any) =>{
       console.log(res);
       this.getData();
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
