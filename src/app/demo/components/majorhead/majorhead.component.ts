@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { MhPrimeDynamicTableModule } from 'mh-prime-dynamic-table';
 import { MastermajorheadService } from '../../service/MasterService/mastermajorhead.service';
+import { majorHead } from 'src/Model/master.model';
 @Component({
   selector: 'app-majorhead',
   templateUrl: './majorhead.component.html',
@@ -29,23 +30,15 @@ export class MajorheadComponent implements OnInit {
   constructor() { }
 
   userForm: FormGroup = new FormGroup({
-    // TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-    // TreasuryMstld: new FormControl('', Validators.required),
+    
     Code: new FormControl('', [Validators.required, Validators.maxLength(4)]),
     Name: new FormControl('',[Validators.required])
-    // DesignationMstld: new FormControl(null, Validators.required),
-    // Address: new FormControl(''),
-    // Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
+    
   });
 
   ngOnInit(): void {
     this.actionButtonConfig = [
-      // {
-      //   buttonIdentifier: 'view',
-      //   class: 'p-button-rounded p-button-raised',
-      //   icon: 'pi pi-eye',
-      //   lable: 'View',
-      // },
+     
       {
         buttonIdentifier: 'edit',
         class: 'p-button-warning p-button-rounded p-button-raised',
@@ -81,7 +74,7 @@ export class MajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
     }
     else {
-    this.majorHeadService.postData(this.userForm).subscribe((res : any) =>{
+    this.majorHeadService.postData(this.userForm).subscribe((res : majorHead) =>{
       console.log(res);
       this.getData();
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
@@ -98,16 +91,13 @@ export class MajorheadComponent implements OnInit {
   }
 
   editData(tmpid: number) {
-    this.http.get<any>(this.apiUrl + 'GetMasterMAJORHEADById?id=' + `${tmpid}`).subscribe((res:any) => {
+    this.majorHeadService.EditData(tmpid).subscribe((res:majorHead) => {
       console.log(res);
       this.userForm.patchValue({
-        // TreasuryCode: res.treasuryCode,
-        // TreasuryMstld: res.treasuryMstld,
+       
         Code: res.code,
         Name: res.name,
-        // DesignationMstld: res.designationMstld,
-        // Address: res.address,
-        // Phone: res.phone
+        
       });
       this.userForm.markAllAsTouched();
       this.userForm.markAsDirty();
@@ -141,7 +131,7 @@ export class MajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'Form Update failed', life: 2000 });
     }
     else{
-    this.http.put<any>(this.apiUrl + 'UpdateMasterMAJORHEAD?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
+      this.majorHeadService.update(this.id, this.userForm).subscribe((res : majorHead) =>{
       console.log(res);
       this.getData();
     });
@@ -154,7 +144,7 @@ export class MajorheadComponent implements OnInit {
 }
 
   delData(tmpid: number) {
-    this.http.delete(this.apiUrl + 'DeleteMasterMAJORHEAD?id=' + `${tmpid}`).subscribe(() => {
+    this.majorHeadService.delData(tmpid).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
@@ -166,11 +156,11 @@ export class MajorheadComponent implements OnInit {
   }
 
   showDialog() {
-    // console.log("showdialog called");
+
     this.visible = true;
   }
 
-  handleRowSelection($event: any) {
+  handleRowSelection($event: majorHead) {
     console.log("Download the details from above");
   }
   handleButtonClick(event: any) {

@@ -6,6 +6,7 @@ import { IapiResponce } from 'src/Model/iapi-responce';
 import { DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { majorHead } from 'src/Model/master.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,15 @@ export class MastermajorheadService {
     return this.http.post<IapiResponce<DynamicTable<any>>>(this.majorheadurl + 'GetMasterMAJORHEAD', tableQueryParameters)
   }
   postData(userForm : FormGroup){
-    return this.http.post<any>(this.majorheadurl + 'AddMasterMAJORHEAD', userForm.value)
+    return this.http.post<majorHead>(this.majorheadurl + 'AddMasterMAJORHEAD', userForm.value)
   }
-  
-
+  EditData(tmpid: number) {
+    return this.http.get<majorHead>(this.majorheadurl + 'GetMasterMAJORHEADById?id=' + `${tmpid}`)
+  }
+  update(id: number,userForm : FormGroup){
+  return this.http.put<majorHead>(this.majorheadurl + 'UpdateMasterMAJORHEAD?id=' + `${id}` , userForm.value)
+  }
+  delData(tmpid: number) {
+    return this.http.delete(this.majorheadurl + 'DeleteMasterMAJORHEAD?id=' + `${tmpid}`)
+  }
 }
