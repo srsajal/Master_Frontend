@@ -37,6 +37,9 @@ import { MasterdetailheadformComponent } from './demo/components/masterForms/mas
 import { MastersubdetailheadformComponent } from './demo/components/masterForms/mastersubdetailheadform/mastersubdetailheadform.component';
 import { MinorheadComponent } from './demo/components/minorhead/minorhead.component';
 import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhead.component';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 
 
@@ -72,12 +75,16 @@ import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhe
         BrowserAnimationsModule,
         HttpClientModule,
         DropdownModule,
-        DynamicDialogModule,      
+        DynamicDialogModule,
+        ConfirmPopupModule,
+        ConfirmDialogModule,
+
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient, DialogService, DynamicDialogConfig
+        PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient, DialogService, DynamicDialogConfig,
+        ConfirmationService,
     ],
     bootstrap: [AppComponent]
 })

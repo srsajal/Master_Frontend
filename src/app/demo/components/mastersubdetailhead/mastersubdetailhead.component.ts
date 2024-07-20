@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActionButtonConfig, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { DetailheadService } from '../../service/MasterService/detailhead.service';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MastersubdetailheadformComponent } from '../masterForms/mastersubdetailheadform/mastersubdetailheadform.component';
@@ -27,6 +27,7 @@ export class MastersubdetailheadComponent implements OnInit {
   // http = inject(HttpClient);
   messageService = inject(MessageService);
   subDetailHeadService = inject(SubdetailheadService);
+  confirmationService = inject(ConfirmationService);
 
   ref: DynamicDialogRef | undefined;
   constructor(public dialogService: DialogService, public config : DynamicDialogConfig) { }
@@ -116,6 +117,21 @@ export class MastersubdetailheadComponent implements OnInit {
       header: 'EDIT SUB DETAIL HEAD DATA' 
     });
   }
+
+  confirmDelete(id : number) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.delData(id);
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+      }
+    });
+  }
+
   delData(tmpid: number) {
     this.subDetailHeadService.deleteMasterSubDetailHeadById(tmpid).subscribe(() => {
       this.getData();
@@ -173,7 +189,7 @@ export class MastersubdetailheadComponent implements OnInit {
       this.editData(event.rowData.id);
     }
     else if (event.buttonIdentifier == "del") {
-      this.delData(event.rowData.id);
+      this.confirmDelete(event.rowData.id);
     }
     else if (event.buttonIdentifier == "view") {
       this.viewData(event.rowData.id);
