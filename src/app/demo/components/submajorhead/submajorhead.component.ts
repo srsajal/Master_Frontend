@@ -95,24 +95,24 @@ export class SubmajorheadComponent implements OnInit {
     console.log(this.codes);
     console.log(this.userForm.value);
     
-//     if(this.userForm.invalid){
-//       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
-//     }
-//     else {
-//     this.http.post<any>(this.apiUrl + 'AddMasterSubmajorHead', this.userForm.value).subscribe((res : any) =>{
-//       console.log(res);
-//       this.getData();
-//       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
-//     }
-//     // error => {
-//     //   console.error('Error adding MasterDDO data:', error);
-//     //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+    if(this.userForm.invalid){
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+    }
+    else {
+    this.http.post<any>(this.apiUrl + 'AddMasterSubmajorHead', this.userForm.value).subscribe((res : any) =>{
+      console.log(res);
+      this.getData();
+      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+    }
+    // error => {
+    //   console.error('Error adding MasterDDO data:', error);
+    //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
     
-//     // }
-//   );
-//     form.reset();
-//     this.visible=false;
-//  }
+    // }
+  );
+    form.reset();
+    this.visible=false;
+ }
   }
 
   editData(tmpid: number) {

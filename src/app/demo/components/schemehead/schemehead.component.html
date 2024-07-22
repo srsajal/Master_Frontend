@@ -19,7 +19,7 @@
           <p-dropdown class="ml-3" [style]="{'width':'65%'}" [options]="codes" formControlName="minorHeadId"
             placeholder="Select MinorHead ID"  optionLabel="name" optionValue="id">
             <ng-template let-option pTemplate="item">
-            {{ option.id }}  {{ option.code }} : {{ option.name }}
+          {{ option.code }} : {{ option.name }}
             </ng-template>
           </p-dropdown>
           <div *ngIf="userForm.get('minorHeadId')?.invalid && userForm.get('minorHeadId')?.touched" class="error">
@@ -100,18 +100,17 @@
   </form>
   <p-toast></p-toast>
   </div>
+  <p-confirmDialog></p-confirmDialog>
   
-  <mh-prime-dynamic-table *ngIf="tableData!=null||tableData!=undefined"
+  <mh-prime-dynamic-table 
     size="small"
     [numberRowsShown]="10"
     [rowsPerPageOptions]="[10, 30, 50]"
-    [headers]="tableData.headers"
-    [data]="tableData.data"
+    [data]="tableData"
     rowSelectionMode="multiple"
-    [dataCount]="alldata"
     [actionButtons]="actionButtonConfig"
     (rowSelect)="handleRowSelection($event)"
     (actionButtonClicked)="handleButtonClick($event)"
-    (queryParameterChange)="handQueryParameterChange($event)"
+    (queryParameterChange)="handQueryParameterChange($event)" [isLoading]="istableLoading" [showTopMenubar]="false" [showGlobalSearch]="false"
   >
   </mh-prime-dynamic-table>

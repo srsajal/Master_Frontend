@@ -17,8 +17,8 @@ export class DepartmentServiceService {
 
   constructor() { }
 
-  getMasterDepartment(tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<Masterdept>>>(this.departmenturl + 'GetMasterDepartment', tableQueryParameters)
+  getMasterDepartment(isActive:boolean,tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+    return this.http.post<IapiResponce<DynamicTable<Masterdept>>>(this.departmenturl + 'GetMasterDepartment?isActive='+isActive, tableQueryParameters)
   }
 
   postMasterDepartment(userForm: FormGroup) {

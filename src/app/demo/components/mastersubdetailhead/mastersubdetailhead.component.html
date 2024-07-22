@@ -9,9 +9,9 @@
 
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
-<mh-prime-dynamic-table *ngIf="tableData!=null||tableData!=undefined" size="small" [numberRowsShown]="10"
-  [rowsPerPageOptions]="[10, 30, 50]" [headers]="tableData.headers" [data]="tableData.data" rowSelectionMode="multiple"
-  [dataCount]="alldata" [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
+<mh-prime-dynamic-table size="small" [numberRowsShown]="10"
+  [rowsPerPageOptions]="[10, 30, 50]"  [data]="tableData" rowSelectionMode="multiple"
+  [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
   (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)"
-  (searchKeyChange)="handleSearch($event)">
+  (searchKeyChange)="handleSearch($event)" [isLoading]="istableLoading" [showTopMenubar]="true" [showGlobalSearch]="false">
 </mh-prime-dynamic-table>

@@ -14,17 +14,16 @@ export class MasterService {
 
   ddourl = environment.BaseURL + 'masterDDO/';
   http = inject(HttpClient);
-
   constructor() { }
 
-  getMasterDDO(isActive:boolean,tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+  getMasterDDO(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
     return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'GetMasterDdo?isActive='+isActive, tableQueryParameters)
   }
 
   getMasterCodeTreasury(){
     return this.http.get<Code[]>(this.ddourl + 'GetTreasuryCode')
   }
-
+  
   postMasterDDO(userForm: FormGroup) {
     return this.http.post<MasterDdo>(this.ddourl + 'AddMasterDdo', userForm.value)
   }
