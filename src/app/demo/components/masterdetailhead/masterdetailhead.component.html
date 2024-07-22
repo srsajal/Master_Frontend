@@ -14,5 +14,5 @@
   [rowsPerPageOptions]="[10, 30, 50]"[data]="tableData" rowSelectionMode="multiple"
   [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
   (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)"
-  (searchKeyChange)="handleSearch($event)">
+  (searchKeyChange)="handleSearch($event)" [isLoading]="istableLoading" [showTopMenubar]="true" [showGlobalSearch]="false">
 </mh-prime-dynamic-table>

@@ -21,6 +21,7 @@ export class MasterdetailheadComponent implements OnInit {
   id: number = 0;
   codes: Code[] = [];
   dialogButts: number = 1;
+  istableLoading:boolean = false;
   
   messageService = inject(MessageService);
   detailHeadService = inject(DetailheadService);
@@ -77,7 +78,9 @@ export class MasterdetailheadComponent implements OnInit {
     };
   }
   getData() {
+    this.istableLoading = true;
     this.detailHeadService.getMasterDetailHead(true, this.tableQueryParameters).subscribe((response: any) => {
+      this.istableLoading =false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
     });

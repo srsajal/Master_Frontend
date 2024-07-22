@@ -116,7 +116,7 @@
 <mh-prime-dynamic-table size="small" [numberRowsShown]="10"
   [rowsPerPageOptions]="[10, 30, 50]"  [data]="tableData" rowSelectionMode="multiple" [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
   (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)"
-  (searchKeyChange)="handleSearch($event)"[isLoading]="istableLoading" [showTopMenubar]="false" [showGlobalSearch]="false">
+  (searchKeyChange)="handleSearch($event)" [isLoading]="istableLoading" [showTopMenubar]="true" [showGlobalSearch]="false">
 </mh-prime-dynamic-table>
 
 <!-- <app-masterddodialog></app-masterddodialog> -->
