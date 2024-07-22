@@ -25,17 +25,20 @@ export class DetailheadService {
   // }
 
   postMasterDetailHead(userForm: FormGroup) {
-    return this.http.post<MasterDetailHead>(this.ddourl + 'AddMasterDetailHead', userForm.value)
+    return this.http.post<MasterDetailHead>(this.ddourl + 'AddMasterDetailHead', userForm.value);
   }
 
   getMasterDetailHeadById(tmpid: number) {
-    return this.http.get<MasterDetailHead>(this.ddourl + 'GetMasterDetailHeadById?id=' + `${tmpid}`)
+    return this.http.get<MasterDetailHead>(this.ddourl + 'GetMasterDetailHeadById?id=' + `${tmpid}`);
   }
 
   updateMasterDetailHeadById(tmpid: number, userForm: FormGroup) {
-    return this.http.put<MasterDetailHead>(this.ddourl + 'UpdateMasterDetailHead?id=' + `${tmpid}`, userForm.value)
+    return this.http.put<MasterDetailHead>(this.ddourl + 'UpdateMasterDetailHead?id=' + `${tmpid}`, userForm.value);
   }
   deleteMasterDetailHeadById(tmpid : number){
-    return  this.http.delete(this.ddourl + 'DeleteMasterDetailHead?id=' + `${tmpid}`)
+    return  this.http.delete(this.ddourl + 'DeleteMasterDetailHead?id=' + `${tmpid}`);
+  }
+  restoreMasterDetailHeadById(tmpid : number){
+    return this.http.delete(this.ddourl + 'RestoreMasterDetailHead?id='  + `${tmpid}`);
   }
 }

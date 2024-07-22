@@ -77,9 +77,9 @@ export class MasterdetailheadComponent implements OnInit {
       filterParameters: [],
     };
   }
-  getData() {
+  getData(isActive:boolean = true) {
     this.istableLoading = true;
-    this.detailHeadService.getMasterDetailHead(true, this.tableQueryParameters).subscribe((response: any) => {
+    this.detailHeadService.getMasterDetailHead(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading =false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
@@ -146,6 +146,41 @@ export class MasterdetailheadComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
       }
     );
+  }
+
+  showDeletedData(){
+    this.actionButtonConfig = [
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      }
+    ];
+    this.getData(false);
+  }
+  showNormalData(){
+    this.actionButtonConfig = [
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
+      {
+        buttonIdentifier: 'edit',
+        class: 'p-button-warning p-button-rounded p-button-raised',
+        icon: 'pi pi-file-edit',
+        lable: 'Edit',
+      },
+      {
+        buttonIdentifier: 'del',
+        class: 'p-button-danger p-button-rounded p-button-raised',
+        icon: 'pi pi-trash',
+        lable: 'Delete',
+      }
+    ];
+    this.getData();
   }
 
   handleRowSelection($event: any) {

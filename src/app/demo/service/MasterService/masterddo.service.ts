@@ -39,5 +39,8 @@ export class MasterService {
   deleteMasterDDOById(tmpid : number){
     return  this.http.delete(this.ddourl + 'DeleteMasterDdo?id=' + `${tmpid}`)
   }
+  restoreMasterDetailHeadById(tmpid : number){
+    return this.http.delete(this.ddourl + 'RestoreMasterDdo?id='  + `${tmpid}`);
+  }
 
 }
