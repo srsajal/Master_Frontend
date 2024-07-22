@@ -102,7 +102,7 @@ export class MasterddoComponent implements OnInit {
     //   value: '1685',
     //   operator:'equals'
     // });
-    this.masterService.getMasterDDO(true,this.tableQueryParameters).subscribe((response: any) => {
+    this.masterService.getMasterDDO(true, this.tableQueryParameters).subscribe((response: any) => {
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
 
@@ -225,16 +225,16 @@ export class MasterddoComponent implements OnInit {
     this.getData();
   }
   handleSearch(event: any) {
-    this.tableQueryParameters.filterParameters = [];
-    this.tableData.headers.forEach((element: { filterField: any; }) => {
-      this.tableQueryParameters.filterParameters.push({
-        field: element.filterField,
-        value: event,
-        operator: 'contains'
-      });
-    });
-    console.log("hello");
-    console.log(this.tableQueryParameters);
-    this.getData();
+    // this.tableQueryParameters.filterParameters = [];
+    // this.tableData.headers.forEach((element: { filterField: any; }) => {
+    //   this.tableQueryParameters.filterParameters.push({
+    //     field: element.filterField,
+    //     value: event,
+    //     operator: 'contains'
+    //   });
+    // });
+    console.log(event);
+    // console.log(this.tableQueryParameters);
+    // this.getData();
   }
 }

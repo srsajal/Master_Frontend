@@ -77,7 +77,7 @@ export class MasterdetailheadComponent implements OnInit {
     };
   }
   getData() {
-    this.detailHeadService.getMasterDetailHead(this.tableQueryParameters).subscribe((response: any) => {
+    this.detailHeadService.getMasterDetailHead(true, this.tableQueryParameters).subscribe((response: any) => {
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
     });

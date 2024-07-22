@@ -82,7 +82,7 @@ export class MastersubdetailheadComponent implements OnInit {
     };
   }
   getData() {
-    this.subDetailHeadService.getMasterSubDetailHead(this.tableQueryParameters).subscribe((response: any) => {
+    this.subDetailHeadService.getMasterSubDetailHead(true, this.tableQueryParameters).subscribe((response: any) => {
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
     });
