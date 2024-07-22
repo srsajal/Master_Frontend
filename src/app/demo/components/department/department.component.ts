@@ -69,7 +69,7 @@ export class DepartmentComponent implements OnInit {
   }
 
   getData() {
-    this.deptservice.getMasterDepartment(this.tableQueryParameters).subscribe((response: any) => {
+    this.deptservice.getMasterDepartment(true,this.tableQueryParameters).subscribe((response: any) => {
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
       console.log(this.tableData, response);
@@ -96,9 +96,10 @@ export class DepartmentComponent implements OnInit {
   }
 
   editData(tmpid: number) {
-
+    
     this.deptservice.getMasterDepartmentById(tmpid).subscribe((res: Masterdept) => {
       console.log(res);
+      alert("clicked");
       this.userForm.patchValue({
         code: res.code,
         name: res.name,
