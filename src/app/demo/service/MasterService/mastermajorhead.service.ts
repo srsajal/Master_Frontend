@@ -17,8 +17,8 @@ export class MastermajorheadService {
 
   constructor() { }
 
-  getMHData(tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<any>>>(this.majorheadurl + 'GetMasterMAJORHEAD', tableQueryParameters)
+  getMHData(isActive:boolean,tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+    return this.http.post<IapiResponce<DynamicTable<any>>>(this.majorheadurl + 'GetMasterMAJORHEAD?isActive='+ isActive, tableQueryParameters)
   }
   postData(userForm : FormGroup){
     return this.http.post<majorHead>(this.majorheadurl + 'AddMasterMAJORHEAD', userForm.value)
@@ -31,5 +31,8 @@ export class MastermajorheadService {
   }
   delData(tmpid: number) {
     return this.http.delete(this.majorheadurl + 'DeleteMasterMAJORHEAD?id=' + `${tmpid}`)
+  }
+  onChange(tmpid: string){
+    return this.http.get(this.majorheadurl + 'CheckMasterMAJORHEADCode/' + tmpid)
   }
 }
