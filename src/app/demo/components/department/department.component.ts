@@ -99,7 +99,6 @@ export class DepartmentComponent implements OnInit {
     
     this.deptservice.getMasterDepartmentById(tmpid).subscribe((res: Masterdept) => {
       console.log(res);
-      alert("clicked");
       this.userForm.patchValue({
         code: res.code,
         name: res.name,
@@ -138,6 +137,7 @@ export class DepartmentComponent implements OnInit {
   }
 
   update(form: FormGroup) {
+    if(this.userForm.valid){
     this.deptservice.updateMasterDepartmentById(this.id, this.userForm).subscribe((res: any) => {
       console.log(res);
       this.getData();
@@ -147,8 +147,14 @@ export class DepartmentComponent implements OnInit {
     this.visible = false;
     this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
   }
+  else{
+    this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'Form Invalid', life: 2000 });
+
+  }
+}
 
   delData(tmpid: number) {
+   
     this.deptservice.deleteMasterDepartmentById(tmpid).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
@@ -159,6 +165,8 @@ export class DepartmentComponent implements OnInit {
       }
     );
   }
+  
+  
 
   showDialog() {
     // console.log("showdialog called");
