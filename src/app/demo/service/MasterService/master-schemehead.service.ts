@@ -17,12 +17,12 @@ export class SchemeHeadServiceService {
 
   constructor() { }
 
-  getmasterSCHEME_HEAD(tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<masterSchemeHead>>>(this.schemehead + 'GetMasterSCHEME_HEAD', tableQueryParameters)
+  getmasterSCHEME_HEAD(isActive:boolean,tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+    return this.http.post<IapiResponce<DynamicTable<masterSchemeHead>>>( 'http://localhost:5271/api/masterSCHEME_HEAD/GetMasterSCHEME_HEAD?isActive='+isActive, tableQueryParameters)
   }
 
   postmasterSCHEME_HEAD(userForm: FormGroup) {
-    return this.http.post<masterSchemeHead>(this.schemehead + 'AddMasterSCHEME_HEAD', userForm.value)
+    return this.http.post<masterSchemeHead>('http://localhost:5271/api/masterSCHEME_HEAD/AddMasterSCHEME_HEAD', userForm.value)
   }
 
   GetMasterSCHEME_HEADById(tmpid: number) {

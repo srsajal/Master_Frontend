@@ -3,9 +3,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { Code, masterSchemeHead, minorheadid } from 'src/Model/master.model';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, ConfirmEventType, MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { log } from 'console';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SchemeHeadServiceService } from '../../service/MasterService/master-schemehead.service';
 // import { IapiResponce } from 'src/Model/iapi-responce';
 @Component({
@@ -14,12 +15,14 @@ import { SchemeHeadServiceService } from '../../service/MasterService/master-sch
   styleUrls: ['./schemehead.component.scss']
 })
 export class SchemeheadComponent implements OnInit {
+  type:any
+  istableLoading:boolean = false;
   codes: minorheadid[] = [];
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
   alldata : number = 0;
- // apiUrl = 'http://localhost:5271/api/masterSCHEME_HEAD/'
+  //apiUrl = 'http://localhost:5271/api/masterSCHEME_HEAD/'
   visible : boolean = false;
   id : number = 0;
   isSubUp : boolean = true;
@@ -27,7 +30,7 @@ export class SchemeheadComponent implements OnInit {
   http = inject(HttpClient);
   messageService = inject(MessageService)
   headertext:string = 'Add SchemeHeadData';
-  constructor(private schemeheadservice : SchemeHeadServiceService) { }
+  constructor(private schemeheadservice : SchemeHeadServiceService,private confirmationService: ConfirmationService,) { }
 
   userForm: FormGroup = new FormGroup({
     demandCode: new FormControl('', [Validators.required, Validators.maxLength(2)]),
@@ -70,11 +73,15 @@ export class SchemeheadComponent implements OnInit {
   }
 
   getData() {
-    this.schemeheadservice.getmasterSCHEME_HEAD (this.tableQueryParameters)
+    this.istableLoading=true;
+    this.schemeheadservice.getmasterSCHEME_HEAD (true,this.tableQueryParameters)
       .subscribe((response: any) => {
+        this.istableLoading = false;
         this.tableData = response.result;
         this.alldata = response.result.dataCount;
         console.log(this.tableData, response);
+        
+
       });
   }
   getCodeFromMinorhead() {
@@ -91,35 +98,30 @@ export class SchemeheadComponent implements OnInit {
     });
   }
   submit(form : FormGroup){
-    //debugger;
-    alert('Form Submitted');
-
-      if (this.userForm.valid) {
-      //console.log(this.userForm.value);
-      this.schemeheadservice.postmasterSCHEME_HEAD(this.userForm).subscribe({
-        next: (res: masterSchemeHead) => {
+    console.log(this.userForm.value);
+    if(this.userForm.valid){
+    const data =this.userForm.value
+    this.http.post<masterSchemeHead>( 'http://localhost:5271/api/masterSCHEME_HEAD/AddmasterSCHEME-HEAD', data)
+      .subscribe(
+        (res:any) => {
           console.log(res);
           this.getData();
           this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
         },
-        error: (error: any) => {
-          console.error('Error adding MasterSchemeHead data:', error);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master SchemeHead data', life: 2000 });
+        (error: any) => {
+          console.error('Error submitting form:', error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to submit form', life: 2000 });
         }
-      });
-      form.reset();
-      this.visible = false;
-    }
-    else {
-      this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Form  Invalid !!', life: 2000 });
-    }
-
+      );}
+      else{
+        this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Invalid Form', life: 2000 });}
+    form.reset();
+    this.visible=false;
   }
-
 
   editData(tmpid: number) {
     this.schemeheadservice.GetMasterSCHEME_HEADById(tmpid).subscribe((res: masterSchemeHead) => {
-      console.log(res);
+        console.log(res);
       this.userForm.patchValue({
         demandCode: res.demandCode,
         code:res.code,
@@ -157,7 +159,7 @@ export class SchemeheadComponent implements OnInit {
         this.getData();
       });
     }
-
+ 
     form.reset();
     this.isSubUp = true;
     this.visible = false;
@@ -190,7 +192,7 @@ export class SchemeheadComponent implements OnInit {
       this.editData(event.rowData.id);
     }
     else if (event.buttonIdentifier == "del") {
-      this.delData(event.rowData.id);
+      this.confirm2(event.rowData.id);
     }
     else {
 
@@ -205,5 +207,18 @@ export class SchemeheadComponent implements OnInit {
     this.getData();
   }
 
+  confirm2(tmpid: number) {
+    this.confirmationService.confirm({
+        message: 'Do you want to delete this record?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+        accept: () => {
+          this.delData(tmpid);
+        },
+        reject: () => {
+          this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
 
+        }
+    });
+}
 }

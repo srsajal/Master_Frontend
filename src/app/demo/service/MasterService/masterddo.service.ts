@@ -23,7 +23,7 @@ export class MasterService {
   getMasterCodeTreasury(){
     return this.http.get<Code[]>(this.ddourl + 'GetTreasuryCode')
   }
-
+  
   postMasterDDO(userForm: FormGroup) {
     return this.http.post<MasterDdo>(this.ddourl + 'AddMasterDdo', userForm.value)
   }
