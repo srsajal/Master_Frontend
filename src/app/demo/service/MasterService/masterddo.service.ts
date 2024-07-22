@@ -14,7 +14,6 @@ export class MasterService {
 
   ddourl = environment.BaseURL + 'masterDDO/';
   http = inject(HttpClient);
-
   constructor() { }
 
   getMasterDDO(isActive:boolean,tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
