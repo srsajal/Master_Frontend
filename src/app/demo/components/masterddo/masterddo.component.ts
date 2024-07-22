@@ -98,11 +98,11 @@ export class MasterddoComponent implements OnInit {
   }
   getData() {
     // this.tableQueryParameters.filterParameters.push({
-    //   field: 'IsActive',
-    //   value: 'true',
+    //   field: 'Id',
+    //   value: '1685',
     //   operator:'equals'
     // });
-    this.masterService.getMasterDDO(this.tableQueryParameters).subscribe((response: any) => {
+    this.masterService.getMasterDDO(true,this.tableQueryParameters).subscribe((response: any) => {
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
 
@@ -112,6 +112,8 @@ export class MasterddoComponent implements OnInit {
   getCodeFromTreasury() {
     this.masterService.getMasterCodeTreasury().subscribe((res: Code[]) => {
       this.codes = res;
+      console.log(res);
+      
     },
       error => {
         console.error('Error fetching codes from Treasury:', error);

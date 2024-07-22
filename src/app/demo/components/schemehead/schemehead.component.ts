@@ -5,6 +5,7 @@ import { IapiResponce } from 'src/Model/iapi-responce';
 import { Code, masterSchemeHead, minorheadid } from 'src/Model/master.model';
 import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
+import { log } from 'console';
 // import { IapiResponce } from 'src/Model/iapi-responce';
 @Component({
   selector: 'app-schemehead',
@@ -82,6 +83,8 @@ export class SchemeheadComponent implements OnInit {
     this.http.get<minorheadid[]>('http://localhost:5271/api/masterSCHEME_HEAD/GetMasterSCHEME_HEADfromMINORHEADId').subscribe({
       next: (res: minorheadid[]) => {
         this.codes = res;
+        console.log(res);
+
       },
       error: (error) => {
         console.error('Error fetching codes from Treasury:', error);

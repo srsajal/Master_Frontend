@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { log } from 'console';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import { Code } from 'src/Model/master.model';
+import { majorHead, MasterDetailHead } from 'src/Model/master.model';
 
 @Component({
   selector: 'app-submajorhead',
@@ -22,7 +23,7 @@ export class SubmajorheadComponent implements OnInit {
 
   visible : boolean = false;
   id : number = 0;
-  codes: Code[] = [];
+  codes: MasterDetailHead[] = [];
   isSubUp : boolean = true;
   headertext:string = 'ADD SubMajorHead';
   
@@ -32,17 +33,14 @@ export class SubmajorheadComponent implements OnInit {
   constructor() { }
 
   userForm: FormGroup = new FormGroup({
-    majorheadcode: new FormControl('', [Validators.required, Validators.maxLength(4)]),
+    majorheadcode: new FormControl('', Validators.required),
     Code: new FormControl('', [Validators.required, Validators.maxLength(2)]),
     Name: new FormControl('',[Validators.required]),
-
-    
   });
 
   ngOnInit(): void {
     this.getmajorHeadcode();
     this.actionButtonConfig = [
-      
       {
         buttonIdentifier: 'edit',
         class: 'p-button-warning p-button-rounded p-button-raised',
@@ -79,8 +77,10 @@ export class SubmajorheadComponent implements OnInit {
 
   getmajorHeadcode() {
     this.http
-      .get<Code[]>(this.aurl + 'GetMajorHeadcode', )
-      .subscribe((res: Code[]) => {
+      .get<MasterDetailHead[]>(this.aurl + 'GetMajorHeadcode', )
+      .subscribe((res: MasterDetailHead[]) => {
+        console.log(res);
+        
         this.codes = res;
       },
         error => {
@@ -91,24 +91,28 @@ export class SubmajorheadComponent implements OnInit {
   }
 
   submit(form : FormGroup){
-    if(this.userForm.invalid){
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
-    }
-    else {
-    this.http.post<any>(this.apiUrl + 'AddMasterSubmajorHead', this.userForm.value).subscribe((res : any) =>{
-      console.log(res);
-      this.getData();
-      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
-    }
-    // error => {
-    //   console.error('Error adding MasterDDO data:', error);
-    //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+
+    console.log(this.codes);
+    console.log(this.userForm.value);
     
-    // }
-  );
-    form.reset();
-    this.visible=false;
- }
+//     if(this.userForm.invalid){
+//       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+//     }
+//     else {
+//     this.http.post<any>(this.apiUrl + 'AddMasterSubmajorHead', this.userForm.value).subscribe((res : any) =>{
+//       console.log(res);
+//       this.getData();
+//       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+//     }
+//     // error => {
+//     //   console.error('Error adding MasterDDO data:', error);
+//     //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+    
+//     // }
+//   );
+//     form.reset();
+//     this.visible=false;
+//  }
   }
 
   editData(tmpid: number) {

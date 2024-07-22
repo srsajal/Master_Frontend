@@ -17,8 +17,8 @@ export class MasterService {
 
   constructor() { }
 
-  getMasterDDO(tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'GetMasterDdo', tableQueryParameters)
+  getMasterDDO(isActive:boolean,tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'GetMasterDdo?isActive='+isActive, tableQueryParameters)
   }
 
   getMasterCodeTreasury(){
