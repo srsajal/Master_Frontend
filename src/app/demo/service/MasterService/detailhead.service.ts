@@ -16,8 +16,8 @@ export class DetailheadService {
 
   constructor() { }
 
-  getMasterDetailHead(tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<MasterDetailHead>>>(this.ddourl + 'GetMasterDetailHead', tableQueryParameters)
+  getMasterDetailHead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+    return this.http.post<IapiResponce<DynamicTable<MasterDetailHead>>>(this.ddourl + 'GetMasterDetailHead?isActive='+isActive, tableQueryParameters)
   }
 
   // getMasterCodeTreasury(){

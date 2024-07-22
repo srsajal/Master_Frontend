@@ -72,14 +72,12 @@
   <p-toast></p-toast>
   </div>
   
-  <mh-prime-dynamic-table *ngIf="tableData!=null||tableData!=undefined"
+  <mh-prime-dynamic-table
     size="small"
     [numberRowsShown]="10"
     [rowsPerPageOptions]="[10, 30, 50]"
-    [headers]="tableData.headers"
-    [data]="tableData.data"
+    [data]="tableData"
     rowSelectionMode="multiple"
-    [dataCount]="alldata"
     [actionButtons]="actionButtonConfig"
     (rowSelect)="handleRowSelection($event)"
     (actionButtonClicked)="handleButtonClick($event)"
