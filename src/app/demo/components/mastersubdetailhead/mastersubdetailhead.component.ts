@@ -23,6 +23,7 @@ export class MastersubdetailheadComponent implements OnInit {
   codes: MasterDetailHead[] = [];
   // headertext: string = 'ADD DDO DATA';
   dialogButts: number = 1;
+  istableLoading:boolean = false;
   
   // http = inject(HttpClient);
   messageService = inject(MessageService);
@@ -82,7 +83,9 @@ export class MastersubdetailheadComponent implements OnInit {
     };
   }
   getData() {
+    this.istableLoading = true;
     this.subDetailHeadService.getMasterSubDetailHead(true, this.tableQueryParameters).subscribe((response: any) => {
+      this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
     });
