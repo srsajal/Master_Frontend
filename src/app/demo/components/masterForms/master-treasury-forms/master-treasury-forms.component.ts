@@ -1,20 +1,21 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { Code, MasterDdo } from 'src/Model/master.model';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MasterService } from 'src/app/demo/service/MasterService/masterddo.service';
+import { MasterTreasuryService } from 'src/app/demo/service/MasterService/master-treasury.service';
+import { Code, MasterTreasury } from 'src/Model/master.model';
 
 @Component({
-  selector: 'app-masterddoforms',
-  templateUrl: './masterddoforms.component.html',
-  styleUrls: ['./masterddoforms.component.scss']
+  selector: 'app-master-treasury-forms',
+  templateUrl: './master-treasury-forms.component.html',
+  styleUrls: ['./master-treasury-forms.component.scss']
 })
-export class MasterddoformsComponent implements OnInit {
+export class MasterTreasuryFormsComponent implements OnInit {
+
   id : number = 0;
   isDisable : boolean = false;
   getTCode : string = '';
-  formMaster?: MasterDdo;
+  formMaster?: MasterTreasury;
   
   codes: Code[] = [];
   userForm: FormGroup = new FormGroup({});
@@ -23,7 +24,7 @@ export class MasterddoformsComponent implements OnInit {
 
 
   fb = inject(FormBuilder);
-  masterService = inject(MasterService);
+  masterService = inject(MasterTreasuryService);
   messageService = inject(MessageService);
   constructor(public config : DynamicDialogConfig, public ref : DynamicDialogRef) {
     this.id = config.data.id;
@@ -49,18 +50,18 @@ export class MasterddoformsComponent implements OnInit {
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
-      TreasuryCode: [{ value: this.formMaster?.treasuryCode ?? '', disabled: isDisabled }, Validators.required],
+      DistrictName: [{ value: this.formMaster?.districtName ?? '', disabled: isDisabled }, Validators.required],
+      DistrictCode: [{ value: this.formMaster?.districtCode ?? '', disabled: isDisabled }, ],
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
-      Designation: [{ value: this.formMaster?.designation ?? '', disabled: isDisabled }, Validators.required],
-      Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, Validators.required],
-      Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, Validators.required]
+      Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required]
+      
     });
 
     return _newForm;
   }
   submit() {
     if (this.userForm.valid) {
-      this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
+      this.masterService.postMasterTreasury(this.userForm).subscribe((res: MasterTreasury) => {
         console.log(res);
         this.pgetData();
         this.ref.close();
@@ -82,7 +83,7 @@ export class MasterddoformsComponent implements OnInit {
   }
 
   getDataById() {
-    this.masterService.getMasterDDOById(this.id).subscribe((res: MasterDdo) => {
+    this.masterService.getMasterTreasuryById(this.id).subscribe((res: MasterTreasury) => {
       this.formMaster = res;
       this.userForm = this.initializeMasterForm(this.isDisable);
       // console.log(res, this,this.dialogButts);
@@ -96,7 +97,7 @@ export class MasterddoformsComponent implements OnInit {
   
   update() {
     if (this.userForm.valid) {
-      this.masterService.updateMasterDDOById(this.id, this.userForm).subscribe((res: MasterDdo) => {
+      this.masterService.updateMasterTreasuryById(this.id, this.userForm).subscribe((res: MasterTreasury) => {
         console.log(res);
         this.pgetData();
         this.ref.close();
@@ -127,6 +128,5 @@ export class MasterddoformsComponent implements OnInit {
     this.ref.close();
     this.dialogButts = 1;
   }
-
 
 }

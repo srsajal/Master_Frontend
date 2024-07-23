@@ -42,6 +42,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {CardModule} from 'primeng/card';
 import {ChartModule} from 'primeng/chart';
+import { MasterTreasuryFormsComponent } from './demo/components/masterForms/master-treasury-forms/master-treasury-forms.component';
+
 
 
 
@@ -59,7 +61,9 @@ import {ChartModule} from 'primeng/chart';
         MasterdetailheadformComponent,
         MastersubdetailheadformComponent,
         MinorheadComponent,
-        SubmajorheadComponent,    
+        SubmajorheadComponent,
+        MasterTreasuryFormsComponent,
+          
     ],
     imports: [
         AppRoutingModule,
