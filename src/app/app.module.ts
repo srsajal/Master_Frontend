@@ -40,6 +40,7 @@ import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhe
 import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import {CardModule} from 'primeng/card';
 
 
 
@@ -78,6 +79,7 @@ import {ConfirmationService} from 'primeng/api';
         DynamicDialogModule,
         ConfirmPopupModule,
         ConfirmDialogModule,
+        CardModule,
 
     ],
     providers: [
