@@ -35,6 +35,10 @@ export class SchemeHeadServiceService {
   deletemasterSCHEME_HEAD(tmpid : number){
     return  this.http.delete('http://localhost:5271/api/masterSCHEME_HEAD/DeleteMasterSchemeHead?id=' + `${tmpid}`)
   }
+  countMasterSchemeHead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<masterSchemeHead>>>(this.schemehead + 'CountMasterDdo?isActive='+isActive, tableQueryParameters)
+  }
+
   }
 
 

@@ -35,4 +35,8 @@ export class MastermajorheadService {
   onChange(tmpid: string){
     return this.http.get(this.majorheadurl + 'CheckMasterMAJORHEADCode/' + tmpid)
   }
+  countMasterMajorHead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<majorHead>>>(this.majorheadurl + 'CountMasterDdo?isActive='+isActive, tableQueryParameters)
+  }
+
 }
