@@ -1,0 +1,81 @@
+
+<div class="custom-dialog">
+    <div class="flex flex-wrap align-items-center justify-content-end">
+        <!-- <div class="addstubutt"><p-button (click)="showDialog()" label="ADD DDO"></p-button>
+    </div> -->
+    <form [formGroup]="userForm" >
+        
+              <div class="formgrid grid">
+                <div class="field col">
+                    <label for="firstname2">District Name <span class="red"> *</span></label>
+                    <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="DistrictName">
+                    <div *ngIf="userForm.get('districtName')?.invalid && userForm.get('districtName')?.touched" class="error">
+                        District Name is required and should not exceed 30 characters.
+                      </div>
+                </div>
+                <div class="field col">
+                    <label for="lastname2">District Code</label>
+                    <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="DistrictCode">
+                    
+                </div>
+              </div>
+              <div class="formgrid grid">
+              <div class="field col">
+                <label for="firstname2">Treasury Code <span class="red"> *</span></label>
+                <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Code">
+                <div *ngIf="userForm.get('code')?.invalid && userForm.get('code')?.touched" class="error">
+                    Code is required and should not exceed 3 characters.
+                  </div>
+              </div>
+              <div class="field col">
+                <label for="firstname2">Treasury Name <span class="red"> *</span></label>
+                <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Name">
+                <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched" class="error">
+                    Name is required and should not exceed 100 characters.
+                  </div>
+              </div>
+              </div>
+              <div class="button-container" *ngIf="(dialogButts == 1); else elseBlock1">
+                <div class="formgrid grid">
+                    <div class="col-9">
+                        <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
+                            icon="pi pi-times" iconPos="left" styleClass="p-button-warning"
+                            (click)="cancel()"></p-button>
+                    </div>
+                    <div class="field col">
+                        <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4"
+                            styleClass="p-button-success" label="Submit" icon="pi pi-check" iconPos="left"
+                            (click)="submit()"></p-button>
+                    </div>
+                </div>
+            </div>
+            <ng-template #elseBlock1>
+                <div class="button-container" *ngIf="(dialogButts == 2);else elseBlock2">
+                    <div class="formgrid grid">
+                        <div class="col-9">
+                            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
+                                icon="pi pi-times" iconPos="left" styleClass="p-button-warning"
+                                (click)="cancel()"></p-button>
+                        </div>
+                        <div class="field col">
+                            <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4"
+                                label="Update" icon="pi pi-check" iconPos="left" styleClass="p-button-success"
+                                (click)="update()"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #elseBlock2>
+                <div class="button-container" *ngIf="(dialogButts == 3)">
+                  <div class="formgrid grid">
+                    <div class="col">
+                      <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Close"
+                        icon="pi pi-times" iconPos="left" (click)="hide()"></p-button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+      </form>
+        <!-- <p-toast></p-toast> -->
+    </div>
+</div>  

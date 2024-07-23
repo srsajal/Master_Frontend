@@ -1,11 +1,15 @@
 import { Component, OnInit , inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 //import { MasterTreasury } from 'src/Model/master-treasury.model';
 import { HttpClient } from '@angular/common/http';
-import { MasterTreasury } from 'src/Model/master.model';
+import { Code, MasterTreasury } from 'src/Model/master.model';
+import { MasterService } from '../../service/MasterService/masterddo.service';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MasterTreasuryFormsComponent } from '../masterForms/master-treasury-forms/master-treasury-forms.component';
+import { MasterTreasuryService } from '../../service/MasterService/master-treasury.service';
 
 @Component({
   selector: 'app-treasury',
@@ -13,35 +17,65 @@ import { MasterTreasury } from 'src/Model/master.model';
   styleUrls: ['./treasury.component.scss']
 })
 export class TreasuryComponent implements OnInit {
-
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
-  alldata : number = 0;
-  apiUrl = 'http://localhost:5271/api/masterTreasury/'
-  visible : boolean = false;
-  id : number = 0;
-  isSubUp : boolean = true;
+  istableLoading: boolean = false;
+  alldata: number = 0;
+  visible: boolean = false;
+  id: number = 0;
+  codes: Code[] = [];
+  // headertext: string = 'ADD DDO DATA';
+  dialogButts: number = 1;
 
-  http = inject(HttpClient);
+  // http = inject(HttpClient);
   messageService = inject(MessageService);
-  constructor() { }
-  userForm: FormGroup = new FormGroup({
-    districtName: new FormControl('', [Validators.required, Validators.maxLength(30)]),
-    districtCode: new FormControl(null),
-    Code: new FormControl('', [Validators.required,Validators.maxLength(3)]),
-    name: new FormControl('', [Validators.required,Validators.maxLength(100)])
-   
-  });
+  masterService = inject(MasterTreasuryService);
+  confirmationService = inject(ConfirmationService);
+
+  ref: DynamicDialogRef | undefined;
+  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) { }
+  show() {
+    this.ref = this.dialogService.open(MasterTreasuryFormsComponent, {
+      data: {
+        dialogButt: 1,
+        code: this.codes,
+        isDisable: false,
+        pgetData: this.getData.bind(this),
+
+      },
+      width: '50rem',
+      modal: true,
+      header: 'ADD TREASURY DATA'
+    });
+  }
+
+  // userForm: FormGroup = new FormGroup({
+  //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
+  //   Code: new FormControl('', Validators.required),
+  //   Designation: new FormControl('', Validators.required),
+  //   Address: new FormControl(''),
+  //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
+  // });
 
   ngOnInit(): void {
+    // this.userForm.reset();
+    // this.userForm = this.initializeMasterForm();
+    this.tableInitialize();
+    this.getData();
+   // this.getCodeFromTreasury();
+    // console.log("table reloaded");
+
+  }
+
+  tableInitialize() {
     this.actionButtonConfig = [
-      // {
-      //   buttonIdentifier: 'view',
-      //   class: 'p-button-rounded p-button-raised',
-      //   icon: 'pi pi-eye',
-      //   lable: 'View',
-      // },
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
       {
         buttonIdentifier: 'edit',
         class: 'p-button-warning p-button-rounded p-button-raised',
@@ -60,108 +94,166 @@ export class TreasuryComponent implements OnInit {
       pageIndex: 0,
       filterParameters: [],
     };
-    this.getData();
-    console.log(this.tableData);
   }
+  getData(isActive: boolean = true) {
+    // this.tableQueryParameters.filterParameters.push({
+    //   field: 'Id',
+    //   value: '1685',
+    //   operator:'equals'
+    // });
+    this.istableLoading = true;
+    this.masterService.getMasterTreasury(isActive, this.tableQueryParameters).subscribe((response: any) => {
+      this.istableLoading = false;
+      this.tableData = response.result;
+      this.alldata = response.result.dataCount;
 
-
-  submit(form : FormGroup){
-    if(this.userForm.valid){
-      this.http.post<MasterTreasury>(this.apiUrl + 'AddMasterTreasury', this.userForm.value).subscribe((res : any) =>{
-        console.log(res);
-        this.getData();
-      });
-      form.reset();
-      this.visible=false;
-      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
-    }
-    else{
-      this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Invalid Form', life: 2000 });
-    }
-   
-  }
-
-  getData() {
-    this.http
-      .post<IapiResponce<DynamicTable<MasterTreasury>>>(this.apiUrl + 'GetMasterTreasury', this.tableQueryParameters)
-      .subscribe((response: any) => {
-        this.tableData = response.result;
-        this.alldata = response.result.dataCount;
-        console.log(this.tableData, response);
-        
-
-      });
-  }
-  editData(tmpid: number) {
-    this.http.get<MasterTreasury>(this.apiUrl + 'GetMasterTreasuryById?id=' + `${tmpid}`).subscribe((res:MasterTreasury) => {
-      console.log(res);
-      this.userForm.patchValue({
-        districtName: res.districtName,
-        districtCode: res.districtCode,
-        Code: res.code,
-        name: res.name
-        
-      });
-      this.userForm.markAllAsTouched();
-      this.userForm.markAsDirty();
-    },
-      error => {
-        console.error('Error fetching student data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch student data by ID', life: 2000 });
-      }
-    );
-    this.visible = true;
-    this.id = tmpid;
-    this.isSubUp = false;
-  }
-  cancel(form: FormGroup) {
-    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have Cancelled', life: 2000 });
-    form.reset();
-    this.isSubUp = true;
-    this.visible = false;
-  }
-  hide(form: FormGroup) {
-    form.reset();
-    this.isSubUp = true;
-    this.visible = false;
-  }
-
-  update(form : FormGroup){
-    if(this.userForm.invalid){
-      this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Invalid Form', life: 2000 });
-    }
-    else{
-    this.http.put<MasterTreasury>(this.apiUrl + 'UpdateMasterTreasury?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
-      console.log(res);
-      this.getData();
+      console.log(response);
     });
-    form.reset();
-    this.isSubUp = true;
-    this.visible = false;
-    this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
   }
-}
-  
+  // getCodeFromTreasury() {
+  //   this.masterService.getMasterCodeTreasury().subscribe((res: Code[]) => {
+  //     this.codes = res;
+  //     console.log(res);
+
+  //   },
+  //     error => {
+  //       console.error('Error fetching codes from Treasury:', error);
+  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
+  //     }
+  //   );
+  // }
+
+  editData(tmpid: number) {
+    this.ref = this.dialogService.open(MasterTreasuryFormsComponent, {
+      data: {
+        dialogButt: 2,
+        code: this.codes,
+        id: tmpid,
+        isDisable: false,
+        pgetData: this.showNormalData.bind(this),
+
+      },
+      width: '50rem',
+      modal: true,
+      header: 'EDIT TREASURY DATA'
+    });
+  }
+
+  confirmDelete(id: number) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.delData(id);
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+      }
+    });
+  }
 
   delData(tmpid: number) {
-    this.http.delete(this.apiUrl + 'DeleteMasterTreasury?id=' + `${tmpid}`).subscribe(() => {
-      this.getData();
+    this.masterService.deleteMasterTreasuryById(tmpid).subscribe(() => {
+      this.showNormalData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
-    error => {
-      console.error('Error deleting student data:', error);
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete record', life: 2000 });
-    }
-  );
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterDDO record', life: 2000 });
+      }
+    );
+  }
+  restoreData(tmpid: number) {
+    this.masterService.restoreMasterTreasuryById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+      }
+    );
   }
 
-  showDialog() {
-    // console.log("showdialog called");
-    // 
-    //this.submit();
-    this.visible = true;
+
+
+
+
+  viewData(tmpid: number) {
+    this.masterService.getMasterTreasuryById(tmpid).subscribe((res: MasterTreasury) => {
+      this.ref = this.dialogService.open(MasterTreasuryFormsComponent, {
+        data: {
+          dialogButt: 3,
+          code: this.codes,
+          id: tmpid,
+          isDisable: true,
+          // pgetData : this.getData.bind(this),
+
+        },
+        width: '50rem',
+        modal: true,
+        header: 'EDIT TREASURY DATA'
+      });
+      //this.userForm.markAllAsTouched();
+      //this.userForm.markAsDirty();
+    },
+      error => {
+        console.error('Error fetching MasterDDO data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+      }
+    );
   }
 
+
+  // showDialog() {
+  // console.log("showdialog called");
+  // this.visible = true;
+  // this.userForm.reset();
+  // this.userForm = this.initializeMasterForm(false);
+  // console.log(this.userForm);
+  // }
+
+  showDeletedData() {
+    this.actionButtonConfig = [
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
+      {
+        buttonIdentifier: 'restore',
+        class: 'p-button-warning p-button-rounded p-button-raised',
+        icon: 'pi pi-undo',
+        lable: 'Restore',
+      },
+    ];
+    this.getData(false);
+  }
+  showNormalData() {
+    this.actionButtonConfig = [
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
+      {
+        buttonIdentifier: 'edit',
+        class: 'p-button-warning p-button-rounded p-button-raised',
+        icon: 'pi pi-file-edit',
+        lable: 'Edit',
+      },
+      {
+        buttonIdentifier: 'del',
+        class: 'p-button-danger p-button-rounded p-button-raised',
+        icon: 'pi pi-trash',
+        lable: 'Delete',
+      }
+    ];
+    this.getData(true);
+  }
   handleRowSelection($event: any) {
     console.log("Download the details from above");
   }
@@ -170,10 +262,13 @@ export class TreasuryComponent implements OnInit {
       this.editData(event.rowData.id);
     }
     else if (event.buttonIdentifier == "del") {
-      this.delData(event.rowData.id);
+      this.confirmDelete(event.rowData.id);
     }
-    else {
-
+    else if (event.buttonIdentifier == "view") {
+      this.viewData(event.rowData.id);
+    }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
     }
   }
   handQueryParameterChange(event: any) {
@@ -182,6 +277,20 @@ export class TreasuryComponent implements OnInit {
       pageIndex: event.pageIndex,
       filterParameters: event.filterParameters || [],
     };
+    console.log(this.tableQueryParameters)
     this.getData();
+  }
+  handleSearch(event: any) {
+    // this.tableQueryParameters.filterParameters = [];
+    // this.tableData.headers.forEach((element: { filterField: any; }) => {
+    //   this.tableQueryParameters.filterParameters.push({
+    //     field: element.filterField,
+    //     value: event,
+    //     operator: 'contains'
+    //   });
+    // });
+    console.log(event);
+    // console.log(this.tableQueryParameters);
+    // this.getData();
   }
 }
