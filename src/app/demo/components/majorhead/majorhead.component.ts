@@ -16,6 +16,7 @@ export class MajorheadComponent implements OnInit {
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
+  istableLoading:boolean = false;
   alldata: number = 0;
   apiUrl = 'http://localhost:5271/api/masterMajorHead/'
   visible: boolean = false;
@@ -64,7 +65,9 @@ export class MajorheadComponent implements OnInit {
   }
 
   getData() {
+    this.istableLoading=true;
     this.majorHeadService.getMHData(true,this.tableQueryParameters).subscribe((response: any) => {
+      this.istableLoading=false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
       console.log(this.tableData, response);
