@@ -167,7 +167,7 @@ export class MasterddoComponent implements OnInit {
     );
   }
   restoreData(tmpid: number) {
-    this.masterService.restoreMasterDetailHeadById(tmpid).subscribe(() => {
+    this.masterService.restoreMasterDdoById(tmpid).subscribe(() => {
       this.showDeletedData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
     },

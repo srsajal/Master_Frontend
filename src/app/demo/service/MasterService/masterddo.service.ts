@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { log } from 'console';
 import { DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -38,8 +39,11 @@ export class MasterService {
   deleteMasterDDOById(tmpid : number){
     return  this.http.delete(this.ddourl + 'DeleteMasterDdo?id=' + `${tmpid}`)
   }
-  restoreMasterDetailHeadById(tmpid : number){
+  restoreMasterDdoById(tmpid : number){
     return this.http.delete(this.ddourl + 'RestoreMasterDdo?id='  + `${tmpid}`);
+  }
+  countMasterDdo(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'CountMasterDdo?isActive='+isActive, tableQueryParameters)
   }
 
 }

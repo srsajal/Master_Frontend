@@ -41,4 +41,8 @@ export class DetailheadService {
   restoreMasterDetailHeadById(tmpid : number){
     return this.http.delete(this.ddourl + 'RestoreMasterDetailHead?id='  + `${tmpid}`);
   }
+  countMasterDetailHead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<MasterDetailHead>>>(this.ddourl + 'CountMasterDetailHead?isActive='+isActive, tableQueryParameters)
+  }
+
 }

@@ -38,4 +38,8 @@ export class SubdetailheadService {
   deleteMasterSubDetailHeadById(tmpid : number){
     return  this.http.delete(this.ddourl + 'DeleteMasterSubDetailHead?id=' + `${tmpid}`)
   }
+  countMasterSubDetailHead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<MasterSubDetailHead>>>(this.ddourl + 'CountMasterSubDetailHead?isActive='+isActive, tableQueryParameters)
+  }
+
 }
