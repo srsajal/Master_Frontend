@@ -36,7 +36,7 @@ export class MasterTreasuryService {
   }
 
   restoreMasterTreasuryById(tmpid : number){
-    return this.http.delete(this.treasuryurl + 'DeleteMasterTreasury?id='  + `${tmpid}`);
+    return this.http.delete(this.treasuryurl + 'RestoreMasterTreasury?id='  + `${tmpid}`);
   }
   countMasterTreasury(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
     return this.http.post<IapiResponce<DynamicTable<MasterTreasury>>>(this.treasuryurl + 'CountMasterTreasury?isActive='+isActive, tableQueryParameters)
