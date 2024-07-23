@@ -2,20 +2,20 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MasterTreasuryService } from 'src/app/demo/service/MasterService/master-treasury.service';
-import { Code, MasterTreasury } from 'src/Model/master.model';
+import { MinorheadService } from 'src/app/demo/service/MasterService/minorhead.service';
+import { Code, minorHead } from 'src/Model/master.model';
 
 @Component({
-  selector: 'app-master-treasury-forms',
-  templateUrl: './master-treasury-forms.component.html',
-  styleUrls: ['./master-treasury-forms.component.scss']
+  selector: 'app-master-minorhead-forms',
+  templateUrl: './master-minorhead-forms.component.html',
+  styleUrls: ['./master-minorhead-forms.component.scss']
 })
-export class MasterTreasuryFormsComponent implements OnInit {
+export class MasterMinorheadFormsComponent implements OnInit {
 
   id : number = 0;
   isDisable : boolean = false;
   getTCode : string = '';
-  formMaster?: MasterTreasury;
+  formMaster?: minorHead;
   
   codes: Code[] = [];
   userForm: FormGroup = new FormGroup({});
@@ -24,7 +24,7 @@ export class MasterTreasuryFormsComponent implements OnInit {
 
 
   fb = inject(FormBuilder);
-  masterService = inject(MasterTreasuryService);
+  masterService = inject(MinorheadService);
   messageService = inject(MessageService);
   constructor(public config : DynamicDialogConfig, public ref : DynamicDialogRef) {
     this.id = config.data.id;
@@ -50,18 +50,17 @@ export class MasterTreasuryFormsComponent implements OnInit {
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
-      DistrictName: [{ value: this.formMaster?.districtName ?? '', disabled: isDisabled }, Validators.required],
-      DistrictCode: [{ value: this.formMaster?.districtCode ?? '', disabled: isDisabled }, ],
-      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required,Validators.minLength(3)],
-      Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required]
-      
+      SubMajorHeadCode: [{ value: this.formMaster?.submajorheadId ?? '', disabled: isDisabled }, Validators.required],
+      MinorCode: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
+      MinorName: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required]
+     
     });
 
     return _newForm;
   }
   submit() {
     if (this.userForm.valid) {
-      this.masterService.postMasterTreasury(this.userForm).subscribe((res: MasterTreasury) => {
+      this.masterService.postMasterMinorhead(this.userForm).subscribe((res: minorHead) => {
         console.log(res);
         this.pgetData();
         this.ref.close();
@@ -83,7 +82,7 @@ export class MasterTreasuryFormsComponent implements OnInit {
   }
 
   getDataById() {
-    this.masterService.getMasterTreasuryById(this.id).subscribe((res: MasterTreasury) => {
+    this.masterService.getMasterMinorheadById(this.id).subscribe((res: minorHead) => {
       this.formMaster = res;
       this.userForm = this.initializeMasterForm(this.isDisable);
       // console.log(res, this,this.dialogButts);
@@ -97,7 +96,7 @@ export class MasterTreasuryFormsComponent implements OnInit {
   
   update() {
     if (this.userForm.valid) {
-      this.masterService.updateMasterTreasuryById(this.id, this.userForm).subscribe((res: MasterTreasury) => {
+      this.masterService.updateMasterMinorheadById(this.id, this.userForm).subscribe((res: minorHead) => {
         console.log(res);
         this.pgetData();
         this.ref.close();
