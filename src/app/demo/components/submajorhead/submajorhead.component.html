@@ -13,8 +13,8 @@
           [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
     
           <div class="mb-4 mt-3">
-            <label class="text-2xl" for="firstname2">Select MajorHead_ID <span class="red"> *</span> : </label>
-            <p-dropdown class="ml-3" [style]="{'width':'64%'}" [options]="codes" formControlName="majorheadcode"
+            <label class="text-2xl" for="firstname2">Select MajorHead <span class="red"> *</span> : </label>
+            <p-dropdown class="ml-3"[virtualScroll]="true" [virtualScrollItemSize]="30" [style]="{'width':'64%'}" [options]="codes" formControlName="majorheadcode"
               placeholder="Select MajorHead ID" optionLabel="name" optionValue="id" >
               <ng-template let-option pTemplate="item">
                 {{ option.code }} : {{ option.name }}
@@ -82,6 +82,6 @@
       [actionButtons]="actionButtonConfig"
       (rowSelect)="handleRowSelection($event)"
       (actionButtonClicked)="handleButtonClick($event)"
-      (queryParameterChange)="handQueryParameterChange($event)"
+      (queryParameterChange)="handQueryParameterChange($event)"[isLoading]="istableLoading" [showTopMenubar]="false" [showGlobalSearch]="false"
     >
     </mh-prime-dynamic-table>

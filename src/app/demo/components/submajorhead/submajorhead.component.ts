@@ -15,6 +15,7 @@ import { majorHead, MasterDetailHead } from 'src/Model/master.model';
 export class SubmajorheadComponent implements OnInit {
 
   tableData: any;
+  istableLoading:boolean = false;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
   alldata : number = 0;
@@ -64,9 +65,11 @@ export class SubmajorheadComponent implements OnInit {
   }
 
   getData() {
+    this.istableLoading=true;
     this.http
       .post<IapiResponce<DynamicTable<any>>>(this.apiUrl + 'GetMastersubmajorhead', this.tableQueryParameters)
       .subscribe((response: any) => {
+        this.istableLoading=false;
         this.tableData = response.result;
         this.alldata = response.result.dataCount;
         console.log(this.tableData, response);
