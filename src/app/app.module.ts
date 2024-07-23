@@ -41,6 +41,7 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {CardModule} from 'primeng/card';
+import {ChartModule} from 'primeng/chart';
 
 
 
@@ -80,6 +81,7 @@ import {CardModule} from 'primeng/card';
         ConfirmPopupModule,
         ConfirmDialogModule,
         CardModule,
+        ChartModule,
 
     ],
     providers: [

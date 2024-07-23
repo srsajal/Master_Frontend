@@ -1,4 +1,9 @@
-<div class="grid">
+<p-button class="mb-5" label="See Graph" icon="pi pi-eye" (click)="showGraph()"></p-button>
+<div *ngIf="openGraph" class="card">
+    <h5>Master Graph</h5>
+    <p-chart type="bar" width="89rem" [data]="basicData" [options]="basicOptions"></p-chart>
+</div>
+<div class="grid mt-3">
     <div class="col">
         <p-card header="DDO" [style]="{width: '360px'}" styleClass="p-card-shadow">
             <p style="font-size: large;">Total DDO
