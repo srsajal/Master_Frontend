@@ -157,6 +157,11 @@ export class MasterdetailheadComponent implements OnInit {
         lable: 'View',
       }
     ];
+    this.tableQueryParameters = {
+      pageSize: 10,
+      pageIndex: 0,
+      filterParameters: [],
+    };
     this.getData(false);
   }
   showNormalData(){
@@ -180,6 +185,11 @@ export class MasterdetailheadComponent implements OnInit {
         lable: 'Delete',
       }
     ];
+    this.tableQueryParameters = {
+      pageSize: 10,
+      pageIndex: 0,
+      filterParameters: [],
+    };
     this.getData();
   }
 

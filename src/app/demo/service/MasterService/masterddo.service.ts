@@ -6,7 +6,7 @@ import { DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-tabl
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import { Code, MasterDdo } from 'src/Model/master.model';
+import { AllMasterCount, Code, MasterDdo } from 'src/Model/master.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,11 @@ export class MasterService {
     return this.http.delete(this.ddourl + 'RestoreMasterDdo?id='  + `${tmpid}`);
   }
   countMasterDdo(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
-    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'CountMasterDdo?isActive='+isActive, tableQueryParameters)
+    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'CountMasterDdo?isActive='+isActive, null)
+  }
+
+  countAllMaster(){
+    return this.http.get<AllMasterCount>(this.ddourl + 'CountAllMaster')
   }
 
 }

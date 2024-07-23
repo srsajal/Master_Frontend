@@ -231,6 +231,11 @@ export class MasterddoComponent implements OnInit {
         lable: 'Restore',
       },
     ];
+    this.tableQueryParameters = {
+      pageSize: 10,
+      pageIndex: 0,
+      filterParameters: [],
+    };
     this.getData(false);
   }
   showNormalData() {
@@ -254,6 +259,11 @@ export class MasterddoComponent implements OnInit {
         lable: 'Delete',
       }
     ];
+    this.tableQueryParameters = {
+      pageSize: 10,
+      pageIndex: 0,
+      filterParameters: [],
+    };
     this.getData(true);
   }
   handleRowSelection($event: any) {

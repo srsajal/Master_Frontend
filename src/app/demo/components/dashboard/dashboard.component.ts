@@ -1,19 +1,26 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MasterService } from '../../service/MasterService/masterddo.service';
 import { DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { DetailheadService } from '../../service/MasterService/detailhead.service';
-import { SubdetailheadService } from '../../service/MasterService/subdetailhead.service';
-import { DepartmentServiceService } from '../../service/MasterService/department-service.service';
-import { MastermajorheadService } from '../../service/MasterService/mastermajorhead.service';
-import { SchemeHeadServiceService } from '../../service/MasterService/master-schemehead.service';
+import { AllMasterCount } from 'src/Model/master.model';
 
 @Component({
     templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
     basicData: any;
+
+    ddoData: any;
+    detailHeadData: any;
+    subDetailHeadData: any;
+    departmentData: any;
+    majorHeadData: any;
+    schemeHeadData: any;
+    minorHeadData: any;
+    subMajorHeadData: any;
+    treasuryData: any;
+
     countCall: number = 0;
-    openGraph : boolean = false;
+    openGraph: boolean = false;
 
     basicOptions: any;
 
@@ -46,163 +53,221 @@ export class DashboardComponent implements OnInit {
     totalActiveTreasury: number = 0;
     totalInActiveTreasury: number = 0;
 
-
-
-
-    tableQueryParameters !: DynamicTableQueryParameters | any;
+    tableQueryParameters!: DynamicTableQueryParameters | any;
     /**
      *
      */
-    constructor(private masterDdoService: MasterService, private detailHeadService: DetailheadService, private subDetailHeadService: SubdetailheadService, private deparmentService: DepartmentServiceService, private majorHeadService: MastermajorheadService, private schemeHeadService: SchemeHeadServiceService,) {
-
-    }
+    constructor(private masterDdoService: MasterService) { }
     ngOnInit(): void {
-        this.tableQueryParameters = {
-            pageSize: 10,
-            pageIndex: 0,
-            filterParameters: [],
+        this.getAllMasterCount();
+    }
+
+    getAllMasterCount() {
+        this.masterDdoService.countAllMaster().subscribe((res: AllMasterCount) => {
+            console.log(res);
+            this.totalActiveDdo = res.totalActiveDdo;
+            this.totalInActiveDdo = res.totalInactiveDdo;
+
+            this.totalActiveDetailHead = res.totalActiveDetailHead;
+            this.totalInActiveDetailHead = res.totalInactiveDetailHead;
+
+            this.totalActiveSubDetailHead = res.totalActiveSubDetailHead;
+            this.totalInActiveSubDetailHead = res.totalInactiveSubDetailHead;
+
+            this.totalActiveDepartment = res.totalActiveDepartment;
+            this.totalInActiveDepartment = res.totalInactiveDepartment;
+
+            this.totalActiveMajorHead = res.totalActiveMajorHead;
+            this.totalInActiveMajorHead = res.totalInactiveMajorHead;
+
+            this.totalActiveSchemeHead = res.totalActiveSchemeHead;
+            this.totalInActiveSchemeHead = res.totalInactiveSchemeHead;
+
+            this.totalActiveMinorHead = res.totalActiveMinorHead;
+            this.totalInActiveMinorHead = res.totalInactiveMinorHead;
+
+            this.totalActiveSubMajorHead = res.totalActiveSubMajorHead;
+            this.totalInActiveSubMajorHead = res.totalInactiveSubMajorHead;
+
+            this.totalActiveTreasury = res.totalActiveTreasury;
+            this.totalInActiveTreasury = res.totalInactiveTreasury;
+
+            this.showGraph();
+        });
+    }
+
+    showGraph() {
+        this.basicData = {
+            labels: ['DDO', 'DETAIL HEAD', 'SUB DETAIL HEAD', 'DEPARTMENT', 'MAJOR HEAD', 'MINOR HEAD', 'SCHEME HEAD', 'TREASURY', 'SUB MAJOR HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveDdo, this.totalActiveDetailHead, this.totalActiveSubDetailHead, this.totalActiveDepartment, this.totalActiveMajorHead, this.totalActiveMinorHead, this.totalActiveSchemeHead, this.totalActiveTreasury, this.totalActiveSubMajorHead],
+                    hoverBackgroundColor: [
+                        "#64B5F6",
+                        "#81C784",
+                        "#FFB74D"
+                    ]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveDdo, this.totalInActiveDetailHead, this.totalInActiveSubDetailHead, this.totalInActiveDepartment, this.totalInActiveMajorHead, this.totalInActiveMinorHead, this.totalInActiveSchemeHead, this.totalInActiveTreasury, this.totalInActiveSubMajorHead],
+                    hoverBackgroundColor: [
+                        "#64B5F6",
+                        "#81C784",
+                        "#FFB74D"
+                    ]
+                }
+            ]
         };
-        this.getActiveandInActiveCount(true);
-        this.getActiveandInActiveCount(false);
-        // this.basicData = {
-        //     labels: ['DDO', 'DETAIL HEAD', 'SUB DETAIL HEAD', 'DEPARTMENT', 'MAJOR HEAD', 'MINOR HEAD', 'SCHEME HEAD', 'TREASURY', 'SUB MAJOR HEAD'],
-        //     datasets: [
-        //         {
-        //             label: 'Active',
-        //             backgroundColor: '#42A5F5',
-        //             data: [this.totalActiveDdo, this.totalActiveDetailHead, this.totalActiveSubDetailHead, this.totalActiveDepartment, this.totalActiveMajorHead, this.totalActiveMinorHead, this.totalActiveSchemeHead, this.totalActiveTreasury, this.totalActiveSubMajorHead]
-        //         },
-        //         {
-        //             label: 'Inactive',
-        //             backgroundColor: '#FFA726',
-        //             data: [this.totalInActiveDdo, this.totalInActiveDetailHead, this.totalInActiveSubDetailHead, this.totalInActiveDepartment, this.totalInActiveMajorHead, this.totalInActiveMinorHead, this.totalInActiveSchemeHead, this.totalInActiveTreasury, this.totalInActiveSubMajorHead]
-        //         }
-        //     ]
-        // };
-    }
-    
-    showGraph(){
-        this.openGraph = true;
-        console.log(this.countCall);
-        if(this.countCall == 12){
-            debugger;
-            this.basicData = {
-                labels: ['DDO', 'DETAIL HEAD', 'SUB DETAIL HEAD', 'DEPARTMENT', 'MAJOR HEAD', 'MINOR HEAD', 'SCHEME HEAD', 'TREASURY', 'SUB MAJOR HEAD'],
-                datasets: [
-                    {
-                        label: 'Active',
-                        backgroundColor: '#42A5F5',
-                        data: [this.totalActiveDdo, this.totalActiveDetailHead, this.totalActiveSubDetailHead, this.totalActiveDepartment, this.totalActiveMajorHead, this.totalActiveMinorHead, this.totalActiveSchemeHead, this.totalActiveTreasury, this.totalActiveSubMajorHead]
-                    },
-                    {
-                        label: 'Inactive',
-                        backgroundColor: '#FFA726',
-                        data: [this.totalInActiveDdo, this.totalInActiveDetailHead, this.totalInActiveSubDetailHead, this.totalInActiveDepartment, this.totalInActiveMajorHead, this.totalInActiveMinorHead, this.totalInActiveSchemeHead, this.totalInActiveTreasury, this.totalInActiveSubMajorHead]
-                    }
-                ]
-            };
-            
+
+        this.ddoData = {
+            labels: ['DDO'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveDdo]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveDdo]
+                }
+            ]
         }
+        this.detailHeadData = {
+            labels: ['DETAIL HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveDetailHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveDetailHead]
+                }
+            ]
+        };
+
+        this.subDetailHeadData = {
+            labels: ['SUB DETAIL HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveSubDetailHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveSubDetailHead]
+                }
+            ]
+        };
+
+        this.departmentData = {
+            labels: ['DEPARTMENT'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveDepartment]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveDepartment]
+                }
+            ]
+        };
+
+        this.majorHeadData = {
+            labels: ['MAJOR HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveMajorHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveMajorHead]
+                }
+            ]
+        };
+
+        this.minorHeadData = {
+            labels: ['MINOR HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveMinorHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveMinorHead]
+                }
+            ]
+        };
+
+        this.schemeHeadData = {
+            labels: ['SCHEME HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveSchemeHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveSchemeHead]
+                }
+            ]
+        };
+
+        this.treasuryData = {
+            labels: ['TREASURY'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveTreasury]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveTreasury]
+                }
+            ]
+        };
+
+        this.subMajorHeadData = {
+            labels: ['SUB MAJOR HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.totalActiveSubMajorHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.totalInActiveSubMajorHead]
+                }
+            ]
+        };
+
+
     }
 
-    getActiveandInActiveCount(isActive: boolean) {
-        this.getMasterDdoCount(isActive);
-        this.getMasterDetailHeadCount(isActive);
-        this.getMasterSubDetailHeadCount(isActive);
-        this.getMasterDepartmentCount(isActive);
-        this.getMasterMajorHeadCount(isActive);
-        this.getMasterSchemeHeadCount(isActive);
-    }
-
-
-    // masterDdoService = inject(MasterService);
-    getMasterDdoCount(isActive: boolean) {
-        if (isActive == true) {
-            this.masterDdoService.countMasterDdo(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalActiveDdo = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-        else if (isActive == false) {
-            this.masterDdoService.countMasterDdo(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalInActiveDdo = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-
-    }
-    getMasterDetailHeadCount(isActive: boolean) {
-        if (isActive == true) {
-            this.detailHeadService.countMasterDetailHead(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalActiveDetailHead = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-        else if (isActive == false) {
-            this.detailHeadService.countMasterDetailHead(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalInActiveDetailHead = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-    }
-    getMasterSubDetailHeadCount(isActive: boolean) {
-        if (isActive == true) {
-            this.subDetailHeadService.countMasterSubDetailHead(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalActiveSubDetailHead = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-        else if (isActive == false) {
-            this.subDetailHeadService.countMasterSubDetailHead(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalInActiveSubDetailHead = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-    }
-    getMasterMajorHeadCount(isActive: boolean) {
-        if (isActive == true) {
-            this.majorHeadService.countMasterMajorHead(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalActiveMajorHead = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-        else if (isActive == false) {
-            this.majorHeadService.countMasterMajorHead(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalInActiveMajorHead = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-
-    }
-    getMasterSchemeHeadCount(isActive: boolean) {
-        if (isActive == true) {
-            this.schemeHeadService.countMasterSchemeHead(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalActiveSchemeHead = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-        else if (isActive == false) {
-            this.schemeHeadService.countMasterSchemeHead(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalInActiveSchemeHead = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-
-    }
-    getMasterDepartmentCount(isActive: boolean) {
-        if (isActive == true) {
-            this.deparmentService.countMasterDepartment(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalActiveDepartment = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-        else if (isActive == false) {
-            this.deparmentService.countMasterDepartment(isActive, this.tableQueryParameters).subscribe((response: any) => {
-                this.totalInActiveDepartment = response;
-                this.countCall = this.countCall + 1;
-            });
-        }
-        // this.showGraph();
-    }
 
 }
