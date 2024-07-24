@@ -47,6 +47,7 @@ import { MasterMinorheadFormsComponent } from './demo/components/masterForms/mas
 import { DashboardskeletonComponent } from './demo/components/dashboardskeleton/dashboardskeleton.component';
 
 import {TabViewModule} from 'primeng/tabview';
+import { DepartmentformsComponent } from './demo/components/masterForms/departmentforms/departmentforms.component';
 
 
 
@@ -69,6 +70,7 @@ import {TabViewModule} from 'primeng/tabview';
         MasterTreasuryFormsComponent,
         MasterMinorheadFormsComponent,
         DashboardskeletonComponent,
+        DepartmentformsComponent,
           
     ],
     imports: [
