@@ -1,7 +1,7 @@
-<div  class="card" style="text-align: center;">
+<!-- <div  class="card" style="text-align: center;">
     <h5>Master Graph</h5>
     <p-chart type="pie" width="35rem" [data]="basicData" [options]="basicOptions"></p-chart>
-</div>
+</div> -->
 <div class="grid mt-3">
     <div class="col">
         <p-card header="DDO" [style]="{width: '360px'}" styleClass="p-card-shadow">
@@ -30,20 +30,20 @@
     </div>
 
     <div class="col">
-        <p-card header="DETAIL HEEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+        <p-card header="DETAIL HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
             <ng-template pTemplate="header">
                 <p-chart type="bar" width="24rem" [data]="detailHeadData" [options]="basicOptions"></p-chart>
             </ng-template>
-            <p style="font-size: large;">Total DETAIL HEEAD
+            <p style="font-size: large;">Total DETAIL HEAD
                 <span style="margin-left: 22%;">:</span>
                 <span id="totalDetailHead" style="margin-left: 7%;">{{totalActiveDetailHead +
                     totalInActiveDetailHead}}</span>
             </p>
-            <p style="font-size: large;">Total Active DETAIL HEEAD
+            <p style="font-size: large;">Total Active DETAIL HEAD
                 <span style="margin-left: 6%;">:</span>
                 <span id="totalActiveDetailHead" style="margin-left: 7%;">{{totalActiveDetailHead}}</span>
             </p>
-            <p style="font-size: large;">Total Inactive DETAIL HEEAD
+            <p style="font-size: large;">Total Inactive DETAIL HEAD
                 <span style="margin-left: 3%;">:</span>
                 <span id="totalInactiveDetailHead" style="margin-left: 7%;">{{totalInActiveDetailHead}}</span>
             </p>
@@ -59,16 +59,16 @@
             <ng-template pTemplate="header">
                 <p-chart type="bar" width="24rem" [data]="subDetailHeadData" [options]="basicOptions"></p-chart>
             </ng-template>
-            <p style="font-size: large;">Total SUBDEATILHEAD
+            <p style="font-size: large;">Total SUBDEATIL HEAD
                 <span style="margin-left: 20%;">:</span>
                 <span id="totalSubDetailHead" style="margin-left: 5%;">{{totalActiveSubDetailHead +
                     totalInActiveSubDetailHead}}</span>
             </p>
-            <p style="font-size: large;">Total Active SUBDEATILHEAD
+            <p style="font-size: large;">Total Active SUBDEATIL HEAD
                 <span style="margin-left: 4%;">:</span>
                 <span id="totalActiveSubDetailHead" style="margin-left: 5%;">{{totalActiveSubDetailHead}}</span>
             </p>
-            <p style="font-size: large;">Total Inactive SUBDEATILHEAD
+            <p style="font-size: large;">Total Inactive SUBDEATIL HEAD
                 <span style="margin-left: 1%;">:</span>
                 <span id="totalInactiveSubDetailHead" style="margin-left: 5%;">{{totalInActiveSubDetailHead}}</span>
             </p>

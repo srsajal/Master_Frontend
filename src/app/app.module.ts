@@ -44,6 +44,7 @@ import {CardModule} from 'primeng/card';
 import {ChartModule} from 'primeng/chart';
 import { MasterTreasuryFormsComponent } from './demo/components/masterForms/master-treasury-forms/master-treasury-forms.component';
 import { MasterMinorheadFormsComponent } from './demo/components/masterForms/master-minorhead-forms/master-minorhead-forms.component';
+import { DashboardskeletonComponent } from './demo/components/dashboardskeleton/dashboardskeleton.component';
 
 import {TabViewModule} from 'primeng/tabview';
 
@@ -66,6 +67,7 @@ import {TabViewModule} from 'primeng/tabview';
         SubmajorheadComponent,
         MasterTreasuryFormsComponent,
         MasterMinorheadFormsComponent,
+        DashboardskeletonComponent,
           
     ],
     imports: [
