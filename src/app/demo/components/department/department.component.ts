@@ -7,6 +7,7 @@ import { IapiResponce } from 'src/Model/iapi-responce';
 import { Masterdept } from 'src/Model/master.model';
 import { DepartmentServiceService } from '../../service/MasterService/department-service.service';
 
+
 @Component({
   selector: 'app-department',
   templateUrl: './department.component.html',
@@ -14,6 +15,7 @@ import { DepartmentServiceService } from '../../service/MasterService/department
 })
 export class DepartmentComponent implements OnInit {
 
+  istableLoading:boolean = false;
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
@@ -154,7 +156,8 @@ export class DepartmentComponent implements OnInit {
 }
 
   delData(tmpid: number) {
-   
+    const obj =confirm('are you sure want to delete');
+   if(obj){
     this.deptservice.deleteMasterDepartmentById(tmpid).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
@@ -164,6 +167,8 @@ export class DepartmentComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete record', life: 2000 });
       }
     );
+  }
+    
   }
   
   
