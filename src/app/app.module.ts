@@ -48,6 +48,7 @@ import { MasterMinorheadFormsComponent } from './demo/components/masterForms/mas
 import {TabViewModule} from 'primeng/tabview';
 import {SkeletonModule} from 'primeng/skeleton';
 import { DepartmentformsComponent } from './demo/components/masterForms/departmentforms/departmentforms.component';
+import { MasterSchemeHeadFormsComponent } from './demo/components/masterForms/master-scheme-head-forms/master-scheme-head-forms.component';
 
 
 
@@ -70,6 +71,7 @@ import { DepartmentformsComponent } from './demo/components/masterForms/departme
         MasterTreasuryFormsComponent,
         MasterMinorheadFormsComponent,
         DepartmentformsComponent,
+        MasterSchemeHeadFormsComponent,
           
     ],
     imports: [
