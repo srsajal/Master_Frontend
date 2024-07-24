@@ -74,7 +74,7 @@ export class SchemeheadComponent implements OnInit {
 
   getData(isActive: boolean = true) {
     this.istableLoading=true;
-    this.schemeheadservice.getmasterSCHEME_HEAD (true,this.tableQueryParameters)
+    this.schemeheadservice.getmasterSCHEME_HEAD (isActive,this.tableQueryParameters)
       .subscribe((response: any) => {
         this.istableLoading = false;
         this.tableData = response.result;
@@ -194,8 +194,8 @@ export class SchemeheadComponent implements OnInit {
     else if (event.buttonIdentifier == "del") {
       this.confirm2(event.rowData.id);
     }
-    else {
-
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
     }
   }
   handQueryParameterChange(event: any) {
@@ -208,7 +208,8 @@ export class SchemeheadComponent implements OnInit {
   }
   
   restoreData(tmpid: number) {
-    this.schemeheadservice.restoremasterSCHEME_HEADById(tmpid).subscribe(() => {
+   
+        this.schemeheadservice.restoremasterSCHEME_HEADById(tmpid).subscribe(() => {
       this.showDeletedData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
     },
@@ -220,12 +221,12 @@ export class SchemeheadComponent implements OnInit {
   }
   showDeletedData() {
     this.actionButtonConfig = [
-      {
-        buttonIdentifier: 'view',
-        class: 'p-button-rounded p-button-raised',
-        icon: 'pi pi-eye',
-        lable: 'View',
-      },
+      // {
+      //   buttonIdentifier: 'view',
+      //   class: 'p-button-rounded p-button-raised',
+      //   icon: 'pi pi-eye',
+      //   lable: 'View',
+      // },
       {
         buttonIdentifier: 'restore',
         class: 'p-button-warning p-button-rounded p-button-raised',
