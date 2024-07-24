@@ -53,7 +53,7 @@ export class MasterddoformsComponent implements OnInit {
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
       Designation: [{ value: this.formMaster?.designation ?? '', disabled: isDisabled }, Validators.required],
       Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, Validators.required],
-      Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, Validators.required]
+      Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, [Validators.required, Validators.pattern('^[0-9]{10}$')]]
     });
 
     return _newForm;
