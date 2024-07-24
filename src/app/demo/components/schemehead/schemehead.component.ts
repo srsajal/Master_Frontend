@@ -72,7 +72,7 @@ export class SchemeheadComponent implements OnInit {
     console.log(this.tableData);
   }
 
-  getData() {
+  getData(isActive: boolean = true) {
     this.istableLoading=true;
     this.schemeheadservice.getmasterSCHEME_HEAD (true,this.tableQueryParameters)
       .subscribe((response: any) => {
@@ -206,7 +206,40 @@ export class SchemeheadComponent implements OnInit {
     };
     this.getData();
   }
-
+  
+  restoreData(tmpid: number) {
+    this.schemeheadservice.restoremasterSCHEME_HEADById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+      }
+    );
+  }
+  showDeletedData() {
+    this.actionButtonConfig = [
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
+      {
+        buttonIdentifier: 'restore',
+        class: 'p-button-warning p-button-rounded p-button-raised',
+        icon: 'pi pi-undo',
+        lable: 'Restore',
+      },
+    ];
+    this.tableQueryParameters = {
+      pageSize: 10,
+      pageIndex: 0,
+      filterParameters: [],
+    };
+    this.getData(false);
+  }
   confirm2(tmpid: number) {
     this.confirmationService.confirm({
         message: 'Do you want to delete this record?',

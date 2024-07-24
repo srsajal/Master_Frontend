@@ -45,6 +45,7 @@ import {ChartModule} from 'primeng/chart';
 import { MasterTreasuryFormsComponent } from './demo/components/masterForms/master-treasury-forms/master-treasury-forms.component';
 import { MasterMinorheadFormsComponent } from './demo/components/masterForms/master-minorhead-forms/master-minorhead-forms.component';
 
+import {TabViewModule} from 'primeng/tabview';
 
 
 
@@ -88,6 +89,7 @@ import { MasterMinorheadFormsComponent } from './demo/components/masterForms/mas
         ConfirmDialogModule,
         CardModule,
         ChartModule,
+        TabViewModule
 
     ],
     providers: [

@@ -39,6 +39,9 @@ export class SchemeHeadServiceService {
     return this.http.post<IapiResponce<DynamicTable<masterSchemeHead>>>(this.schemehead + 'CountMasterDdo?isActive='+isActive, tableQueryParameters)
   }
 
+  restoremasterSCHEME_HEADById(tmpid : number){
+    return this.http.delete(this.schemehead + 'RestoreMasterDdo?id='  + `${tmpid}`);
+  }
   }
 
 
