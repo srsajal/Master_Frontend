@@ -6,8 +6,9 @@ import { Code, masterSchemeHead, minorheadid } from 'src/Model/master.model';
 import { ConfirmationService, ConfirmEventType, MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { log } from 'console';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SchemeHeadServiceService } from '../../service/MasterService/master-schemehead.service';
+import { MasterSchemeHeadFormsComponent } from '../masterForms/master-scheme-head-forms/master-scheme-head-forms.component';
 // import { IapiResponce } from 'src/Model/iapi-responce';
 @Component({
   selector: 'app-schemehead',
@@ -15,6 +16,7 @@ import { SchemeHeadServiceService } from '../../service/MasterService/master-sch
   styleUrls: ['./schemehead.component.scss']
 })
 export class SchemeheadComponent implements OnInit {
+  ref: DynamicDialogRef | undefined;
   type:any
   istableLoading:boolean = false;
   codes: minorheadid[] = [];
@@ -30,7 +32,7 @@ export class SchemeheadComponent implements OnInit {
   http = inject(HttpClient);
   messageService = inject(MessageService)
   headertext:string = 'Add SchemeHeadData';
-  constructor(private schemeheadservice : SchemeHeadServiceService,private confirmationService: ConfirmationService,) { }
+  constructor(private schemeheadservice : SchemeHeadServiceService,private confirmationService: ConfirmationService, private dialogService:DialogService) { }
 
   userForm: FormGroup = new FormGroup({
     demandCode: new FormControl('', [Validators.required, Validators.maxLength(2)]),
@@ -44,12 +46,12 @@ export class SchemeheadComponent implements OnInit {
     this.getCodeFromMinorhead()
 
     this.actionButtonConfig = [
-      // {
-      //   buttonIdentifier: 'view',
-      //   class: 'p-button-rounded p-button-raised',
-      //   icon: 'pi pi-eye',
-      //   lable: 'View',
-      // },
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
       {
         buttonIdentifier: 'edit',
         class: 'p-button-warning p-button-rounded p-button-raised',
@@ -140,6 +142,49 @@ export class SchemeheadComponent implements OnInit {
     this.id = tmpid;
     this.isSubUp = false;
   }
+  // editData(tmpid: number) {
+  //   this.ref = this.dialogService.open(MasterSchemeHeadFormsComponent, {
+  //     data: {
+  //       dialogButt: 2,
+  //       code: this.codes,
+  //       id: tmpid,
+  //       isDisable: false,
+  //       pgetData: this.showNormalData.bind(this),
+
+  //     },
+  //     width: '50rem',
+  //     modal: true,
+  //     header: 'EDIT Scheme Head DATA'
+  //   });
+  // }
+  showNormalData() {
+    this.actionButtonConfig = [
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
+      {
+        buttonIdentifier: 'edit',
+        class: 'p-button-warning p-button-rounded p-button-raised',
+        icon: 'pi pi-file-edit',
+        lable: 'Edit',
+      },
+      {
+        buttonIdentifier: 'del',
+        class: 'p-button-danger p-button-rounded p-button-raised',
+        icon: 'pi pi-trash',
+        lable: 'Delete',
+      }
+    ];
+    this.tableQueryParameters = {
+      pageSize: 10,
+      pageIndex: 0,
+      filterParameters: [],
+    };
+    this.getData(true);
+  }
   cancel(form: FormGroup) {
     this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have Cancelled', life: 2000 });
     form.reset();
@@ -197,6 +242,9 @@ export class SchemeheadComponent implements OnInit {
     else if (event.buttonIdentifier == "restore") {
       this.restoreData(event.rowData.id);
     }
+    else if (event.buttonIdentifier == "view") {
+      this.viewData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {
@@ -221,12 +269,12 @@ export class SchemeheadComponent implements OnInit {
   }
   showDeletedData() {
     this.actionButtonConfig = [
-      // {
-      //   buttonIdentifier: 'view',
-      //   class: 'p-button-rounded p-button-raised',
-      //   icon: 'pi pi-eye',
-      //   lable: 'View',
-      // },
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
       {
         buttonIdentifier: 'restore',
         class: 'p-button-warning p-button-rounded p-button-raised',
@@ -254,5 +302,29 @@ export class SchemeheadComponent implements OnInit {
 
         }
     });
+}
+viewData(tmpid: number) {
+  this.schemeheadservice.GetMasterSCHEME_HEADById(tmpid).subscribe((res: masterSchemeHead) => {
+    this.ref = this.dialogService.open(MasterSchemeHeadFormsComponent, {
+      data: {
+        dialogButt: 3,
+        code: this.codes,
+        id: tmpid,
+        isDisable: true,
+        // pgetData : this.getData.bind(this),
+
+      },
+      width: '50rem',
+      modal: true,
+      header: 'EDIT TREASURY DATA'
+    });
+    //this.userForm.markAllAsTouched();
+    //this.userForm.markAsDirty();
+  },
+    error => {
+      console.error('Error fetching MasterDDO data by ID:', error);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+    }
+  );
 }
 }
