@@ -40,14 +40,11 @@ export class DashboardComponent implements OnInit {
     }
 
     getAllMasterCount() {
-        console.log("ESECHI");
-        
         this.isLoading = true;
         this.masterDdoService.countAllMaster().subscribe((res: AllMasterCount) => {
             this.allMasterData = res;
             this.showGraph();
             this.isLoading = false;
-            console.log("completed");
 
         });
     }
