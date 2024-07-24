@@ -40,7 +40,7 @@ export class SchemeHeadServiceService {
   }
 
   restoremasterSCHEME_HEADById(tmpid : number){
-    return this.http.delete(this.schemehead + 'RestoreMasterDdo?id='  + `${tmpid}`);
+    return this.http.delete('http://localhost:5271/api/masterSCHEME_HEAD/RestoreMasterSchemeHead?id='  + `${tmpid}`);
   }
   }
 
