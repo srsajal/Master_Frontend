@@ -187,15 +187,15 @@
             </ng-template>
             <p style="font-size: large;">Total MINOR HEAD
                 <span style="margin-left: 26%;">:</span>
-                <span id="totalMinorHead" style="margin-left: 5%;">0</span>
+                <span id="totalMinorHead" style="margin-left: 5%;">{{allMasterData.totalActiveMinorHead + allMasterData.totalInactiveMinorHead}}</span>
             </p>
             <p style="font-size: large;">Total Active MINOR HEAD
                 <span style="margin-left: 10%;">:</span>
-                <span id="totalActiveMinorHead" style="margin-left: 5%;">0</span>
+                <span id="totalActiveMinorHead" style="margin-left: 5%;">{{allMasterData.totalActiveMinorHead}}</span>
             </p>
             <p style="font-size: large;">Total Inactive MINOR HEAD
                 <span style="margin-left: 6%;">:</span>
-                <span id="totalInactiveMinorHead" style="margin-left: 5%;">0</span>
+                <span id="totalInactiveMinorHead" style="margin-left: 5%;">{{allMasterData.totalInactiveMinorHead}}</span>
             </p>
             <ng-template pTemplate="footer">
                 <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
@@ -212,15 +212,15 @@
             </ng-template>
             <p style="font-size: large;">Total SUBMAJORHEAD
                 <span style="margin-left: 18%;">:</span>
-                <span id="totalSubMajorHead" style="margin-left: 2%;">0</span>
+                <span id="totalSubMajorHead" style="margin-left: 2%;">{{allMasterData.totalActiveSubMajorHead + allMasterData.totalInactiveSubMajorHead}}</span>
             </p>
             <p style="font-size: large;">Total Active SUBMAJORHEAD
                 <span style="margin-left: 2%;">:</span>
-                <span id="totalActiveSubMajorHead" style="margin-left: 2%;">0</span>
+                <span id="totalActiveSubMajorHead" style="margin-left: 2%;">{{allMasterData.totalActiveSubMajorHead}}</span>
             </p>
             <p style="font-size: large;">Total Inactive SUBMAJORHEAD
                 <span>:</span>
-                <span id="totalInactiveSubMajorHead" style="margin-left: 2%;">0</span>
+                <span id="totalInactiveSubMajorHead" style="margin-left: 2%;">{{allMasterData.totalInactiveSubMajorHead}}</span>
             </p>
             <ng-template pTemplate="footer">
                 <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
