@@ -4,7 +4,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { Code, MasterDdo, MasterDetailHead } from 'src/Model/master.model';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MasterdetailheadformComponent } from '../masterForms/masterdetailheadform/masterdetailheadform.component';
-import { MasterService } from '../../service/MasterService/masterddo.service';
 import { DetailheadService } from '../../service/MasterService/detailhead.service';
 
 @Component({
@@ -22,6 +21,8 @@ export class MasterdetailheadComponent implements OnInit {
   codes: Code[] = [];
   dialogButts: number = 1;
   istableLoading:boolean = false;
+  totalActiveDetailHead:number=0
+  totalInactiveDetailHead:number=0
   
   messageService = inject(MessageService);
   detailHeadService = inject(DetailheadService);
@@ -47,6 +48,7 @@ export class MasterdetailheadComponent implements OnInit {
   ngOnInit(): void {
     this.tableInitialize();
     this.getData();
+    this.getDataCount();
 
   }
 
@@ -115,14 +117,33 @@ export class MasterdetailheadComponent implements OnInit {
     });
   }
 
+  getDataCount(){
+    this.detailHeadService.countMasterDetailHead(true,this.tableQueryParameters).subscribe((res:any)=> {
+      this.totalActiveDetailHead = res;
+    });
+    this.detailHeadService.countMasterDetailHead(false,this.tableQueryParameters).subscribe((res:any)=> {
+      this.totalInactiveDetailHead = res;
+    });
+  }
+
   delData(tmpid: number) {
     this.detailHeadService.deleteMasterDetailHeadById(tmpid).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
       error => {
-        console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterDDO record', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete Master Detail Head record', life: 2000 });
+      }
+    );
+  }
+
+  restoreData(tmpid: number) {
+    this.detailHeadService.restoreMasterDetailHeadById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore Master Detail Head record', life: 2000 });
       }
     );
   }
@@ -142,8 +163,7 @@ export class MasterdetailheadComponent implements OnInit {
       });
     },
       error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch Master Detail Head data by ID', life: 2000 });
       }
     );
   }
@@ -155,7 +175,13 @@ export class MasterdetailheadComponent implements OnInit {
         class: 'p-button-rounded p-button-raised',
         icon: 'pi pi-eye',
         lable: 'View',
-      }
+      },
+      {
+        buttonIdentifier: 'restore',
+        class: 'p-button-warning p-button-rounded p-button-raised',
+        icon: 'pi pi-undo',
+        lable: 'Restore',
+      },
     ];
     this.tableQueryParameters = {
       pageSize: 10,
@@ -206,6 +232,9 @@ export class MasterdetailheadComponent implements OnInit {
     else if (event.buttonIdentifier == "view") {
       this.viewData(event.rowData.id);
     }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {
@@ -217,6 +246,13 @@ export class MasterdetailheadComponent implements OnInit {
   }
   handleSearch(event: any) {
     console.log(event);
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
   }
 
 }

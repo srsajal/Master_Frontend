@@ -23,14 +23,13 @@ export class MasterddoComponent implements OnInit {
   actionButtonConfig: ActionButtonConfig[] = [];
   istableLoading: boolean = false;
   alldata: number = 0;
-  // apiUrl = 'http://localhost:5271/api/masterDDO/'
   visible: boolean = false;
   id: number = 0;
   codes: Code[] = [];
-  // headertext: string = 'ADD DDO DATA';
   dialogButts: number = 1;
+  totalActiveDdo:number = 0;
+  totalInactiveDdo:number = 0;
 
-  // http = inject(HttpClient);
   messageService = inject(MessageService);
   masterService = inject(MasterService);
   confirmationService = inject(ConfirmationService);
@@ -66,6 +65,7 @@ export class MasterddoComponent implements OnInit {
     this.tableInitialize();
     this.getData();
     this.getCodeFromTreasury();
+    this.getDataCount();
     // console.log("table reloaded");
 
   }
@@ -178,9 +178,14 @@ export class MasterddoComponent implements OnInit {
     );
   }
 
-
-
-
+  getDataCount(){
+    this.masterService.countMasterDdo(true,this.tableQueryParameters).subscribe((res:any)=> {
+      this.totalActiveDdo = res;
+    });
+    this.masterService.countMasterDdo(false,this.tableQueryParameters).subscribe((res:any)=> {
+      this.totalInactiveDdo = res;
+    });
+  }
 
   viewData(tmpid: number) {
     this.masterService.getMasterDDOById(tmpid).subscribe((res: MasterDdo) => {
@@ -304,5 +309,12 @@ export class MasterddoComponent implements OnInit {
     console.log(event);
     // console.log(this.tableQueryParameters);
     // this.getData();
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
   }
 }
