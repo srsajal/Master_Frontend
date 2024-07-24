@@ -96,11 +96,6 @@ export class MinorheadComponent implements OnInit {
     };
   }
   getData(isActive: boolean = true) {
-    // this.tableQueryParameters.filterParameters.push({
-    //   field: 'Id',
-    //   value: '1685',
-    //   operator:'equals'
-    // });
     this.istableLoading = true;
     this.masterService.getmasterMinorhead(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;

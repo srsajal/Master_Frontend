@@ -2,6 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MasterService } from '../../service/MasterService/masterddo.service';
 import { DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { AllMasterCount } from 'src/Model/master.model';
+import { Router } from '@angular/router';
+
 
 @Component({
     templateUrl: './dashboard.component.html',
@@ -18,7 +20,7 @@ export class DashboardComponent implements OnInit {
     minorHeadData: any;
     subMajorHeadData: any;
     treasuryData: any;
-    allMasterData!:AllMasterCount;
+    allMasterData!: AllMasterCount;
     countCall: number = 0;
     openGraph: boolean = false;
 
@@ -26,21 +28,24 @@ export class DashboardComponent implements OnInit {
 
     isActive: boolean = true;
 
+    isLoading: boolean = false;
+
     tableQueryParameters!: DynamicTableQueryParameters | any;
     /**
      *
      */
-    constructor(private masterDdoService: MasterService) { }
+    constructor(private masterDdoService: MasterService, private router: Router) { }
     ngOnInit(): void {
         this.getAllMasterCount();
     }
 
     getAllMasterCount() {
+        this.isLoading = true;
         this.masterDdoService.countAllMaster().subscribe((res: AllMasterCount) => {
-            // console.log(res);
             this.allMasterData = res;
-            console.log('data->',this.allMasterData);
             this.showGraph();
+            this.isLoading = false;
+
         });
     }
 
@@ -51,7 +56,7 @@ export class DashboardComponent implements OnInit {
         //         {
         //             label: 'Active',
         //             backgroundColor: '#42A5F5',
-        //             data: [this.totalActiveDdo, this.totalActiveDetailHead, this.totalActiveSubDetailHead, this.totalActiveDepartment, this.totalActiveMajorHead, this.totalActiveMinorHead, this.totalActiveSchemeHead, this.totalActiveTreasury, this.totalActiveSubMajorHead],
+        //             data: [this.allMasterData.totalActiveDdo, this.allMasterData.totalActiveDetailHead, this.allMasterData.totalActiveSubDetailHead, this.allMasterData.totalActiveDepartment, this.allMasterData.totalActiveMajorHead, this.allMasterData.totalActiveMinorHead, this.allMasterData.totalActiveSchemeHead, this.allMasterData.totalActiveTreasury, this.allMasterData.totalActiveSubMajorHead],
         //             hoverBackgroundColor: [
         //                 "#64B5F6",
         //                 "#81C784",
@@ -61,7 +66,7 @@ export class DashboardComponent implements OnInit {
         //         {
         //             label: 'Inactive',
         //             backgroundColor: '#FFA726',
-        //             data: [this.totalInActiveDdo, this.totalInActiveDetailHead, this.totalInActiveSubDetailHead, this.totalInActiveDepartment, this.totalInActiveMajorHead, this.totalInActiveMinorHead, this.totalInActiveSchemeHead, this.totalInActiveTreasury, this.totalInActiveSubMajorHead],
+        //             data: [this.allMasterData.totalInactiveDdo, this.allMasterData.totalInactiveDetailHead, this.allMasterData.totalInactiveSubDetailHead, this.allMasterData.totalInactiveDepartment, this.allMasterData.totalInactiveMajorHead, this.allMasterData.totalInactiveMinorHead, this.allMasterData.totalInactiveSchemeHead, this.allMasterData.totalInactiveTreasury, this.allMasterData.totalInactiveSubMajorHead],
         //             hoverBackgroundColor: [
         //                 "#64B5F6",
         //                 "#81C784",

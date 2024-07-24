@@ -2,232 +2,257 @@
     <h5>Master Graph</h5>
     <p-chart type="pie" width="35rem" [data]="basicData" [options]="basicOptions"></p-chart>
 </div> -->
-<div class="grid mt-3">
-    <div class="col">
-        <p-card header="DDO" [style]="{width: '360px'}" styleClass="p-card-shadow">
-            <ng-template pTemplate="header">
-                <p-chart type="bar" width="24rem" width="24rem" [data]="ddoData" [options]="basicOptions"></p-chart>
-            </ng-template>
 
-            <p style="font-size: large;">Total DDO
-
-                <span style="margin-left: 28%;">:</span>
-                <span id="totalDDO" style="margin-left: 7%;">{{allMasterData.totalActiveDdo + allMasterData.totalInactiveDdo}}</span>
-            </p>
-            <p style="font-size: large;">Total Active DDO
-                <span style="margin-left: 12%;">:</span>
-                <span id="totalActiveDDO" style="margin-left: 7%;">{{allMasterData.totalActiveDdo}}</span>
-            </p>
-            <p style="font-size: large;">Total Inactive DDO
-                <span style="margin-left: 8%;">:</span>
-                <span id="totalInactiveDDO" style="margin-left: 7%;">{{allMasterData.totalInactiveDdo}}</span>
-            </p>
-
-            <ng-template pTemplate="footer">
-                <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
-                    routerLink="/masterDDO"></p-button>
-            </ng-template>
-        </p-card>
-    </div>
-
-    <div class="col">
-        <p-card header="DETAIL HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
-            <ng-template pTemplate="header">
-                <p-chart type="bar" width="24rem" [data]="detailHeadData" [options]="basicOptions"></p-chart>
-            </ng-template>
-            <p style="font-size: large;">Total DETAIL HEAD
-                <span style="margin-left: 22%;">:</span>
-                <span id="totalDetailHead" style="margin-left: 7%;">{{ allMasterData.totalActiveDetailHead +
-                    allMasterData.totalInactiveDetailHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Active DETAIL HEAD
-                <span style="margin-left: 6%;">:</span>
-                <span id="totalActiveDetailHead" style="margin-left: 7%;">{{ allMasterData.totalActiveDetailHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Inactive DETAIL HEAD
-                <span style="margin-left: 3%;">:</span>
-                <span id="totalInactiveDetailHead" style="margin-left: 7%;">{{allMasterData.totalInactiveDetailHead}}</span>
-            </p>
-            <ng-template pTemplate="footer">
-                <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
-                    routerLink="/detailHead"></p-button>
-
-            </ng-template>
-        </p-card>
-    </div>
-    <div class="col">
-        <p-card header="SUB DEATIL HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
-            <ng-template pTemplate="header">
-                <p-chart type="bar" width="24rem" [data]="subDetailHeadData" [options]="basicOptions"></p-chart>
-            </ng-template>
-            <p style="font-size: large;">Total SUBDEATIL HEAD
-                <span style="margin-left: 20%;">:</span>
-                <span id="totalSubDetailHead" style="margin-left: 5%;">{{ allMasterData.totalActiveSubDetailHead +
-                  allMasterData.totalInactiveSubDetailHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Active SUBDEATIL HEAD
-                <span style="margin-left: 4%;">:</span>
-                <span id="totalActiveSubDetailHead" style="margin-left: 5%;">{{ allMasterData.totalActiveSubDetailHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Inactive SUBDEATIL HEAD
-                <span style="margin-left: 1%;">:</span>
-                <span id="totalInactiveSubDetailHead" style="margin-left: 5%;">{{allMasterData. totalInactiveSubDetailHead}}</span>
-            </p>
-            <ng-template pTemplate="footer">
-                <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
-                    routerLink="/subDetailHead"></p-button>
-
-            </ng-template>
-        </p-card>
-    </div>
-    <div class="col">
-        <p-card header="DEPARTMENT" [style]="{width: '360px'}" styleClass="p-card-shadow">
-            <ng-template pTemplate="header">
-                <p-chart type="bar" width="24rem" [data]="departmentData" [options]="basicOptions"></p-chart>
-            </ng-template>
-            <p style="font-size: large;">Total DEPARTMENT
-                <span style="margin-left: 27%;">:</span>
-                <span id="totalDepartment" style="margin-left: 5%;">{{allMasterData. totalActiveDepartment +
-                allMasterData.    totalInactiveDepartment}}</span>
-            </p>
-            <p style="font-size: large;">Total Active DEPARTMENT
-                <span style="margin-left: 11%;">:</span>
-                <span id="totalActiveDepartment" style="margin-left: 5%;">{{allMasterData.totalActiveDepartment}}</span>
-            </p>
-            <p style="font-size: large;">Total Inactive DEPARTMENT
-                <span style="margin-left: 7%;">:</span>
-                <span id="totalInactiveDepartment" style="margin-left: 5%;">{{allMasterData. totalInactiveDepartment}}</span>
-            </p>
-            <ng-template pTemplate="footer">
-                <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
-                    routerLink="/department"></p-button>
-
-            </ng-template>
-        </p-card>
-    </div>
-    <div class="col">
-        <p-card header="MAJOR HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
-            <ng-template pTemplate="header">
-                <p-chart type="bar" width="24rem" [data]="majorHeadData" [options]="basicOptions"></p-chart>
-            </ng-template>
-            <p style="font-size: large;">Total MAJOR HEAD
-                <span style="margin-left: 22%;">:</span>
-                <span id="totalMajorHead" style="margin-left: 7%;">{{ allMasterData.totalActiveMajorHead +
-                   allMasterData. totalInactiveMajorHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Active MAJOR HEAD
-                <span style="margin-left: 6%;">:</span>
-                <span id="totalActiveMajorHead" style="margin-left: 7%;">{{ allMasterData.totalActiveMajorHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Inactive MAJOR HEAD
-                <span style="margin-left: 2%;">:</span>
-                <span id="totalInactiveMajorHead" style="margin-left: 7%;">{{allMasterData.  totalInactiveMajorHead}}</span>
-            </p>
-            <ng-template pTemplate="footer">
-                <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
-                    routerLink="/majorHead"></p-button>
-
-            </ng-template>
-        </p-card>
-    </div>
-    <div class="col">
-        <p-card header="SCHEME HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
-            <ng-template pTemplate="header">
-                <p-chart type="bar" width="24rem" [data]="schemeHeadData" [options]="basicOptions"></p-chart>
-            </ng-template>
-            <p style="font-size: large;">Total SCHEME HEAD
-                <span style="margin-left: 25%;">:</span>
-                <span id="totalSchemeHead" style="margin-left: 5%;">{{ allMasterData.totalActiveSchemeHead +
-                allMasterData.    totalInactiveSchemeHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Active SCHEME HEAD
-                <span style="margin-left: 9%;">:</span>
-                <span id="totalActiveSchemeHead" style="margin-left: 5%;">{{allMasterData. totalActiveSchemeHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Inactive SCHEME HEAD
-                <span style="margin-left: 5.55%;">:</span>
-                <span id="totalInactiveSchemeHead" style="margin-left: 5%;">{{ allMasterData.totalInactiveSchemeHead}}</span>
-            </p>
-            <ng-template pTemplate="footer">
-                <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
-                    routerLink="/schemeHead"></p-button>
-
-            </ng-template>
-        </p-card>
-    </div>
-    <div class="col">
-        <p-card header="Treasury" [style]="{width: '360px'}" styleClass="p-card-shadow">
-            <ng-template pTemplate="header">
-                <p-chart type="bar" width="24rem" [data]="treasuryData" [options]="basicOptions"></p-chart>
-            </ng-template>
-            <p style="font-size: large;">Total TREASURY
-                <span style="margin-left: 27%;">:</span>
-                <span id="totalDepartment" style="margin-left: 5%;">{{allMasterData.totalActiveTreasury +
-                 allMasterData.   totalInactiveTreasury}}</span>
-            </p>
-            <p style="font-size: large;">Total Active TREASURY
-                <span style="margin-left: 11%;">:</span>
-                <span id="totalActiveDepartment" style="margin-left: 5%;">{{ allMasterData.totalActiveTreasury}}</span>
-            </p>
-            <p style="font-size: large;">Total Inactive TREASURY
-                <span style="margin-left: 7%;">:</span>
-                <span id="totalInactiveDepartment" style="margin-left: 5%;">{{ allMasterData.totalInactiveTreasury}}</span>
-            </p>
-            <ng-template pTemplate="footer">
-                <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
-                    routerLink="/treasury"></p-button>
-
-            </ng-template>
-        </p-card>
-    </div>
-    <div class="col">
-        <p-card header="MINOR HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
-            <ng-template pTemplate="header">
-                <p-chart type="bar" width="24rem" [data]="minorHeadData" [options]="basicOptions"></p-chart>
-            </ng-template>
-            <p style="font-size: large;">Total MINOR HEAD
-                <span style="margin-left: 26%;">:</span>
-                <span id="totalMinorHead" style="margin-left: 5%;">{{allMasterData.totalActiveMinorHead + allMasterData.totalInactiveMinorHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Active MINOR HEAD
-                <span style="margin-left: 10%;">:</span>
-                <span id="totalActiveMinorHead" style="margin-left: 5%;">{{allMasterData.totalActiveMinorHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Inactive MINOR HEAD
-                <span style="margin-left: 6%;">:</span>
-                <span id="totalInactiveMinorHead" style="margin-left: 5%;">{{allMasterData.totalInactiveMinorHead}}</span>
-            </p>
-            <ng-template pTemplate="footer">
-                <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
-                    routerLink="/minorhead"></p-button>
-
-            </ng-template>
-        </p-card>
-    </div>
-
-    <div class="col">
-        <p-card header="SUB MAJOR HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
-            <ng-template pTemplate="header">
-                <p-chart type="bar" width="24rem" [data]="subMajorHeadData" [options]="basicOptions"></p-chart>
-            </ng-template>
-            <p style="font-size: large;">Total SUBMAJORHEAD
-                <span style="margin-left: 18%;">:</span>
-                <span id="totalSubMajorHead" style="margin-left: 2%;">{{allMasterData.totalActiveSubMajorHead + allMasterData.totalInactiveSubMajorHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Active SUBMAJORHEAD
-                <span style="margin-left: 2%;">:</span>
-                <span id="totalActiveSubMajorHead" style="margin-left: 2%;">{{allMasterData.totalActiveSubMajorHead}}</span>
-            </p>
-            <p style="font-size: large;">Total Inactive SUBMAJORHEAD
-                <span>:</span>
-                <span id="totalInactiveSubMajorHead" style="margin-left: 2%;">{{allMasterData.totalInactiveSubMajorHead}}</span>
-            </p>
-            <ng-template pTemplate="footer">
-                <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
-                    routerLink="/submajorhead"></p-button>
-
-            </ng-template>
-        </p-card>
-    </div>
-
+<div *ngIf="isLoading; else showData">
+<app-dashboardskeleton></app-dashboardskeleton>
 </div>
+<ng-template #showData>
+    <div class="grid mt-3">
+        <div class="col">
+            <p-card header="DDO" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" width="24rem" [data]="ddoData" [options]="basicOptions"></p-chart>
+                </ng-template>
+
+                <p style="font-size: large;">Total DDO
+
+                    <span style="margin-left: 28%;">:</span>
+                    <span id="totalDDO" style="margin-left: 7%;">{{allMasterData.totalActiveDdo +
+                        allMasterData.totalInactiveDdo}}</span>
+                </p>
+                <p style="font-size: large;">Total Active DDO
+                    <span style="margin-left: 12%;">:</span>
+                    <span id="totalActiveDDO" style="margin-left: 7%;">{{allMasterData.totalActiveDdo}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive DDO
+                    <span style="margin-left: 8%;">:</span>
+                    <span id="totalInactiveDDO" style="margin-left: 7%;">{{allMasterData.totalInactiveDdo}}</span>
+                </p>
+
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/masterDDO"></p-button>
+                </ng-template>
+            </p-card>
+        </div>
+
+        <div class="col">
+            <p-card header="DETAIL HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="detailHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total DETAIL HEAD
+                    <span style="margin-left: 22%;">:</span>
+                    <span id="totalDetailHead" style="margin-left: 7%;">{{ allMasterData.totalActiveDetailHead +
+                        allMasterData.totalInactiveDetailHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active DETAIL HEAD
+                    <span style="margin-left: 6%;">:</span>
+                    <span id="totalActiveDetailHead" style="margin-left: 7%;">{{
+                        allMasterData.totalActiveDetailHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive DETAIL HEAD
+                    <span style="margin-left: 3%;">:</span>
+                    <span id="totalInactiveDetailHead"
+                        style="margin-left: 7%;">{{allMasterData.totalInactiveDetailHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/detailHead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="SUB DEATIL HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="subDetailHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total SUBDEATIL HEAD
+                    <span style="margin-left: 20%;">:</span>
+                    <span id="totalSubDetailHead" style="margin-left: 5%;">{{ allMasterData.totalActiveSubDetailHead +
+                        allMasterData.totalInactiveSubDetailHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active SUBDEATIL HEAD
+                    <span style="margin-left: 4%;">:</span>
+                    <span id="totalActiveSubDetailHead" style="margin-left: 5%;">{{
+                        allMasterData.totalActiveSubDetailHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive SUBDEATIL HEAD
+                    <span style="margin-left: 1%;">:</span>
+                    <span id="totalInactiveSubDetailHead" style="margin-left: 5%;">{{allMasterData.
+                        totalInactiveSubDetailHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/subDetailHead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="DEPARTMENT" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="departmentData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total DEPARTMENT
+                    <span style="margin-left: 27%;">:</span>
+                    <span id="totalDepartment" style="margin-left: 5%;">{{allMasterData. totalActiveDepartment +
+                        allMasterData. totalInactiveDepartment}}</span>
+                </p>
+                <p style="font-size: large;">Total Active DEPARTMENT
+                    <span style="margin-left: 11%;">:</span>
+                    <span id="totalActiveDepartment"
+                        style="margin-left: 5%;">{{allMasterData.totalActiveDepartment}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive DEPARTMENT
+                    <span style="margin-left: 7%;">:</span>
+                    <span id="totalInactiveDepartment" style="margin-left: 5%;">{{allMasterData.
+                        totalInactiveDepartment}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/department"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="MAJOR HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="majorHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total MAJOR HEAD
+                    <span style="margin-left: 22%;">:</span>
+                    <span id="totalMajorHead" style="margin-left: 7%;">{{ allMasterData.totalActiveMajorHead +
+                        allMasterData. totalInactiveMajorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active MAJOR HEAD
+                    <span style="margin-left: 6%;">:</span>
+                    <span id="totalActiveMajorHead" style="margin-left: 7%;">{{
+                        allMasterData.totalActiveMajorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive MAJOR HEAD
+                    <span style="margin-left: 2%;">:</span>
+                    <span id="totalInactiveMajorHead" style="margin-left: 7%;">{{allMasterData.
+                        totalInactiveMajorHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/majorHead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="SCHEME HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="schemeHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total SCHEME HEAD
+                    <span style="margin-left: 25%;">:</span>
+                    <span id="totalSchemeHead" style="margin-left: 5%;">{{ allMasterData.totalActiveSchemeHead +
+                        allMasterData. totalInactiveSchemeHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active SCHEME HEAD
+                    <span style="margin-left: 9%;">:</span>
+                    <span id="totalActiveSchemeHead" style="margin-left: 5%;">{{allMasterData.
+                        totalActiveSchemeHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive SCHEME HEAD
+                    <span style="margin-left: 5.55%;">:</span>
+                    <span id="totalInactiveSchemeHead" style="margin-left: 5%;">{{
+                        allMasterData.totalInactiveSchemeHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/schemeHead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="Treasury" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="treasuryData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total TREASURY
+                    <span style="margin-left: 27%;">:</span>
+                    <span id="totalDepartment" style="margin-left: 5%;">{{allMasterData.totalActiveTreasury +
+                        allMasterData. totalInactiveTreasury}}</span>
+                </p>
+                <p style="font-size: large;">Total Active TREASURY
+                    <span style="margin-left: 11%;">:</span>
+                    <span id="totalActiveDepartment" style="margin-left: 5%;">{{
+                        allMasterData.totalActiveTreasury}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive TREASURY
+                    <span style="margin-left: 7%;">:</span>
+                    <span id="totalInactiveDepartment" style="margin-left: 5%;">{{
+                        allMasterData.totalInactiveTreasury}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/treasury"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="MINOR HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="minorHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total MINOR HEAD
+                    <span style="margin-left: 26%;">:</span>
+                    <span id="totalMinorHead" style="margin-left: 5%;">{{allMasterData.totalActiveMinorHead +
+                        allMasterData.totalInactiveMinorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active MINOR HEAD
+                    <span style="margin-left: 10%;">:</span>
+                    <span id="totalActiveMinorHead"
+                        style="margin-left: 5%;">{{allMasterData.totalActiveMinorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive MINOR HEAD
+                    <span style="margin-left: 6%;">:</span>
+                    <span id="totalInactiveMinorHead"
+                        style="margin-left: 5%;">{{allMasterData.totalInactiveMinorHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/minorhead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+
+        <div class="col">
+            <p-card header="SUB MAJOR HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="subMajorHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total SUBMAJORHEAD
+                    <span style="margin-left: 18%;">:</span>
+                    <span id="totalSubMajorHead" style="margin-left: 2%;">{{allMasterData.totalActiveSubMajorHead +
+                        allMasterData.totalInactiveSubMajorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active SUBMAJORHEAD
+                    <span style="margin-left: 2%;">:</span>
+                    <span id="totalActiveSubMajorHead"
+                        style="margin-left: 2%;">{{allMasterData.totalActiveSubMajorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive SUBMAJORHEAD
+                    <span>:</span>
+                    <span id="totalInactiveSubMajorHead"
+                        style="margin-left: 2%;">{{allMasterData.totalInactiveSubMajorHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/submajorhead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+
+    </div>
+</ng-template>
