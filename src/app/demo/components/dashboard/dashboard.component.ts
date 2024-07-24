@@ -77,12 +77,12 @@ export class DashboardComponent implements OnInit {
                 {
                     label: 'Active',
                     backgroundColor: '#42A5F5',
-                    data: [this.totalActiveDdo]
+                    data: [this.allMasterData.totalActiveDdo]
                 },
                 {
                     label: 'Inactive',
                     backgroundColor: '#FFA726',
-                    data: [this.totalInActiveDdo]
+                    data: [this.allMasterData.totalInactiveDdo]
                 }
             ]
         }
@@ -92,12 +92,12 @@ export class DashboardComponent implements OnInit {
                 {
                     label: 'Active',
                     backgroundColor: '#42A5F5',
-                    data: [this.totalActiveDetailHead]
+                    data: [this.allMasterData.totalActiveDetailHead]
                 },
                 {
                     label: 'Inactive',
                     backgroundColor: '#FFA726',
-                    data: [this.totalInActiveDetailHead]
+                    data: [this.allMasterData.totalInactiveDetailHead]
                 }
             ]
         };
@@ -108,12 +108,12 @@ export class DashboardComponent implements OnInit {
                 {
                     label: 'Active',
                     backgroundColor: '#42A5F5',
-                    data: [this.totalActiveSubDetailHead]
+                    data: [this.allMasterData.totalActiveSubDetailHead]
                 },
                 {
                     label: 'Inactive',
                     backgroundColor: '#FFA726',
-                    data: [this.totalInActiveSubDetailHead]
+                    data: [this.allMasterData.totalInactiveSubDetailHead]
                 }
             ]
         };
@@ -124,12 +124,12 @@ export class DashboardComponent implements OnInit {
                 {
                     label: 'Active',
                     backgroundColor: '#42A5F5',
-                    data: [this.totalActiveDepartment]
+                    data: [this.allMasterData.totalActiveDepartment]
                 },
                 {
                     label: 'Inactive',
                     backgroundColor: '#FFA726',
-                    data: [this.totalInActiveDepartment]
+                    data: [this.allMasterData.totalInactiveDepartment]
                 }
             ]
         };
@@ -140,12 +140,12 @@ export class DashboardComponent implements OnInit {
                 {
                     label: 'Active',
                     backgroundColor: '#42A5F5',
-                    data: [this.totalActiveMajorHead]
+                    data: [this.allMasterData.totalActiveMajorHead]
                 },
                 {
                     label: 'Inactive',
                     backgroundColor: '#FFA726',
-                    data: [this.totalInActiveMajorHead]
+                    data: [this.allMasterData.totalInactiveMajorHead]
                 }
             ]
         };
@@ -156,12 +156,12 @@ export class DashboardComponent implements OnInit {
                 {
                     label: 'Active',
                     backgroundColor: '#42A5F5',
-                    data: [this.totalActiveMinorHead]
+                    data: [this.allMasterData.totalActiveMinorHead]
                 },
                 {
                     label: 'Inactive',
                     backgroundColor: '#FFA726',
-                    data: [this.totalInActiveMinorHead]
+                    data: [this.allMasterData.totalInactiveMinorHead]
                 }
             ]
         };
@@ -172,12 +172,12 @@ export class DashboardComponent implements OnInit {
                 {
                     label: 'Active',
                     backgroundColor: '#42A5F5',
-                    data: [this.totalActiveSchemeHead]
+                    data: [this.allMasterData.totalActiveSchemeHead]
                 },
                 {
                     label: 'Inactive',
                     backgroundColor: '#FFA726',
-                    data: [this.totalInActiveSchemeHead]
+                    data: [this.allMasterData.totalInactiveSchemeHead]
                 }
             ]
         };
@@ -188,12 +188,12 @@ export class DashboardComponent implements OnInit {
                 {
                     label: 'Active',
                     backgroundColor: '#42A5F5',
-                    data: [this.totalActiveTreasury]
+                    data: [this.allMasterData.totalActiveTreasury]
                 },
                 {
                     label: 'Inactive',
                     backgroundColor: '#FFA726',
-                    data: [this.totalInActiveTreasury]
+                    data: [this.allMasterData.totalInactiveTreasury]
                 }
             ]
         };
@@ -204,12 +204,12 @@ export class DashboardComponent implements OnInit {
                 {
                     label: 'Active',
                     backgroundColor: '#42A5F5',
-                    data: [this.totalActiveSubMajorHead]
+                    data: [this.allMasterData.totalActiveSubMajorHead]
                 },
                 {
                     label: 'Inactive',
                     backgroundColor: '#FFA726',
-                    data: [this.totalInActiveSubMajorHead]
+                    data: [this.allMasterData.totalInactiveSubMajorHead]
                 }
             ]
         };
