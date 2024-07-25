@@ -49,6 +49,9 @@ import {TabViewModule} from 'primeng/tabview';
 import {SkeletonModule} from 'primeng/skeleton';
 import { DepartmentformsComponent } from './demo/components/masterForms/departmentforms/departmentforms.component';
 import { MasterSchemeHeadFormsComponent } from './demo/components/masterForms/master-scheme-head-forms/master-scheme-head-forms.component';
+import {BadgeModule} from 'primeng/badge';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import {MenuItem} from 'primeng/api';
 
 
 
@@ -96,14 +99,15 @@ import { MasterSchemeHeadFormsComponent } from './demo/components/masterForms/ma
         CardModule,
         ChartModule,
         TabViewModule,
-        SkeletonModule
-
+        SkeletonModule,
+        BadgeModule,
+        BreadcrumbModule,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
         PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient, DialogService, DynamicDialogConfig,
-        ConfirmationService,
+        ConfirmationService
     ],
     bootstrap: [AppComponent]
 })
