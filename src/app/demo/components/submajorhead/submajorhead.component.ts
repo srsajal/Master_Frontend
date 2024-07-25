@@ -38,7 +38,7 @@ export class SubmajorheadComponent implements OnInit {
   constructor(public dialogService: DialogService, public config: DynamicDialogConfig) {
     this.items = [
       { label: 'Master Management' },
-      { label: 'Treasury' },
+      { label: 'Sub Major Head' },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
    }
@@ -48,7 +48,7 @@ export class SubmajorheadComponent implements OnInit {
         dialogButt: 1,
         code: this.codes,
         isDisable: false,
-        pgetData: this.getData.bind(this),
+        pgetData: this.showNormalData.bind(this),
 
       },
       width: '50rem',
@@ -140,7 +140,17 @@ export class SubmajorheadComponent implements OnInit {
       header: 'EDIT SUBMAJORHEAD DATA'
     });
   }
-
+  restoreData(tmpid: number) {
+    this.masterService.restoreSubmajorhead(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+      }
+    );
+  }
   confirmDelete(id: number) {
     this.confirmationService.confirm({
       message: 'Do you want to delete this record?',
@@ -253,9 +263,9 @@ export class SubmajorheadComponent implements OnInit {
     else if (event.buttonIdentifier == "view") {
       this.viewData(event.rowData.id);
     }
-    // else if (event.buttonIdentifier == "restore") {
-    //   this.restoreData(event.rowData.id);
-    // }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {

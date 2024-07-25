@@ -26,7 +26,6 @@ export class MastersubdetailheadComponent implements OnInit {
   items: MenuItem[];
   home: MenuItem;
   
-  // http = inject(HttpClient);
   messageService = inject(MessageService);
   subDetailHeadService = inject(SubdetailheadService);
   confirmationService = inject(ConfirmationService);
@@ -45,7 +44,7 @@ export class MastersubdetailheadComponent implements OnInit {
         dialogButt : 1,
         code : this.codes,
         isDisable : false,
-        pgetData : this.getData.bind(this),
+        pgetData : this.showNormalData.bind(this),
 
       },
       width: '50rem',
@@ -118,7 +117,7 @@ export class MastersubdetailheadComponent implements OnInit {
         code : this.codes,
         id : tmpid,
         isDisable : false,
-        pgetData : this.getData.bind(this),
+        pgetData : this.showNormalData.bind(this),
 
       },
       width: '50rem',
@@ -177,18 +176,15 @@ export class MastersubdetailheadComponent implements OnInit {
       this.ref = this.dialogService.open(MastersubdetailheadformComponent, {
         data:{
           dialogButt : 3,
-          // code : this.codes,
+          code : this.codes,
           id : tmpid,
           isDisable : true,
-          // pgetData : this.getData.bind(this),
   
         },
         width: '50rem',
         modal:true,
         header: 'VIEW SUB DETAIL HEAD DATA' 
       });
-      //this.userForm.markAllAsTouched();
-      //this.userForm.markAsDirty();
     },
       error => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch Master Sub Detail Head data by ID', life: 2000 });

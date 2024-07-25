@@ -37,7 +37,7 @@ export class MajorheadComponent implements OnInit {
   constructor(public dialogService: DialogService, public config: DynamicDialogConfig) {
     this.items = [
       { label: 'Master Management' },
-      { label: 'Treasury' },
+      { label: 'MajorHead' },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
    }
@@ -47,7 +47,7 @@ export class MajorheadComponent implements OnInit {
         dialogButt: 1,
         code: this.codes,
         isDisable: false,
-        pgetData: this.getData.bind(this),
+        pgetData: this.showNormalData.bind(this),
 
       },
       width: '50rem',
@@ -55,23 +55,9 @@ export class MajorheadComponent implements OnInit {
       header: 'ADD MAJORHEAD DATA'
     });
   }
-
-  // userForm: FormGroup = new FormGroup({
-  //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-  //   Code: new FormControl('', Validators.required),
-  //   Designation: new FormControl('', Validators.required),
-  //   Address: new FormControl(''),
-  //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
-  // });
-
   ngOnInit(): void {
-    // this.userForm.reset();
-    // this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
-   // this.getCodeFromTreasury();
-    // console.log("table reloaded");
-
   }
 
   tableInitialize() {

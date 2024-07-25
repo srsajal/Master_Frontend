@@ -25,7 +25,6 @@ export class SchemeheadComponent implements OnInit {
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
   alldata : number = 0;
-  //apiUrl = 'http://localhost:5271/api/masterSCHEME_HEAD/'
   visible : boolean = false;
   id : number = 0;
   isSubUp : boolean = true;
@@ -163,21 +162,6 @@ export class SchemeheadComponent implements OnInit {
     this.id = tmpid;
     this.isSubUp = false;
   }
-  // editData(tmpid: number) {
-  //   this.ref = this.dialogService.open(MasterSchemeHeadFormsComponent, {
-  //     data: {
-  //       dialogButt: 2,
-  //       code: this.codes,
-  //       id: tmpid,
-  //       isDisable: false,
-  //       pgetData: this.showNormalData.bind(this),
-
-  //     },
-  //     width: '50rem',
-  //     modal: true,
-  //     header: 'EDIT Scheme Head DATA'
-  //   });
-  // }
   showNormalData() {
     this.actionButtonConfig = [
       {
@@ -246,7 +230,6 @@ export class SchemeheadComponent implements OnInit {
   }
 
   showDialog() {
-    // console.log("showdialog called");
     this.visible = true;
   }
 
@@ -332,15 +315,12 @@ viewData(tmpid: number) {
         code: this.codes,
         id: tmpid,
         isDisable: true,
-        // pgetData : this.getData.bind(this),
 
       },
       width: '50rem',
       modal: true,
       header: 'EDIT TREASURY DATA'
     });
-    //this.userForm.markAllAsTouched();
-    //this.userForm.markAsDirty();
   },
     error => {
       console.error('Error fetching MasterDDO data by ID:', error);
