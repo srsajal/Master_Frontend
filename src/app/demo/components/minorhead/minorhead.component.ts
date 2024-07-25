@@ -167,17 +167,17 @@ export class MinorheadComponent implements OnInit {
       }
     );
   }
-  // restoreData(tmpid: number) {
-  //   this.masterService.restoreMasterDdoById(tmpid).subscribe(() => {
-  //     this.showDeletedData();
-  //     this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
-  //   },
-  //     error => {
-  //       console.error('Error deleting MasterDDO data:', error);
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
-  //     }
-  //   );
-  // }
+  restoreData(tmpid: number) {
+    this.masterService.restoreMasterMinorheadById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+      }
+    );
+  }
 
 
 
@@ -275,9 +275,9 @@ export class MinorheadComponent implements OnInit {
     else if (event.buttonIdentifier == "view") {
       this.viewData(event.rowData.id);
     }
-    // else if (event.buttonIdentifier == "restore") {
-    //   this.restoreData(event.rowData.id);
-    // }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {
@@ -289,17 +289,7 @@ export class MinorheadComponent implements OnInit {
     this.getData();
   }
   handleSearch(event: any) {
-    // this.tableQueryParameters.filterParameters = [];
-    // this.tableData.headers.forEach((element: { filterField: any; }) => {
-    //   this.tableQueryParameters.filterParameters.push({
-    //     field: element.filterField,
-    //     value: event,
-    //     operator: 'contains'
-    //   });
-    // });
-    console.log(event);
-    // console.log(this.tableQueryParameters);
-    // this.getData();
+
   }
  
 
