@@ -35,8 +35,12 @@
                       Minimum length is 2 characters.
                     </div>
                   </div>
+                  <div *ngIf="userForm.get('Name')?.errors?.['maxlength']">
+                    Maximum length is 100 characters.
+                  </div>
                 </div>
               </div>
+            
         
               <div class="formgrid grid">
                 <div class="field col">
@@ -49,7 +53,10 @@
                       This field is required.
                     </div>
                     <div *ngIf="userForm.get('DemandCode')?.errors?.['minlength']">
-                      Minimum length is 1 number.
+                      Minimum length is 1 characters.
+                    </div>
+                    <div *ngIf="userForm.get('DemandCode')?.errors?.['minlength']">
+                      Maximum length is 2 characters.
                     </div>
                   </div>
                 </div>
@@ -61,6 +68,9 @@
                   <div class="error" *ngIf="userForm.get('Address')?.touched && userForm.get('Address')?.invalid">
                     <div *ngIf="userForm.get('Address')?.errors?.['required']">
                       This field is required.
+                    </div>
+                    <div *ngIf="userForm.get('DemandCode')?.errors?.['minlength']">
+                      Minimum length is 3 characters.
                     </div>
                   </div>
                 </div>
