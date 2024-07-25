@@ -247,6 +247,11 @@ export class MinorheadComponent implements OnInit {
         lable: 'Delete',
       }
     ];
+    this.tableQueryParameters = {
+      pageSize: 10,
+      pageIndex: 0,
+      filterParameters: [],
+    };
     this.getData(true);
   }
   handleRowSelection($event: any) {

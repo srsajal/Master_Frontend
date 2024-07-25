@@ -25,8 +25,8 @@ export interface masterSchemeHead {
 
 export interface Masterdept {
     id: number,
-    code: string,
-    name: string,
+    deptcode: string,
+    deptname: string,
     demandCode: string,
     address: string,
     pinCode: number,
