@@ -28,6 +28,8 @@ export class DepartmentComponent implements OnInit {
   dialogButts: number = 1;
   items: MenuItem[];
   home: MenuItem;
+  totalActiveDept: number = 0;
+  totalInactiveDept: number = 0;
 
   messageService = inject(MessageService);
   masterService = inject(DepartmentServiceService);
@@ -90,12 +92,21 @@ export class DepartmentComponent implements OnInit {
   }
   getData(isActive: boolean = true) {
     this.istableLoading = true;
+    this.getDataCount();
     this.masterService.getMasterDepartment(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
 
       console.log(response);
+    });
+  }
+  getDataCount() {
+    this.masterService.countMasterDepartment(true, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalActiveDept = res;
+    });
+    this.masterService.countMasterDepartment(false, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalInactiveDept = res;
     });
   }
   editData(tmpid: number) {
@@ -244,7 +255,13 @@ export class DepartmentComponent implements OnInit {
     this.getData();
   }
   handleSearch(event: any) {
-    console.log(event);
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
   }
 
 }
