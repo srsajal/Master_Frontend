@@ -42,6 +42,9 @@ export class DepartmentServiceService {
   restoreMasterDepartmentById(tmpid : number){
     return this.http.delete(this.departmenturl + 'RestoreMasterDepartment?id='  + `${tmpid}`);
   }
+  onChange(tmpid: string){
+    return this.http.get(this.departmenturl + 'CheckMasterDepartmentDemandCode/' + tmpid)
+  }
 
 
   }
