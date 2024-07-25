@@ -10,6 +10,7 @@ import { log } from 'console';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MasterddoformsComponent } from '../masterForms/masterddoforms/masterddoforms.component';
 import { MasterService } from '../../service/MasterService/masterddo.service';
+import {MenuItem} from 'primeng/api';
 
 
 @Component({
@@ -29,6 +30,8 @@ export class MasterddoComponent implements OnInit {
   dialogButts: number = 1;
   totalActiveDdo:number = 0;
   totalInactiveDdo:number = 0;
+  // items: MenuItem[];
+  // home: MenuItem;
 
   messageService = inject(MessageService);
   masterService = inject(MasterService);
@@ -56,7 +59,6 @@ export class MasterddoComponent implements OnInit {
     this.tableInitialize();
     this.getData();
     this.getCodeFromTreasury();
-    this.getDataCount();
   }
 
   tableInitialize() {
@@ -88,9 +90,12 @@ export class MasterddoComponent implements OnInit {
   }
   getData(isActive: boolean = true) {
     this.istableLoading = true;
+    this.getDataCount();
     this.masterService.getMasterDDO(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
       this.tableData = response.result;
+      console.log(response.result);
+      
       this.alldata = response.result.dataCount;
     });
   }

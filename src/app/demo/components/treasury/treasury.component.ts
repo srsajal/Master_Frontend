@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
-//import { MasterTreasury } from 'src/Model/master-treasury.model';
+
 import { HttpClient } from '@angular/common/http';
 import { Code, MasterTreasury } from 'src/Model/master.model';
 import { MasterService } from '../../service/MasterService/masterddo.service';
@@ -25,10 +25,8 @@ export class TreasuryComponent implements OnInit {
   visible: boolean = false;
   id: number = 0;
   codes: Code[] = [];
-  // headertext: string = 'ADD DDO DATA';
   dialogButts: number = 1;
 
-  // http = inject(HttpClient);
   messageService = inject(MessageService);
   masterService = inject(MasterTreasuryService);
   confirmationService = inject(ConfirmationService);
@@ -252,6 +250,11 @@ export class TreasuryComponent implements OnInit {
         lable: 'Delete',
       }
     ];
+    this.tableQueryParameters = {
+      pageSize: 10,
+      pageIndex: 0,
+      filterParameters: [],
+    };
     this.getData(true);
   }
   handleRowSelection($event: any) {
