@@ -44,7 +44,7 @@ export class MasterdetailheadComponent implements OnInit {
         dialogButt : 1,
         code : this.codes,
         isDisable : false,
-        pgetData : this.getData.bind(this),
+        pgetData : this.showNormalData.bind(this),
 
       },
       width: '50rem',
@@ -102,7 +102,7 @@ export class MasterdetailheadComponent implements OnInit {
         code : this.codes,
         id : tmpid,
         isDisable : false,
-        pgetData : this.getData.bind(this),
+        pgetData : this.showNormalData.bind(this),
 
       },
       width: '50rem',

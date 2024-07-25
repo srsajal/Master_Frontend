@@ -48,7 +48,7 @@ export class SubmajorheadComponent implements OnInit {
         dialogButt: 1,
         code: this.codes,
         isDisable: false,
-        pgetData: this.getData.bind(this),
+        pgetData: this.showNormalData.bind(this),
 
       },
       width: '50rem',
