@@ -44,10 +44,11 @@ import {CardModule} from 'primeng/card';
 import {ChartModule} from 'primeng/chart';
 import { MasterTreasuryFormsComponent } from './demo/components/masterForms/master-treasury-forms/master-treasury-forms.component';
 import { MasterMinorheadFormsComponent } from './demo/components/masterForms/master-minorhead-forms/master-minorhead-forms.component';
-import { DashboardskeletonComponent } from './demo/components/dashboardskeleton/dashboardskeleton.component';
 
 import {TabViewModule} from 'primeng/tabview';
+import {SkeletonModule} from 'primeng/skeleton';
 import { DepartmentformsComponent } from './demo/components/masterForms/departmentforms/departmentforms.component';
+import { MasterSchemeHeadFormsComponent } from './demo/components/masterForms/master-scheme-head-forms/master-scheme-head-forms.component';
 
 
 
@@ -69,8 +70,8 @@ import { DepartmentformsComponent } from './demo/components/masterForms/departme
         SubmajorheadComponent,
         MasterTreasuryFormsComponent,
         MasterMinorheadFormsComponent,
-        DashboardskeletonComponent,
         DepartmentformsComponent,
+        MasterSchemeHeadFormsComponent,
           
     ],
     imports: [
@@ -94,7 +95,8 @@ import { DepartmentformsComponent } from './demo/components/masterForms/departme
         ConfirmDialogModule,
         CardModule,
         ChartModule,
-        TabViewModule
+        TabViewModule,
+        SkeletonModule
 
     ],
     providers: [

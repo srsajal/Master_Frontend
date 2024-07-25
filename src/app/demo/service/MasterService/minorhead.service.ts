@@ -17,7 +17,7 @@ export class MinorheadService {
   constructor() { }
 
   getmasterMinorhead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<minorHead>>>(this.minorheadurl + 'GetmasterMinorHead', tableQueryParameters)
+    return this.http.post<IapiResponce<DynamicTable<minorHead>>>(this.minorheadurl + 'GetmasterMinorHead?isActive=' + isActive, tableQueryParameters)
   }
 
   getMasterCodeSubmajorhead(){

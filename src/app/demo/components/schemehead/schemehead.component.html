@@ -5,9 +5,12 @@
     <p-button class="mb-10" (click)="showDialog()" label="ADD SchemeHead">
       <i class="pi pi-plus mr-3"></i>
     </p-button>
-    <p-button class="" (click)="showDeletedData()" label="SEE DELETED SCHEMEHEAD">
+    <!-- <p-button class="" (click)="showNormalData()" label="SEE SchemeHead">
       <i class="pi pi-eye mr-2"></i>
     </p-button>
+    <p-button class="" (click)="showDeletedData()" label="SEE DELETED SCHEMEHEAD">
+      <i class="pi pi-eye mr-2"></i>
+    </p-button> -->
   </div>
 <div class="flex flex-wrap align-items-center justify-content-end mb-5">
     <!-- <div class="addstubutt"><p-button (click)="showDialog()"
@@ -54,30 +57,6 @@
             </div>
           </div>
           </div>
-          <!-- <div class="formgrid grid">
-            <div class="field col">
-              <label class="text-2xl" for="lastname2">Minor Head Id*</label>
-              <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="minorHeadId">
-              <div *ngIf="userForm.get('minorHeadId')?.invalid && userForm.get('minorHeadId')?.touched" class="error">
-                Minor Head ID is required.
-              </div>
-            </div>
-          </div> -->
-          <!-- <div class="field col">
-            <label class="text-2xl" for="firstname2">Phone*</label>
-            <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Phone">
-            <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error">
-              Phone is required.
-            </div>
-          </div> -->
-         
-          <!-- <div class="formgrid grid">
-            <div class="field col">
-              <label class="text-2xl" for="firstname2">Address</label>
-              <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Address">
-            </div>
-          </div> -->
-  
           <div class="button-container" *ngIf="isSubUp; else elseBlock">
             <div class="formgrid grid">
               <div class="col-9">
@@ -104,7 +83,12 @@
   <p-toast></p-toast>
   </div>
   <p-confirmDialog></p-confirmDialog>
-  
+  <p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="Active SchemeHead" [tooltip]="totalActiveSchemeHead">
+    </p-tabPanel>
+    <p-tabPanel header="Inactive SchemeHead" [tooltip]="totalInactiveSchemeHead">
+    </p-tabPanel>
+</p-tabView>
   <mh-prime-dynamic-table 
     size="small"
     [numberRowsShown]="10"

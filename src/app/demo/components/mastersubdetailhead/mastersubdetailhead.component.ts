@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActionButtonConfig, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { DetailheadService } from '../../service/MasterService/detailhead.service';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MastersubdetailheadformComponent } from '../masterForms/mastersubdetailheadform/mastersubdetailheadform.component';
 import { MasterDetailHead, MasterSubDetailHead } from 'src/Model/master.model';
@@ -17,13 +16,13 @@ export class MastersubdetailheadComponent implements OnInit {
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
   alldata: number = 0;
-  // apiUrl = 'http://localhost:5271/api/masterDDO/'
   visible: boolean = false;
   id: number = 0;
   codes: MasterDetailHead[] = [];
-  // headertext: string = 'ADD DDO DATA';
   dialogButts: number = 1;
   istableLoading:boolean = false;
+  totalActiveSubDetailHead :number = 0;
+  totalInactiveSubDetailHead :number = 0;
   
   // http = inject(HttpClient);
   messageService = inject(MessageService);
@@ -52,7 +51,7 @@ export class MastersubdetailheadComponent implements OnInit {
     this.tableInitialize();
     this.getData();
     this.getGetCodeFromDetailHead();
-
+    this.getDataCount();
   }
 
   tableInitialize() {
@@ -95,8 +94,7 @@ export class MastersubdetailheadComponent implements OnInit {
       this.codes = res;
     },
       error => {
-        console.error('Error fetching codes from Treasury:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Detail Head', life: 2000 });
       }
     );
   }
@@ -141,14 +139,30 @@ export class MastersubdetailheadComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
       error => {
-        console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterDDO record', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete Master Sub Detail Head record', life: 2000 });
       }
     );
   }
 
+  getDataCount(){
+    this.subDetailHeadService.countMasterSubDetailHead(true,this.tableQueryParameters).subscribe((res:any)=> {
+      this.totalActiveSubDetailHead = res;
+    });
+    this.subDetailHeadService.countMasterSubDetailHead(false,this.tableQueryParameters).subscribe((res:any)=> {
+      this.totalInactiveSubDetailHead = res;
+    });
+  }
 
-
+  restoreData(tmpid: number) {
+    this.subDetailHeadService.restoreMasterSubDetailHeadById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore Master Sub Detail Head record', life: 2000 });
+      }
+    );
+  }
 
   viewData(tmpid : number){
     this.subDetailHeadService.getMasterSubDetailHeadById(tmpid).subscribe((res: MasterSubDetailHead) => {
@@ -169,8 +183,7 @@ export class MastersubdetailheadComponent implements OnInit {
       //this.userForm.markAsDirty();
     },
       error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch Master Sub Detail Head data by ID', life: 2000 });
       }
     );
   }
@@ -191,14 +204,20 @@ export class MastersubdetailheadComponent implements OnInit {
         class: 'p-button-rounded p-button-raised',
         icon: 'pi pi-eye',
         lable: 'View',
-      }
+      },
+      {
+        buttonIdentifier: 'restore',
+        class: 'p-button-warning p-button-rounded p-button-raised',
+        icon: 'pi pi-undo',
+        lable: 'Restore',
+      },
     ];
     this.tableQueryParameters = {
       pageSize: 10,
       pageIndex: 0,
       filterParameters: [],
     };
-    this.getData();
+    this.getData(false);
   }
   showNormalData(){
     this.actionButtonConfig = [
@@ -242,6 +261,9 @@ export class MastersubdetailheadComponent implements OnInit {
     else if (event.buttonIdentifier == "view") {
       this.viewData(event.rowData.id);
     }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {
@@ -253,6 +275,13 @@ export class MastersubdetailheadComponent implements OnInit {
   }
   handleSearch(event: any) {
     console.log(event);
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
   }
 
 }

@@ -43,7 +43,7 @@ export class MasterService {
     return this.http.delete(this.ddourl + 'RestoreMasterDdo?id='  + `${tmpid}`);
   }
   countMasterDdo(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
-    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'CountMasterDdo?isActive='+isActive, null)
+    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'CountMasterDdo?isActive='+isActive, tableQueryParameters)
   }
 
   countAllMaster(){
