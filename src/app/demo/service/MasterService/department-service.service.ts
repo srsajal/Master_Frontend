@@ -39,4 +39,9 @@ export class DepartmentServiceService {
     return this.http.post<IapiResponce<DynamicTable<Masterdept>>>(this.departmenturl + 'CountMasterDdo?isActive='+isActive, tableQueryParameters)
   }
 
+  restoreMasterDepartmentById(tmpid : number){
+    return this.http.delete(this.departmenturl + 'RestoreMasterDepartment?id='  + `${tmpid}`);
+  }
+
+
   }

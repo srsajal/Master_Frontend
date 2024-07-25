@@ -70,6 +70,12 @@ export interface majorHead {
     code: string,
     name: string,
 }
+export interface submajorhead {
+    id: number,
+    code: string,
+    name: string,
+    majorHeadId:string,
+}
 
 export interface AllMasterCount {
     totalActiveDdo: number;

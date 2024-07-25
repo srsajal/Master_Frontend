@@ -104,7 +104,7 @@ export class DepartmentComponent implements OnInit {
         dialogButt: 2,
         code: this.codes,
         id: tmpid,
-        isDisable: false,
+        isDisable: true,
         pgetData: this.showNormalData.bind(this),
 
       },
@@ -139,6 +139,19 @@ export class DepartmentComponent implements OnInit {
       }
     );
   }
+  restoreData(tmpid: number) {
+    this.masterService.restoreMasterDepartmentById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+      }
+    );
+  }
+
+
 
 
 
@@ -217,9 +230,9 @@ export class DepartmentComponent implements OnInit {
     else if (event.buttonIdentifier == "view") {
       this.viewData(event.rowData.id);
     }
-    // else if (event.buttonIdentifier == "restore") {
-    //   this.restoreData(event.rowData.id);
-    // }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {
