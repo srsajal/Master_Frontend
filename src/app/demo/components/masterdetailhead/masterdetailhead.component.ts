@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActionButtonConfig, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Code, MasterDdo, MasterDetailHead } from 'src/Model/master.model';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MasterdetailheadformComponent } from '../masterForms/masterdetailheadform/masterdetailheadform.component';
@@ -23,13 +23,21 @@ export class MasterdetailheadComponent implements OnInit {
   istableLoading:boolean = false;
   totalActiveDetailHead:number=0
   totalInactiveDetailHead:number=0
+  items: MenuItem[];
+  home: MenuItem;
   
   messageService = inject(MessageService);
   detailHeadService = inject(DetailheadService);
   confirmationService = inject(ConfirmationService);
 
   ref: DynamicDialogRef | undefined;
-  constructor(public dialogService: DialogService, public config : DynamicDialogConfig) { }
+  constructor(public dialogService: DialogService, public config : DynamicDialogConfig) {
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'Detail Head' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+   }
   show() {
     this.ref = this.dialogService.open(MasterdetailheadformComponent, {
       data:{

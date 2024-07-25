@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { MhPrimeDynamicTableModule } from 'mh-prime-dynamic-table';
 import { MastermajorheadService } from '../../service/MasterService/mastermajorhead.service';
@@ -23,13 +23,22 @@ export class MajorheadComponent implements OnInit {
   id: number = 0;
   isExist !: boolean;
   isSubUp: boolean = true;
+  items: MenuItem[];
+  home: MenuItem;
+
   headertext: string = 'Add MajorHeadData';
   majorHeadService = inject(MastermajorheadService)
 
 
   http = inject(HttpClient);
   messageService = inject(MessageService)
-  constructor() { }
+  constructor() {
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'Major Head' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+   }
 
   userForm: FormGroup = new FormGroup({
 
