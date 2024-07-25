@@ -14,9 +14,11 @@
                       </div>
                 </div>
                 <div class="field col">
-                    <label for="lastname2">District Code</label>
+                    <label for="lastname2">District Code <span class="red"> *</span></label>
                     <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="DistrictCode">
-                    
+                    <div *ngIf="userForm.get('DistrictCode')?.invalid && userForm.get('DistrictCode')?.touched" class="error">
+                      District Code is required and should not exceed 3 characters.
+                    </div>
                 </div>
               </div>
               <div class="formgrid grid">

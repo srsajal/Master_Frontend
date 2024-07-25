@@ -51,7 +51,7 @@ export class MasterTreasuryFormsComponent implements OnInit {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
       DistrictName: [{ value: this.formMaster?.districtName ?? '', disabled: isDisabled }, Validators.required],
-      DistrictCode: [{ value: this.formMaster?.districtCode ?? '', disabled: isDisabled }],
+      DistrictCode: [{ value: this.formMaster?.districtCode ?? '', disabled: isDisabled },Validators.required],
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required,Validators.minLength(3)]],
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required]
       

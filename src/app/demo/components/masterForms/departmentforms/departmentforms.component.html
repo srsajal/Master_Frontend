@@ -6,12 +6,12 @@
         
               <div class="formgrid grid">
                 <div class="field col">
-                  <label class="text-2xl" for="firstname2">Department Code <span class="red"> *</span></label>
-                  <input id="firstname2" type="text"
+                   <label class="text-2xl" for="firstname2">Department Code <span class="red"> *</span></label>
+                   <input id="firstname2" type="text"
                     class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     formControlName="Code">
                   <div class="error" *ngIf="userForm.get('Code')?.touched && userForm.get('Code')?.invalid">
-                    <div *ngIf="userForm.get('Code')?.errors?.['required']">
+                     <div *ngIf="userForm.get('Code')?.errors?.['required']">
                       This field is required.
                     </div>
                     <div *ngIf="userForm.get('Code')?.errors?.['minlength']">
@@ -45,7 +45,7 @@
               <div class="formgrid grid">
                 <div class="field col">
                   <label class="text-2xl" for="firstname2">Demand Code<span class="red"> *</span></label>
-                  <input id="firstname2" type="text"
+                  <input id="firstname2" type="text" (keyup)="onChangedata($event)"
                     class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     formControlName="DemandCode">
                   <div class="error" *ngIf="userForm.get('DemandCode')?.touched && userForm.get('DemandCode')?.invalid">
@@ -55,7 +55,7 @@
                     <div *ngIf="userForm.get('DemandCode')?.errors?.['minlength']">
                       Minimum length is 1 characters.
                     </div>
-                    <div *ngIf="userForm.get('DemandCode')?.errors?.['minlength']">
+                    <div *ngIf="userForm.get('DemandCode')?.errors?.['maxlength']">
                       Maximum length is 2 characters.
                     </div>
                   </div>
@@ -69,7 +69,7 @@
                     <div *ngIf="userForm.get('Address')?.errors?.['required']">
                       This field is required.
                     </div>
-                    <div *ngIf="userForm.get('DemandCode')?.errors?.['minlength']">
+                    <div *ngIf="userForm.get('Address')?.errors?.['minlength']">
                       Minimum length is 3 characters.
                     </div>
                   </div>
@@ -82,11 +82,11 @@
                   <input id="lastname2" type="text"
                     class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     formControlName="PinCode">
-                  <div class="error" *ngIf="userForm.get('pinCode')?.touched && userForm.get('pinCode')?.invalid">
-                    <div *ngIf="userForm.get('pinCode')?.errors?.['required']">
+                  <div class="error" *ngIf="userForm.get('PinCode')?.touched && userForm.get('PinCode')?.invalid">
+                    <div *ngIf="userForm.get('PinCode')?.errors?.['required']">
                       This field is required.
                     </div>
-                    <div *ngIf="userForm.get('pinCode')?.errors?.['pattern']">
+                    <div *ngIf="userForm.get('PinCode')?.errors?.['pattern']">
                       Invalid Pin Code.
                     </div>
                    
@@ -97,11 +97,11 @@
                   <input id="firstname2" type="text"
                     class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     formControlName="PhoneNumber">
-                  <div class="error" *ngIf="userForm.get('phoneNumber')?.touched && userForm.get('phoneNumber')?.invalid">
-                    <div *ngIf="userForm.get('phoneNumber')?.errors?.['required']">
+                  <div class="error" *ngIf="userForm.get('PhoneNumber')?.touched && userForm.get('PhoneNumber')?.invalid">
+                    <div *ngIf="userForm.get('PhoneNumber')?.errors?.['required']">
                       This field is required.
                     </div>
-                    <div *ngIf="userForm.get('phoneNumber')?.errors?.['pattern']">
+                    <div *ngIf="userForm.get('PhoneNumber')?.errors?.['pattern']">
                       Invalid Phone Number.
                     </div>
                     
@@ -115,11 +115,11 @@
                   <input id="lastname2" type="text"
                     class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     formControlName="MobileNumber">
-                  <div class="error" *ngIf="userForm.get('mobileNumber')?.touched && userForm.get('mobileNumber')?.invalid">
-                    <div *ngIf="userForm.get('mobileNumber')?.errors?.['required']">
+                  <div class="error" *ngIf="userForm.get('MobileNumber')?.touched && userForm.get('MobileNumber')?.invalid">
+                    <div *ngIf="userForm.get('MobileNumber')?.errors?.['required']">
                       This field is required.
                     </div>
-                    <div *ngIf="userForm.get('mobileNumber')?.errors?.['pattern']">
+                    <div *ngIf="userForm.get('MobileNumber')?.errors?.['pattern']">
                       Invalid Mobile Number.
                     </div>
                      
@@ -130,11 +130,11 @@
                   <input id="firstname2" type="text"
                     class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                     formControlName="Email">
-                  <div class="error" *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid">
-                    <div *ngIf="userForm.get('email')?.errors?.['required']">
+                  <div class="error" *ngIf="userForm.get('Email')?.touched && userForm.get('Email')?.invalid">
+                    <div *ngIf="userForm.get('Email')?.errors?.['required']">
                       This field is required.
                     </div>
-                    <div *ngIf="userForm.get('email')?.errors?.['email']">
+                    <div *ngIf="userForm.get('Email')?.errors?.['Email']">
                       Invalid email address.
                     </div>
                   </div>
