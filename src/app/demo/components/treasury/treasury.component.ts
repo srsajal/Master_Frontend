@@ -98,8 +98,6 @@ export class TreasuryComponent implements OnInit {
       this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
-
-      console.log(response);
     });
   }
   editData(tmpid: number) {

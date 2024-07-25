@@ -38,7 +38,6 @@ export class MasterddoformsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.id, this.isDisable, this.dialogButts);
     this.userForm = this.initializeMasterForm();
     if(this.dialogButts == 2 || this.dialogButts == 3)
     {
@@ -47,7 +46,6 @@ export class MasterddoformsComponent implements OnInit {
   }
 
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
-    // console.log(this.theRegistration);
     const _newForm = this.fb.group({
       TreasuryCode: [{ value: this.formMaster?.treasuryCode ?? '', disabled: isDisabled }, Validators.required],
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
@@ -72,7 +70,6 @@ export class MasterddoformsComponent implements OnInit {
         this.ref.close();
       }
     );
-      // form.reset();
     }
     else {
       this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
@@ -83,11 +80,8 @@ export class MasterddoformsComponent implements OnInit {
 
   getDataById() {
     this.masterService.getMasterDDOById(this.id).subscribe((res: MasterDdo) => {
-      console.log(res);
       this.formMaster = res;
       this.userForm = this.initializeMasterForm(this.isDisable);
-      
-      // console.log(res, this,this.dialogButts);
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);

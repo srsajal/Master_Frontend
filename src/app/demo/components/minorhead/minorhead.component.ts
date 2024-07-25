@@ -1,12 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
-import { IapiResponce } from 'src/Model/iapi-responce';
 import { Code, minorHead } from 'src/Model/master.model';
 import { MinorheadService } from 'src/app/demo/service/MasterService/minorhead.service';
-import { MastermajorheadService } from '../../service/MasterService/mastermajorhead.service';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MasterMinorheadFormsComponent } from '../masterForms/master-minorhead-forms/master-minorhead-forms.component';
 @Component({
@@ -21,11 +17,9 @@ export class MinorheadComponent implements OnInit {
   actionButtonConfig: ActionButtonConfig[] = [];
   istableLoading: boolean = false;
   alldata: number = 0;
-  // apiUrl = 'http://localhost:5271/api/masterDDO/'
   visible: boolean = false;
   id: number = 0;
   codes: Code[] = [];
-  // headertext: string = 'ADD DDO DATA';
   dialogButts: number = 1;
   items: MenuItem[];
   home: MenuItem;
@@ -60,21 +54,10 @@ export class MinorheadComponent implements OnInit {
     });
   }
 
-  // userForm: FormGroup = new FormGroup({
-  //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-  //   Code: new FormControl('', Validators.required),
-  //   Designation: new FormControl('', Validators.required),
-  //   Address: new FormControl(''),
-  //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
-  // });
-
   ngOnInit(): void {
-    // this.userForm.reset();
-    // this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
     this.getCodeFromTreasury();
-    // console.log("table reloaded");
 
   }
 
@@ -112,8 +95,6 @@ export class MinorheadComponent implements OnInit {
       this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
-
-      console.log(response);
     });
   }
 
@@ -128,8 +109,6 @@ export class MinorheadComponent implements OnInit {
   getCodeFromTreasury() {
     this.masterService.getMasterCodeSubmajorhead().subscribe((res: Code[]) => {
       this.codes = res;
-      console.log(res);
-
     },
       error => {
         console.error('Error fetching codes from Treasury:', error);
@@ -203,15 +182,12 @@ export class MinorheadComponent implements OnInit {
           code: this.codes,
           id: tmpid,
           isDisable: true,
-          // pgetData : this.getData.bind(this),
 
         },
         width: '50rem',
         modal: true,
         header: 'EDIT MINOR DATA'
       });
-      //this.userForm.markAllAsTouched();
-      //this.userForm.markAsDirty();
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);
@@ -219,15 +195,6 @@ export class MinorheadComponent implements OnInit {
       }
     );
   }
-
-
-  // showDialog() {
-  // console.log("showdialog called");
-  // this.visible = true;
-  // this.userForm.reset();
-  // this.userForm = this.initializeMasterForm(false);
-  // console.log(this.userForm);
-  // }
 
   showDeletedData() {
     this.actionButtonConfig = [
@@ -297,7 +264,6 @@ export class MinorheadComponent implements OnInit {
       pageIndex: event.pageIndex,
       filterParameters: event.filterParameters || [],
     };
-    console.log(this.tableQueryParameters)
     this.getData();
   }
   handleSearch(event: any) {

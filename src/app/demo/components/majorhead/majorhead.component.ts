@@ -94,8 +94,6 @@ export class MajorheadComponent implements OnInit {
       this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
-
-      console.log(response);
     });
   }
   getDataCount() {

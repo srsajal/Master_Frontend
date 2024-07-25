@@ -102,8 +102,6 @@ export class MasterddoComponent implements OnInit {
     this.masterService.getMasterDDO(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
       this.tableData = response.result;
-      console.log(response.result);
-
       this.alldata = response.result.dataCount;
     });
   }
@@ -256,8 +254,6 @@ export class MasterddoComponent implements OnInit {
     console.log("Download the details from above");
   }
   handleButtonClick(event: any) {
-    console.log(event);
-
     if (event.buttonIdentifier == "edit") {
       this.editData(event.rowData.id);
     }

@@ -98,8 +98,6 @@ export class SubmajorheadComponent implements OnInit {
       this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
-
-      console.log(response);
     });
   }
 
@@ -115,8 +113,6 @@ export class SubmajorheadComponent implements OnInit {
   getCodeFromMajorHead() {
     this.masterService.getMajorheadcode().subscribe((res: Code[]) => {
       this.codes = res;
-      console.log(res);
-
     },
       error => {
         console.error('Error fetching codes from Treasury:', error);

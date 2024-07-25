@@ -34,12 +34,7 @@ export class SubMajorHeadFormsComponent implements OnInit {
     this.pgetData = this.config.data.pgetData;
     
    }
-  // getTcode(){
-  //   this.getTCode = this.userForm.value.TreasuryCode;
-  // }
-
   ngOnInit(): void {
-    // console.log(this.id, this.isDisable, this.dialogButts);
     this.userForm = this.initializeMasterForm();
     if(this.dialogButts == 2 || this.dialogButts == 3)
     {
@@ -48,9 +43,8 @@ export class SubMajorHeadFormsComponent implements OnInit {
   }
 
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
-    // console.log(this.theRegistration);
     const _newForm = this.fb.group({
-      majorheadcode: [{ value: this.formMaster?.majorHeadId ?? '', disabled: isDisabled }, Validators.required],
+      MajorHeadId: [{ value: this.formMaster?.majorHeadId ?? '', disabled: isDisabled }, Validators.required],
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required]
     
@@ -61,18 +55,15 @@ export class SubMajorHeadFormsComponent implements OnInit {
   submit() {
     if (this.userForm.valid) {
       this.masterService.postgetsubMajorHeadData(this.userForm).subscribe((res: submajorhead) => {
-        console.log(res);
         this.pgetData();
         this.ref.close();
         this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
       },
       error => {
-        console.error('Error adding MasterDDO data:', error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
         this.ref.close();
       }
     );
-      // form.reset();
     }
     else {
       this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
@@ -85,10 +76,8 @@ export class SubMajorHeadFormsComponent implements OnInit {
     this.masterService.getsubMajorHeadDataById(this.id).subscribe((res: submajorhead) => {
       this.formMaster = res;
       this.userForm = this.initializeMasterForm(this.isDisable);
-      // console.log(res, this,this.dialogButts);
     },
       error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
       }
     );
@@ -97,7 +86,6 @@ export class SubMajorHeadFormsComponent implements OnInit {
   update() {
     if (this.userForm.valid) {
       this.masterService.updategetsubMajorHeadData(this.id, this.userForm).subscribe((res: submajorhead) => {
-        console.log(res);
         this.pgetData();
         this.ref.close();
       },

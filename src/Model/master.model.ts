@@ -54,7 +54,7 @@ export interface Code {
     code: string
 }
 export interface minorHead{
-    submajorheadId : number,
+    subMajorId : number,
     id : number,
     code : string,
     name : string,
@@ -74,7 +74,7 @@ export interface submajorhead {
     id: number,
     code: string,
     name: string,
-    majorHeadId:string,
+    majorHeadId:number,
 }
 
 export interface AllMasterCount {

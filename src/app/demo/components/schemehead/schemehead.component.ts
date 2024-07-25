@@ -82,7 +82,6 @@ export class SchemeheadComponent implements OnInit {
       filterParameters: [],
     };
     this.getData();
-    console.log(this.tableData);
   }
 
   getData(isActive: boolean = true) {
@@ -93,9 +92,6 @@ export class SchemeheadComponent implements OnInit {
         this.istableLoading = false;
         this.tableData = response.result;
         this.alldata = response.result.dataCount;
-        console.log(this.tableData, response);
-        
-
       });
   }
   getDataCount(){
@@ -110,8 +106,6 @@ export class SchemeheadComponent implements OnInit {
     this.http.get<minorheadid[]>('http://localhost:5271/api/masterSCHEME_HEAD/GetMasterSCHEME_HEADfromMINORHEADId').subscribe({
       next: (res: minorheadid[]) => {
         this.codes = res;
-        console.log(res);
-
       },
       error: (error) => {
         console.error('Error fetching codes from Treasury:', error);
