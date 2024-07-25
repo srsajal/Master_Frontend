@@ -16,6 +16,7 @@ import { MasterSchemeHeadFormsComponent } from '../masterForms/master-scheme-hea
   styleUrls: ['./schemehead.component.scss']
 })
 export class SchemeheadComponent implements OnInit {
+  tooltip: any;
   ref: DynamicDialogRef | undefined;
   type:any
   istableLoading:boolean = false;
@@ -28,7 +29,8 @@ export class SchemeheadComponent implements OnInit {
   visible : boolean = false;
   id : number = 0;
   isSubUp : boolean = true;
-
+  totalActiveSchemeHead:number =0;
+  totalInactiveSchemeHead:number =0;
   http = inject(HttpClient);
   messageService = inject(MessageService)
   headertext:string = 'Add SchemeHeadData';
@@ -43,7 +45,9 @@ export class SchemeheadComponent implements OnInit {
  
 
   ngOnInit(): void {
-    this.getCodeFromMinorhead()
+    this.getDataCount();
+    this.getCodeFromMinorhead();
+
 
     this.actionButtonConfig = [
       {
@@ -85,6 +89,14 @@ export class SchemeheadComponent implements OnInit {
         
 
       });
+  }
+  getDataCount(){
+    this.schemeheadservice.countMasterSchemeHead(true,this.tableQueryParameters).subscribe((res:any)=> {
+      this.totalActiveSchemeHead = res;
+    });
+    this.schemeheadservice.countMasterSchemeHead(false,this.tableQueryParameters).subscribe((res:any)=> {
+      this.totalInactiveSchemeHead = res;
+    });
   }
   getCodeFromMinorhead() {
     this.http.get<minorheadid[]>('http://localhost:5271/api/masterSCHEME_HEAD/GetMasterSCHEME_HEADfromMINORHEADId').subscribe({
@@ -326,5 +338,12 @@ viewData(tmpid: number) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
     }
   );
+}
+handleChange(event: any) {
+  if (event.index === 0) {
+    this.showNormalData();
+  } else if (event.index === 1) {
+    this.showDeletedData();
+  }
 }
 }
