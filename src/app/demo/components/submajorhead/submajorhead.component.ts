@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { log } from 'console';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { MenuItem, MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { majorHead, MasterDetailHead } from 'src/Model/master.model';
+import { SubmajorheadService } from '../../service/MasterService/submajorhead.service';
 
 @Component({
   selector: 'app-submajorhead',
@@ -19,8 +19,6 @@ export class SubmajorheadComponent implements OnInit {
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
   alldata : number = 0;
-  apiUrl = 'http://localhost:5271/api/masterSubMajorHead/'
-  aurl = 'http://localhost:5271/api/masterSubMajorHead/'
 
   visible : boolean = false;
   id : number = 0;
@@ -33,7 +31,7 @@ export class SubmajorheadComponent implements OnInit {
 
   http = inject(HttpClient);
   messageService = inject(MessageService)
-  constructor() {
+  constructor(public submajorheadservice : SubmajorheadService) {
     this.items = [
       { label: 'Master Management' },
       { label: 'Sub Major Head' },
@@ -75,7 +73,7 @@ export class SubmajorheadComponent implements OnInit {
   getData() {
     this.istableLoading=true;
     this.http
-      .post<IapiResponce<DynamicTable<any>>>(this.apiUrl + 'GetMastersubmajorhead', this.tableQueryParameters)
+    this.submajorheadservice.getsubmajorheadData(true,this.tableQueryParameters)
       .subscribe((response: any) => {
         this.istableLoading=false;
         this.tableData = response.result;
@@ -87,9 +85,7 @@ export class SubmajorheadComponent implements OnInit {
   }
 
   getmajorHeadcode() {
-    this.http
-      .get<MasterDetailHead[]>(this.aurl + 'GetMajorHeadcode', )
-      .subscribe((res: MasterDetailHead[]) => {
+   this.submajorheadservice.getsubmajorheadcode().subscribe((res: MasterDetailHead[]) => {
         console.log(res);
         
         this.codes = res;
@@ -110,16 +106,12 @@ export class SubmajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
     }
     else {
-    this.http.post<any>(this.apiUrl + 'AddMasterSubmajorHead', this.userForm.value).subscribe((res : any) =>{
+      this.submajorheadservice.postData(this.userForm).subscribe((res : submajorhead) =>{
       console.log(res);
       this.getData();
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
     }
-    // error => {
-    //   console.error('Error adding MasterDDO data:', error);
-    //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
     
-    // }
   );
     form.reset();
     this.visible=false;
@@ -127,7 +119,7 @@ export class SubmajorheadComponent implements OnInit {
   }
 
   editData(tmpid: number) {
-    this.http.get<any>(this.apiUrl + 'GetMasterMastersubMajorHeadById?id=' + `${tmpid}`).subscribe((res:any) => {
+    this.submajorheadservice.EditData(tmpid).subscribe((res:any) => {
       console.log(res);
       this.userForm.patchValue({
         majorheadcode:res.majorheadcode,
@@ -169,7 +161,7 @@ export class SubmajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'Form Update failed', life: 2000 });
     }
     else{
-    this.http.put<any>(this.apiUrl + 'UpdateMastersubMajorHead?id=' + `${this.id}` , this.userForm.value).subscribe((res : any) =>{
+      this.submajorheadservice.update(this.id, this.userForm).subscribe((res : submajorhead) =>{
       console.log(res);
       this.getData();
     });
@@ -182,7 +174,7 @@ export class SubmajorheadComponent implements OnInit {
 }
 
   delData(tmpid: number) {
-    this.http.delete(this.apiUrl + 'DeleteMasterMAJORHEAD?id=' + `${tmpid}`).subscribe(() => {
+    this.submajorheadservice.delData(tmpid).subscribe(() => {
       this.getData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
