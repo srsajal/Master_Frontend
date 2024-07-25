@@ -26,6 +26,8 @@ export class TreasuryComponent implements OnInit {
   id: number = 0;
   codes: Code[] = [];
   dialogButts: number = 1;
+  totalActiveTreasury: number = 0;
+  totalInactiveTreasury: number = 0;
   items: MenuItem[];
   home: MenuItem;
 
@@ -91,6 +93,7 @@ export class TreasuryComponent implements OnInit {
   }
   getData(isActive: boolean = true) {
     this.istableLoading = true;
+    this.getDataCount();
     this.masterService.getMasterTreasury(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
       this.tableData = response.result;
@@ -152,10 +155,14 @@ export class TreasuryComponent implements OnInit {
     );
   }
 
-
-
-
-
+  getDataCount() {
+    this.masterService.countMasterTreasury(true, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalActiveTreasury = res;
+    });
+    this.masterService.countMasterTreasury(false, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalInactiveTreasury = res;
+    });
+  }
   viewData(tmpid: number) {
     this.masterService.getMasterTreasuryById(tmpid).subscribe((res: MasterTreasury) => {
       this.ref = this.dialogService.open(MasterTreasuryFormsComponent, {
@@ -248,5 +255,12 @@ export class TreasuryComponent implements OnInit {
     this.getData();
   }
   handleSearch(event: any) {
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
   }
 }

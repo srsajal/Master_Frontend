@@ -23,7 +23,7 @@ export class MastermajorheadService {
   postData(userForm : FormGroup){
     return this.http.post<majorHead>(this.majorheadurl + 'AddMasterMAJORHEAD', userForm.value)
   }
-  EditData(tmpid: number) {
+  getdatabyid(tmpid: number) {
     return this.http.get<majorHead>(this.majorheadurl + 'GetMasterMAJORHEADById?id=' + `${tmpid}`)
   }
   update(id: number,userForm : FormGroup){
@@ -38,5 +38,7 @@ export class MastermajorheadService {
   countMasterMajorHead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
     return this.http.post<IapiResponce<DynamicTable<majorHead>>>(this.majorheadurl + 'CountMasterMajorHead?isActive='+isActive, tableQueryParameters)
   }
-
+  restoremasterMajorHeadById(tmpid : number){
+    return this.http.delete('http://localhost:5271/api/masterMajorHead/RestoreMasterMajorHead?id='  + `${tmpid}`);
+  }
 }
