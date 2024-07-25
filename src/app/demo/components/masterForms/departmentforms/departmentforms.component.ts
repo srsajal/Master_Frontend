@@ -26,6 +26,7 @@ export class DepartmentformsComponent implements OnInit {
   fb = inject(FormBuilder);
   masterService = inject(DepartmentServiceService);
   messageService = inject(MessageService);
+  isExist: boolean | undefined;
   constructor(public config : DynamicDialogConfig, public ref : DynamicDialogRef) {
     this.id = config.data.id;
     this.codes = config.data.code;
@@ -54,7 +55,7 @@ export class DepartmentformsComponent implements OnInit {
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled },[,Validators.maxLength(100),,Validators.minLength(2)]],
       DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, [Validators.required,,Validators.minLength(1),Validators.maxLength(2)]],
       Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, [Validators.required,Validators.minLength(3)]],
-      PinCode: [{ value: this.formMaster?.pinCode ?? '', disabled: isDisabled }, [Validators.required,Validators.pattern("^([^0][0-9]){6}$")]],
+      PinCode: [{ value: this.formMaster?.pinCode ?? '', disabled: isDisabled }, [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{6}$")]],
       PhoneNumber: [{ value: this.formMaster?.phoneNumber ?? '', disabled: isDisabled },[Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.required]],
       MobileNumber: [{ value: this.formMaster?.mobileNumber ?? '', disabled: isDisabled },[Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.required]],
       Email: [{ value: this.formMaster?.email ?? '', disabled: isDisabled }, [Validators.email,Validators.required]],
@@ -132,5 +133,16 @@ export class DepartmentformsComponent implements OnInit {
     this.ref.close();
     this.dialogButts = 1;
   }
+  onChangedata(event: any) {
+    if (event.target.value == '') {
+      this.isExist = true;
+    }
+    else {
+      this.masterService.onChange(event.target.value).subscribe((res: any) => {
+        this.isExist = res;
+        console.log(res);
+
+      });
+    }}
 
 }
