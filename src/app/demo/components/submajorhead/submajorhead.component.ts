@@ -27,6 +27,8 @@ export class SubmajorheadComponent implements OnInit {
   dialogButts: number = 1;
   items: MenuItem[];
   home: MenuItem;
+  totalActiveSubMajorHead: number = 0;
+  totalInactiveSubMajorHead: number = 0;
 
   messageService = inject(MessageService);
   masterService = inject(SubmajorheadService);
@@ -55,21 +57,10 @@ export class SubmajorheadComponent implements OnInit {
     });
   }
 
-  // userForm: FormGroup = new FormGroup({
-  //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-  //   Code: new FormControl('', Validators.required),
-  //   Designation: new FormControl('', Validators.required),
-  //   Address: new FormControl(''),
-  //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
-  // });
-
   ngOnInit(): void {
-    // this.userForm.reset();
-    // this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
    this.getCodeFromMajorHead();
-    // console.log("table reloaded");
 
   }
 
@@ -101,12 +92,8 @@ export class SubmajorheadComponent implements OnInit {
     };
   }
   getData(isActive: boolean = true) {
-    // this.tableQueryParameters.filterParameters.push({
-    //   field: 'Id',
-    //   value: '1685',
-    //   operator:'equals'
-    // });
     this.istableLoading = true;
+    this.getDataCount();
     this.masterService.getsubMajorHeadData(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
       this.tableData = response.result;
@@ -115,6 +102,16 @@ export class SubmajorheadComponent implements OnInit {
       console.log(response);
     });
   }
+
+  getDataCount() {
+    this.masterService.countMasterSubMajorhead(true, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalActiveSubMajorHead = res;
+    });
+    this.masterService.countMasterSubMajorhead(false, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalInactiveSubMajorHead = res;
+    });
+  }
+
   getCodeFromMajorHead() {
     this.masterService.getMajorheadcode().subscribe((res: Code[]) => {
       this.codes = res;
@@ -169,18 +166,6 @@ export class SubmajorheadComponent implements OnInit {
       }
     );
   }
-  // restoreData(tmpid: number) {
-  //   this.masterService.res(tmpid).subscribe(() => {
-  //     this.showDeletedData();
-  //     this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
-  //   },
-  //     error => {
-  //       console.error('Error deleting MasterDDO data:', error);
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
-  //     }
-  //   );
-  // }
-
 
 
 
@@ -193,15 +178,12 @@ export class SubmajorheadComponent implements OnInit {
           code: this.codes,
           id: tmpid,
           isDisable: true,
-          // pgetData : this.getData.bind(this),
 
         },
         width: '50rem',
         modal: true,
         header: 'EDIT SUBMAJORHEAD DATA'
       });
-      //this.userForm.markAllAsTouched();
-      //this.userForm.markAsDirty();
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);
@@ -285,6 +267,13 @@ export class SubmajorheadComponent implements OnInit {
     this.getData();
   }
   handleSearch(event: any) {
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
   }
   
 }

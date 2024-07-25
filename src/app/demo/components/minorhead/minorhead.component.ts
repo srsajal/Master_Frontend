@@ -29,6 +29,8 @@ export class MinorheadComponent implements OnInit {
   dialogButts: number = 1;
   items: MenuItem[];
   home: MenuItem;
+  totalActiveMinorHead: number = 0;
+  totalInactiveMinorHead: number = 0;
 
   // http = inject(HttpClient);
   messageService = inject(MessageService);
@@ -105,12 +107,22 @@ export class MinorheadComponent implements OnInit {
   }
   getData(isActive: boolean = true) {
     this.istableLoading = true;
+    this.getDataCount();
     this.masterService.getmasterMinorhead(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
 
       console.log(response);
+    });
+  }
+
+  getDataCount() {
+    this.masterService.countMasterMinorhead(true, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalActiveMinorHead = res;
+    });
+    this.masterService.countMasterMinorhead(false, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalInactiveMinorHead = res;
     });
   }
   getCodeFromTreasury() {
@@ -167,17 +179,17 @@ export class MinorheadComponent implements OnInit {
       }
     );
   }
-  // restoreData(tmpid: number) {
-  //   this.masterService.restoreMasterDdoById(tmpid).subscribe(() => {
-  //     this.showDeletedData();
-  //     this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
-  //   },
-  //     error => {
-  //       console.error('Error deleting MasterDDO data:', error);
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
-  //     }
-  //   );
-  // }
+  restoreData(tmpid: number) {
+    this.masterService.restoreMasterMinorheadById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+      }
+    );
+  }
 
 
 
@@ -275,9 +287,9 @@ export class MinorheadComponent implements OnInit {
     else if (event.buttonIdentifier == "view") {
       this.viewData(event.rowData.id);
     }
-    // else if (event.buttonIdentifier == "restore") {
-    //   this.restoreData(event.rowData.id);
-    // }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {
@@ -289,17 +301,14 @@ export class MinorheadComponent implements OnInit {
     this.getData();
   }
   handleSearch(event: any) {
-    // this.tableQueryParameters.filterParameters = [];
-    // this.tableData.headers.forEach((element: { filterField: any; }) => {
-    //   this.tableQueryParameters.filterParameters.push({
-    //     field: element.filterField,
-    //     value: event,
-    //     operator: 'contains'
-    //   });
-    // });
-    console.log(event);
-    // console.log(this.tableQueryParameters);
-    // this.getData();
+
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
   }
  
 
