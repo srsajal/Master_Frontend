@@ -29,23 +29,23 @@ export class SchemeheadComponent implements OnInit {
   visible : boolean = false;
   id : number = 0;
   isSubUp : boolean = true;
-  totalActiveSchemeHead:number =0;
-  totalInactiveSchemeHead:number =0;
+  totalActiveSchemeHead:number = 0;
+  totalInactiveSchemeHead:number = 0;
   http = inject(HttpClient);
   messageService = inject(MessageService)
   headertext:string = 'Add SchemeHeadData';
   constructor(private schemeheadservice : SchemeHeadServiceService,private confirmationService: ConfirmationService, private dialogService:DialogService) { }
 
   userForm: FormGroup = new FormGroup({
-    demandCode: new FormControl('', [Validators.required, Validators.maxLength(2)]),
-    code: new FormControl('',  [Validators.required, Validators.maxLength(3)]),
+    demandCode: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    code: new FormControl('',  [Validators.required, Validators.minLength(3)]),
     name: new FormControl('', Validators.required),
     minorHeadId: new FormControl('', Validators.required),
   });
  
 
   ngOnInit(): void {
-    this.getDataCount();
+   
     this.getCodeFromMinorhead();
 
 
@@ -79,6 +79,7 @@ export class SchemeheadComponent implements OnInit {
   }
 
   getData(isActive: boolean = true) {
+    this.getDataCount();
     this.istableLoading=true;
     this.schemeheadservice.getmasterSCHEME_HEAD (isActive,this.tableQueryParameters)
       .subscribe((response: any) => {
