@@ -50,14 +50,14 @@ export class DepartmentformsComponent implements OnInit {
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
-      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required,Validators.maxLength(2)]],
-      Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, ],
-      DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, [Validators.required,Validators.maxLength(2)]],
-      Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, Validators.required],
-      PinCode: [{ value: this.formMaster?.pinCode ?? '', disabled: isDisabled }, Validators.required],
-      PhoneNumber: [{ value: this.formMaster?.phoneNumber ?? '', disabled: isDisabled }, Validators.required],
-      MobileNumber: [{ value: this.formMaster?.mobileNumber ?? '', disabled: isDisabled }, Validators.required],
-      Email: [{ value: this.formMaster?.email ?? '', disabled: isDisabled }, Validators.required],
+      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required,Validators.maxLength(2),Validators.minLength(2)]],
+      Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled },[,Validators.maxLength(100),,Validators.minLength(2)]],
+      DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, [Validators.required,,Validators.minLength(1),Validators.maxLength(2)]],
+      Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, [Validators.required,Validators.minLength(3)]],
+      PinCode: [{ value: this.formMaster?.pinCode ?? '', disabled: isDisabled }, [Validators.required,Validators.pattern("^([^0][0-9]){6}$")]],
+      PhoneNumber: [{ value: this.formMaster?.phoneNumber ?? '', disabled: isDisabled },[Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.required]],
+      MobileNumber: [{ value: this.formMaster?.mobileNumber ?? '', disabled: isDisabled },[Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.required]],
+      Email: [{ value: this.formMaster?.email ?? '', disabled: isDisabled }, [Validators.email,Validators.required]],
       
     });
 

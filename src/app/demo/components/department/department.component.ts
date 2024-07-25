@@ -104,7 +104,7 @@ export class DepartmentComponent implements OnInit {
         dialogButt: 2,
         code: this.codes,
         id: tmpid,
-        isDisable: true,
+        isDisable: false,
         pgetData: this.showNormalData.bind(this),
 
       },
