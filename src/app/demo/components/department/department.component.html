@@ -9,12 +9,21 @@
   </div>
   
 </div>
-<p-button class="" (click)="showDeletedData()" label="SEE DELETED TREASURY">
-  <i class="pi pi-eye mr-2"></i>
-</p-button>
-<p-button class="" (click)="showNormalData()" label="SEE TREASURY">
-  <i class="pi pi-eye mr-2"></i>
-</p-button>
+
+<div class="mb-2">
+  <p-tabView (onChange)="handleChange($event)">
+      <p-tabPanel header="Active">
+        <p>
+          There are {{totalActiveDept}} DDO's are active out of {{totalActiveDept + totalInactiveDept}} DDO's given below.
+        </p>
+      </p-tabPanel>
+      <p-tabPanel header="Inactive">
+        <p>
+          There are {{totalInactiveDept}} DDO's are inactive out of {{totalActiveDept + totalInactiveDept}} DDO's given below.
+        </p>
+      </p-tabPanel>
+  </p-tabView>
+</div>
 
   <p-toast></p-toast>
   <p-confirmDialog></p-confirmDialog>

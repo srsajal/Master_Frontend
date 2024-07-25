@@ -36,7 +36,7 @@ export class DepartmentServiceService {
     return  this.http.delete(this.departmenturl + 'DeleteMasterDepartment?id=' + `${tmpid}`)
   }
   countMasterDepartment(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
-    return this.http.post<IapiResponce<DynamicTable<Masterdept>>>(this.departmenturl + 'CountMasterDdo?isActive='+isActive, tableQueryParameters)
+    return this.http.post<IapiResponce<DynamicTable<Masterdept>>>(this.departmenturl + 'CountMasterDepartment?isActive='+isActive, tableQueryParameters)
   }
 
   restoreMasterDepartmentById(tmpid : number){
