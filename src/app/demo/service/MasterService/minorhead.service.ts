@@ -39,4 +39,9 @@ export class MinorheadService {
   deleteMasterMinorheadById(tmpid : number){
     return  this.http.delete(this.minorheadurl + 'DeletemasterMinorHead?id=' + `${tmpid}`)
   }
+
+  countMasterMinorhead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<minorHead>>>(this.minorheadurl + 'CountMasterMinorHead?isActive='+isActive, tableQueryParameters)
+  }
+  
 }
