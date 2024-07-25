@@ -9,12 +9,20 @@
   </div>
 </div>
 
-<p-button class="" (click)="showDeletedData()" label="SEE DELETED SUBMAJORHEAD">
-  <i class="pi pi-eye mr-2"></i>
-</p-button>
-<p-button class="" (click)="showNormalData()" label="SEE SUBMAJORHEAD">
-  <i class="pi pi-eye mr-2"></i>
-</p-button>
+<div class="mb-2">
+  <p-tabView (onChange)="handleChange($event)">
+      <p-tabPanel header="Active">
+        <p>
+          There are {{totalActiveSubMajorHead}} DDO's are active out of {{totalActiveSubMajorHead + totalInactiveSubMajorHead}} DDO's given below.
+        </p>
+      </p-tabPanel>
+      <p-tabPanel header="Inactive">
+        <p>
+          There are {{totalInactiveSubMajorHead}} DDO's are inactive out of {{totalActiveSubMajorHead + totalInactiveSubMajorHead}} DDO's given below.
+        </p>
+      </p-tabPanel>
+  </p-tabView>
+</div>
   
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>

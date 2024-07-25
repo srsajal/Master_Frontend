@@ -29,6 +29,8 @@ export class MinorheadComponent implements OnInit {
   dialogButts: number = 1;
   items: MenuItem[];
   home: MenuItem;
+  totalActiveMinorHead: number = 0;
+  totalInactiveMinorHead: number = 0;
 
   // http = inject(HttpClient);
   messageService = inject(MessageService);
@@ -105,12 +107,22 @@ export class MinorheadComponent implements OnInit {
   }
   getData(isActive: boolean = true) {
     this.istableLoading = true;
+    this.getDataCount();
     this.masterService.getmasterMinorhead(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
 
       console.log(response);
+    });
+  }
+
+  getDataCount() {
+    this.masterService.countMasterMinorhead(true, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalActiveMinorHead = res;
+    });
+    this.masterService.countMasterMinorhead(false, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalInactiveMinorHead = res;
     });
   }
   getCodeFromTreasury() {
@@ -290,6 +302,13 @@ export class MinorheadComponent implements OnInit {
   }
   handleSearch(event: any) {
 
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
   }
  
 
