@@ -6,18 +6,20 @@
 
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
-<p-tabView (onChange)="handleChange($event)">
-<p-tabPanel header="Active">
-    <p>
-      There are {{totalActiveSubDetailHead}} Sub Detail Head's are active out of {{totalActiveSubDetailHead + totalInactiveSubDetailHead}} Sub Detail Head's given below.
-    </p>
-  </p-tabPanel>
-  <p-tabPanel header="Inactive">
-    <p>
-      There are {{totalInactiveSubDetailHead}} Sub Detail Head's are inactive out of {{totalActiveSubDetailHead + totalInactiveSubDetailHead}} Sub Detail Head's given below.
-    </p>
-  </p-tabPanel>
-</p-tabView>
+<div class="mb-2">
+  <p-tabView (onChange)="handleChange($event)">
+  <p-tabPanel header="Active">
+      <p>
+        There are {{totalActiveSubDetailHead}} Sub Detail Head's are active out of {{totalActiveSubDetailHead + totalInactiveSubDetailHead}} Sub Detail Head's given below.
+      </p>
+    </p-tabPanel>
+    <p-tabPanel header="Inactive">
+      <p>
+        There are {{totalInactiveSubDetailHead}} Sub Detail Head's are inactive out of {{totalActiveSubDetailHead + totalInactiveSubDetailHead}} Sub Detail Head's given below.
+      </p>
+    </p-tabPanel>
+  </p-tabView>
+</div>
 <mh-prime-dynamic-table size="small" [numberRowsShown]="10"
   [rowsPerPageOptions]="[10, 30, 50]"  [data]="tableData" rowSelectionMode="multiple"
   [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"

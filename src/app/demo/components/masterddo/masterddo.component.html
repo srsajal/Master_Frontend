@@ -1,11 +1,12 @@
 <div class="flex justify-content-end mb-4">
-  <p-button class="mb-10" (click)="show()" label="ADD DDO">
+  <p-button (click)="show()" label="ADD DDO">
     <i class="pi pi-plus mr-2"></i>
   </p-button>
 </div>
 
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
+<div class="mb-2">
   <p-tabView (onChange)="handleChange($event)">
       <p-tabPanel header="Active">
         <p>
@@ -18,6 +19,7 @@
         </p>
       </p-tabPanel>
   </p-tabView>
+</div>
   
 <mh-prime-dynamic-table size="small" [numberRowsShown]="10"
   [rowsPerPageOptions]="[10, 30, 50]"  [data]="tableData" rowSelectionMode="multiple" [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
