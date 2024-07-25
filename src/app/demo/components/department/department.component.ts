@@ -129,7 +129,7 @@ export class DepartmentComponent implements OnInit {
         dialogButt: 2,
         code: this.codes,
         id: tmpid,
-        isDisable: false,
+        isDisable: true,
         pgetData: this.showNormalData.bind(this),
 
       },
@@ -164,17 +164,17 @@ export class DepartmentComponent implements OnInit {
       }
     );
   }
-  // restoreData(tmpid: number) {
-  //   this.masterService.restoreMasterTreasuryById(tmpid).subscribe(() => {
-  //     this.showDeletedData();
-  //     this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
-  //   },
-  //     error => {
-  //       console.error('Error deleting MasterDDO data:', error);
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
-  //     }
-  //   );
-  // }
+  restoreData(tmpid: number) {
+    this.masterService.restoreMasterDepartmentById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+      }
+    );
+  }
 
 
 
