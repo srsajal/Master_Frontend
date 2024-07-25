@@ -83,8 +83,10 @@ export class MasterddoformsComponent implements OnInit {
 
   getDataById() {
     this.masterService.getMasterDDOById(this.id).subscribe((res: MasterDdo) => {
+      console.log(res);
       this.formMaster = res;
       this.userForm = this.initializeMasterForm(this.isDisable);
+      
       // console.log(res, this,this.dialogButts);
     },
       error => {

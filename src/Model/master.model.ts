@@ -45,7 +45,7 @@ export interface MasterSubDetailHead {
     id: number,
     code: string,
     name: string,
-    DetailHeadId: number
+    detailHeadId: number
 }
 
 

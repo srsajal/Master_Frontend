@@ -43,7 +43,7 @@ export class MastersubdetailheadformComponent implements OnInit {
 
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     const _newForm = this.fb.group({
-      DetailHeadId : [{ value: this.formMaster?.id ?? '', disabled: isDisabled }, Validators.required],
+      DetailHeadId : [{ value: this.formMaster?.detailHeadId ?? '', disabled: isDisabled }, Validators.required],
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required, Validators.maxLength(2)]],
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required],
       
@@ -75,6 +75,7 @@ export class MastersubdetailheadformComponent implements OnInit {
 
   getDataById() {
     this.subDetailHeadService.getMasterSubDetailHeadById(this.id).subscribe((res: MasterSubDetailHead) => {
+      console.log(res);      
       this.formMaster = res;
       this.userForm = this.initializeMasterForm(this.isDisable);
     },
