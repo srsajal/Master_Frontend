@@ -50,9 +50,9 @@ export class DepartmentformsComponent implements OnInit {
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
-      DeptCode: [{ value: this.formMaster?.deptcode ?? '', disabled: isDisabled }, Validators.required],
-      DeptName: [{ value: this.formMaster?.deptname ?? '', disabled: isDisabled }, ],
-      DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, Validators.required,Validators.minLength(3)],
+      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required,Validators.maxLength(2)]],
+      Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, ],
+      DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, [Validators.required,Validators.maxLength(2)]],
       Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, Validators.required],
       PinCode: [{ value: this.formMaster?.pinCode ?? '', disabled: isDisabled }, Validators.required],
       PhoneNumber: [{ value: this.formMaster?.phoneNumber ?? '', disabled: isDisabled }, Validators.required],

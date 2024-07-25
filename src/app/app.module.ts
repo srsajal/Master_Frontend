@@ -54,6 +54,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import {MenuItem} from 'primeng/api';
 import { MasterMajorheadFormsComponent } from './demo/components/masterForms/master-majorhead-forms/master-majorhead-forms.component';
 
+import { SubMajorHeadFormsComponent } from './demo/components/masterForms/sub-major-head-forms/sub-major-head-forms.component';
+
 
 
 
@@ -76,6 +78,8 @@ import { MasterMajorheadFormsComponent } from './demo/components/masterForms/mas
         MasterMinorheadFormsComponent,
         DepartmentformsComponent,
         MasterSchemeHeadFormsComponent,
+        SubMajorHeadFormsComponent,
+       
         MasterMajorheadFormsComponent,
           
     ],
