@@ -5,8 +5,9 @@
         <form [formGroup]="userForm">
             <div class="mb-4 mt-3">
                 <label class="text-2xl" for="firstname2">Select Treasury <span class="red"> *</span> : </label>
-                <p-dropdown class="ml-3" [style]="{'width':'71%'}" [options]="codes" formControlName="TreasuryCode"
-                    placeholder="Select Treasury" optionLabel="name" optionValue="code" (onChange)="getTcode()">
+                <p-dropdown class="ml-3" [style]="{'width':'71%'}" [options]="codes" [virtualScroll]="true"
+                    [virtualScrollItemSize]="30" formControlName="TreasuryCode" placeholder="Select Treasury"
+                    optionLabel="name" optionValue="code" (onChange)="getTcode()">
                     <ng-template let-option pTemplate="item">
                         {{ option.code }} : {{ option.name }}
                     </ng-template>
@@ -32,7 +33,8 @@
                         class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
                         formControlName="Phone">
                     <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error">
-                        Phone is required.
+                        <div *ngIf="userForm.get('Phone')?.errors?.['required']">Phone is required.</div>
+                        <div *ngIf="userForm.get('Phone')?.errors?.['pattern']">Phone number must be 10 digits.</div>
                     </div>
                 </div>
             </div>
@@ -92,14 +94,14 @@
             </ng-template>
             <ng-template #elseBlock2>
                 <div class="button-container" *ngIf="(dialogButts == 3)">
-                  <div class="formgrid grid">
-                    <div class="col">
-                      <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Close"
-                        icon="pi pi-times" iconPos="left" (click)="hide()"></p-button>
+                    <div class="formgrid grid">
+                        <div class="col">
+                            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Close"
+                                icon="pi pi-times" iconPos="left" (click)="hide()"></p-button>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </ng-template>
+            </ng-template>
 
         </form>
         <!-- <p-toast></p-toast> -->

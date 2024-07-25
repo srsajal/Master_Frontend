@@ -10,9 +10,15 @@
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
 <p-tabView (onChange)="handleChange($event)">
-  <p-tabPanel header="Active Sub Detail Head" tooltip="{{totalActiveSubDetailHead}}">
+<p-tabPanel header="Active Sub Detail Head" [tooltip]="totalActiveSubDetailHead">
+    <p>
+      There are {{totalActiveSubDetailHead}} Sub Detail Head's are active out of {{totalActiveSubDetailHead + totalInactiveSubDetailHead}} Sub Detail Head's given below.
+    </p>
   </p-tabPanel>
-  <p-tabPanel header="Inactive Sub Detail Head" tooltip="{{totalInactiveSubDetailHead}}">
+  <p-tabPanel header="Inactive Sub Detail Head" [tooltip]="totalInactiveSubDetailHead">
+    <p>
+      There are {{totalInactiveSubDetailHead}} Sub Detail Head's are inactive out of {{totalActiveSubDetailHead + totalInactiveSubDetailHead}} Sub Detail Head's given below.
+    </p>
   </p-tabPanel>
 </p-tabView>
 <mh-prime-dynamic-table size="small" [numberRowsShown]="10"

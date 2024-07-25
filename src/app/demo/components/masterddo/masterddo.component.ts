@@ -51,23 +51,12 @@ export class MasterddoComponent implements OnInit {
     });
   }
 
-  // userForm: FormGroup = new FormGroup({
-  //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-  //   Code: new FormControl('', Validators.required),
-  //   Designation: new FormControl('', Validators.required),
-  //   Address: new FormControl(''),
-  //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
-  // });
 
   ngOnInit(): void {
-    // this.userForm.reset();
-    // this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
     this.getCodeFromTreasury();
     this.getDataCount();
-    // console.log("table reloaded");
-
   }
 
   tableInitialize() {
@@ -98,25 +87,16 @@ export class MasterddoComponent implements OnInit {
     };
   }
   getData(isActive: boolean = true) {
-    // this.tableQueryParameters.filterParameters.push({
-    //   field: 'Id',
-    //   value: '1685',
-    //   operator:'equals'
-    // });
     this.istableLoading = true;
     this.masterService.getMasterDDO(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
-
-      console.log(response);
     });
   }
   getCodeFromTreasury() {
     this.masterService.getMasterCodeTreasury().subscribe((res: Code[]) => {
       this.codes = res;
-      console.log(res);
-
     },
       error => {
         console.error('Error fetching codes from Treasury:', error);
@@ -195,15 +175,12 @@ export class MasterddoComponent implements OnInit {
           code: this.codes,
           id: tmpid,
           isDisable: true,
-          // pgetData : this.getData.bind(this),
 
         },
         width: '50rem',
         modal: true,
         header: 'EDIT DDO DATA'
       });
-      //this.userForm.markAllAsTouched();
-      //this.userForm.markAsDirty();
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);
@@ -211,15 +188,6 @@ export class MasterddoComponent implements OnInit {
       }
     );
   }
-
-
-  // showDialog() {
-  // console.log("showdialog called");
-  // this.visible = true;
-  // this.userForm.reset();
-  // this.userForm = this.initializeMasterForm(false);
-  // console.log(this.userForm);
-  // }
 
   showDeletedData() {
     this.actionButtonConfig = [
@@ -294,21 +262,10 @@ export class MasterddoComponent implements OnInit {
       pageIndex: event.pageIndex,
       filterParameters: event.filterParameters || [],
     };
-    console.log(this.tableQueryParameters)
     this.getData();
   }
   handleSearch(event: any) {
-    // this.tableQueryParameters.filterParameters = [];
-    // this.tableData.headers.forEach((element: { filterField: any; }) => {
-    //   this.tableQueryParameters.filterParameters.push({
-    //     field: element.filterField,
-    //     value: event,
-    //     operator: 'contains'
-    //   });
-    // });
     console.log(event);
-    // console.log(this.tableQueryParameters);
-    // this.getData();
   }
   handleChange(event: any) {
     if (event.index === 0) {

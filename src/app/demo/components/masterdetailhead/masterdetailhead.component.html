@@ -12,8 +12,14 @@
 <p-confirmDialog></p-confirmDialog>
 <p-tabView (onChange)="handleChange($event)">
   <p-tabPanel header="Active Detail Head" [tooltip]="totalActiveDetailHead">
+    <p>
+      There are {{totalActiveDetailHead}} Detail Head's are active out of {{totalActiveDetailHead + totalInactiveDetailHead}} Detail Head's given below.
+    </p>
   </p-tabPanel>
   <p-tabPanel header="Inactive Detail Head" [tooltip]="totalInactiveDetailHead">
+    <p>
+      There are {{totalInactiveDetailHead}} Detail Head's are inactive out of {{totalActiveDetailHead + totalInactiveDetailHead}} Detail Head's given below.
+    </p>
   </p-tabPanel>
 </p-tabView>
 <mh-prime-dynamic-table size="small" [numberRowsShown]="10"
