@@ -53,7 +53,7 @@ export class DepartmentformsComponent implements OnInit {
     const _newForm = this.fb.group({
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required,Validators.maxLength(2),Validators.minLength(2)]],
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled },[,Validators.maxLength(100),,Validators.minLength(2)]],
-      DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, [Validators.required,,Validators.minLength(1),Validators.maxLength(2)]],
+      DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, [Validators.required,Validators.minLength(1),Validators.maxLength(2)]],
       Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, [Validators.required,Validators.minLength(3)]],
       PinCode: [{ value: this.formMaster?.pinCode ?? '', disabled: isDisabled }, [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{6}$")]],
       PhoneNumber: [{ value: this.formMaster?.phoneNumber ?? '', disabled: isDisabled },[Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.required]],
