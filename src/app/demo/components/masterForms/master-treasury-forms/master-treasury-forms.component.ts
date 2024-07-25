@@ -51,8 +51,8 @@ export class MasterTreasuryFormsComponent implements OnInit {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
       DistrictName: [{ value: this.formMaster?.districtName ?? '', disabled: isDisabled }, Validators.required],
-      DistrictCode: [{ value: this.formMaster?.districtCode ?? '', disabled: isDisabled }, ],
-      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required,Validators.minLength(3)],
+      DistrictCode: [{ value: this.formMaster?.districtCode ?? '', disabled: isDisabled }],
+      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required,Validators.minLength(3)]],
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required]
       
     });
@@ -61,6 +61,8 @@ export class MasterTreasuryFormsComponent implements OnInit {
   }
   submit() {
     if (this.userForm.valid) {
+      console.log('hello');
+      
       this.masterService.postMasterTreasury(this.userForm).subscribe((res: MasterTreasury) => {
         console.log(res);
         this.pgetData();
