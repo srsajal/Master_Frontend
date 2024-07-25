@@ -36,4 +36,8 @@ export class SubmajorheadService {
     return this.http.get<MasterDetailHead[]>(this.submajorheadurl + 'GetMajorHeadcode', )
 
   }
+
+  countMasterSubMajorhead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<submajorhead>>>(this.submajorheadurl + 'CountMasterSubMajorHead?isActive='+isActive, tableQueryParameters)
+  }
 }
