@@ -26,6 +26,8 @@ export class MajorheadComponent implements OnInit {
   dialogButts: number = 1;
   items: MenuItem[];
   home: MenuItem;
+  totalActiveMajorHead: number = 0;
+  totalInactiveMajorHead: number = 0;
 
   messageService = inject(MessageService);
   masterService = inject(MastermajorheadService);
@@ -100,12 +102,8 @@ export class MajorheadComponent implements OnInit {
     };
   }
   getData(isActive: boolean = true) {
-    // this.tableQueryParameters.filterParameters.push({
-    //   field: 'Id',
-    //   value: '1685',
-    //   operator:'equals'
-    // });
     this.istableLoading = true;
+    this.getDataCount();
     this.masterService.getMHData(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
       this.tableData = response.result;
@@ -114,19 +112,14 @@ export class MajorheadComponent implements OnInit {
       console.log(response);
     });
   }
-  // getCodeFromTreasury() {
-  //   this.masterService.getMasterCodeTreasury().subscribe((res: Code[]) => {
-  //     this.codes = res;
-  //     console.log(res);
-
-  //   },
-  //     error => {
-  //       console.error('Error fetching codes from Treasury:', error);
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
-  //     }
-  //   );
-  // }
-
+  getDataCount() {
+    this.masterService.countMasterMajorHead(true, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalActiveMajorHead = res;
+    });
+    this.masterService.countMasterMajorHead(false, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalInactiveMajorHead = res;
+    });
+  }
   editData(tmpid: number) {
     this.ref = this.dialogService.open(MasterMajorheadFormsComponent, {
       data: {
@@ -192,15 +185,12 @@ export class MajorheadComponent implements OnInit {
           code: this.codes,
           id: tmpid,
           isDisable: true,
-          // pgetData : this.getData.bind(this),
 
         },
         width: '50rem',
         modal: true,
         header: 'EDIT TREASURY DATA'
       });
-      //this.userForm.markAllAsTouched();
-      //this.userForm.markAsDirty();
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);
@@ -209,14 +199,6 @@ export class MajorheadComponent implements OnInit {
     );
   }
 
-
-  // showDialog() {
-  // console.log("showdialog called");
-  // this.visible = true;
-  // this.userForm.reset();
-  // this.userForm = this.initializeMasterForm(false);
-  // console.log(this.userForm);
-  // }
 
   showDeletedData() {
     this.actionButtonConfig = [
@@ -290,16 +272,12 @@ export class MajorheadComponent implements OnInit {
     this.getData();
   }
   handleSearch(event: any) {
-    // this.tableQueryParameters.filterParameters = [];
-    // this.tableData.headers.forEach((element: { filterField: any; }) => {
-    //   this.tableQueryParameters.filterParameters.push({
-    //     field: element.filterField,
-    //     value: event,
-    //     operator: 'contains'
-    //   });
-    // });
-    console.log(event);
-    // console.log(this.tableQueryParameters);
-    // this.getData();
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
   }
 }
