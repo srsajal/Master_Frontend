@@ -50,9 +50,9 @@ export class DepartmentformsComponent implements OnInit {
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
-      DeptCode: [{ value: this.formMaster?.deptcode ?? '', disabled: isDisabled }, Validators.required],
-      DeptName: [{ value: this.formMaster?.deptname ?? '', disabled: isDisabled }, ],
-      DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, Validators.required,Validators.minLength(3)],
+      Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required,Validators.maxLength(2)]],
+      Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, ],
+      DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, [Validators.required,Validators.maxLength(2)]],
       Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, Validators.required],
       PinCode: [{ value: this.formMaster?.pinCode ?? '', disabled: isDisabled }, Validators.required],
       PhoneNumber: [{ value: this.formMaster?.phoneNumber ?? '', disabled: isDisabled }, Validators.required],
@@ -72,8 +72,8 @@ export class DepartmentformsComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
       },
       error => {
-        console.error('Error adding MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        console.error('Error adding MasterDepartment data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master Department data', life: 2000 });
         this.ref.close();
       }
     );
@@ -93,8 +93,8 @@ export class DepartmentformsComponent implements OnInit {
       // console.log(res, this,this.dialogButts);
     },
       error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        console.error('Error fetching MasterDepartment data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDepartment data by ID', life: 2000 });
       }
     );
   }
@@ -107,8 +107,8 @@ export class DepartmentformsComponent implements OnInit {
         this.ref.close();
       },
       error => {
-        console.error('Error adding MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        console.error('Error adding MasterDepartment data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master Department data', life: 2000 });
         this.ref.close();
       }    
     );

@@ -52,7 +52,7 @@ export class DepartmentComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'ADD TREASURY DATA'
+      header: 'ADD DEPARTMENT DATA'
     });
   }
   ngOnInit(): void {
@@ -104,13 +104,13 @@ export class DepartmentComponent implements OnInit {
         dialogButt: 2,
         code: this.codes,
         id: tmpid,
-        isDisable: false,
+        isDisable: true,
         pgetData: this.showNormalData.bind(this),
 
       },
       width: '50rem',
       modal: true,
-      header: 'EDIT TREASURY DATA'
+      header: 'EDIT DEPATMENT DATA'
     });
   }
 
@@ -134,11 +134,24 @@ export class DepartmentComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
       error => {
-        console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterDDO record', life: 2000 });
+        console.error('Error deleting MasterDepartment data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterDepartment record', life: 2000 });
       }
     );
   }
+  restoreData(tmpid: number) {
+    this.masterService.restoreMasterDepartmentById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+      }
+    );
+  }
+
+
 
 
 
@@ -154,12 +167,12 @@ export class DepartmentComponent implements OnInit {
         },
         width: '50rem',
         modal: true,
-        header: 'EDIT TREASURY DATA'
+        header: 'EDIT DEPARTMENT DATA'
       });
     },
       error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        console.error('Error fetching MasterDepartment data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDepartment data by ID', life: 2000 });
       }
     );
   }
@@ -217,9 +230,9 @@ export class DepartmentComponent implements OnInit {
     else if (event.buttonIdentifier == "view") {
       this.viewData(event.rowData.id);
     }
-    // else if (event.buttonIdentifier == "restore") {
-    //   this.restoreData(event.rowData.id);
-    // }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {

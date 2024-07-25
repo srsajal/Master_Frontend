@@ -56,21 +56,9 @@ export class TreasuryComponent implements OnInit {
     });
   }
 
-  // userForm: FormGroup = new FormGroup({
-  //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-  //   Code: new FormControl('', Validators.required),
-  //   Designation: new FormControl('', Validators.required),
-  //   Address: new FormControl(''),
-  //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
-  // });
-
   ngOnInit(): void {
-    // this.userForm.reset();
-    // this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
-   // this.getCodeFromTreasury();
-    // console.log("table reloaded");
 
   }
 
@@ -102,11 +90,6 @@ export class TreasuryComponent implements OnInit {
     };
   }
   getData(isActive: boolean = true) {
-    // this.tableQueryParameters.filterParameters.push({
-    //   field: 'Id',
-    //   value: '1685',
-    //   operator:'equals'
-    // });
     this.istableLoading = true;
     this.masterService.getMasterTreasury(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
@@ -116,19 +99,6 @@ export class TreasuryComponent implements OnInit {
       console.log(response);
     });
   }
-  // getCodeFromTreasury() {
-  //   this.masterService.getMasterCodeTreasury().subscribe((res: Code[]) => {
-  //     this.codes = res;
-  //     console.log(res);
-
-  //   },
-  //     error => {
-  //       console.error('Error fetching codes from Treasury:', error);
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
-  //     }
-  //   );
-  // }
-
   editData(tmpid: number) {
     this.ref = this.dialogService.open(MasterTreasuryFormsComponent, {
       data: {
@@ -194,15 +164,11 @@ export class TreasuryComponent implements OnInit {
           code: this.codes,
           id: tmpid,
           isDisable: true,
-          // pgetData : this.getData.bind(this),
-
         },
         width: '50rem',
         modal: true,
         header: 'EDIT TREASURY DATA'
       });
-      //this.userForm.markAllAsTouched();
-      //this.userForm.markAsDirty();
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);
@@ -210,16 +176,6 @@ export class TreasuryComponent implements OnInit {
       }
     );
   }
-
-
-  // showDialog() {
-  // console.log("showdialog called");
-  // this.visible = true;
-  // this.userForm.reset();
-  // this.userForm = this.initializeMasterForm(false);
-  // console.log(this.userForm);
-  // }
-
   showDeletedData() {
     this.actionButtonConfig = [
       {
@@ -292,16 +248,5 @@ export class TreasuryComponent implements OnInit {
     this.getData();
   }
   handleSearch(event: any) {
-    // this.tableQueryParameters.filterParameters = [];
-    // this.tableData.headers.forEach((element: { filterField: any; }) => {
-    //   this.tableQueryParameters.filterParameters.push({
-    //     field: element.filterField,
-    //     value: event,
-    //     operator: 'contains'
-    //   });
-    // });
-    console.log(event);
-    // console.log(this.tableQueryParameters);
-    // this.getData();
   }
 }

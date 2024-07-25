@@ -10,7 +10,7 @@ export interface MasterDdo {
 export interface MasterTreasury {
     id: number,
     districtName: string,
-    districtCode: string,
+    districtCode: number,
     code: string,
     name: string
 }
@@ -25,8 +25,8 @@ export interface masterSchemeHead {
 
 export interface Masterdept {
     id: number,
-    deptcode: string,
-    deptname: string,
+    code: string,
+    name: string,
     demandCode: string,
     address: string,
     pinCode: number,
@@ -69,6 +69,12 @@ export interface majorHead {
 
     code: string,
     name: string,
+}
+export interface submajorhead {
+    id: number,
+    code: string,
+    name: string,
+    majorHeadId:string,
 }
 
 export interface AllMasterCount {
