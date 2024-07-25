@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MastermajorheadService } from 'src/app/demo/service/MasterService/mastermajorhead.service';
-import { majorHead } from 'src/Model/master.model';
+import { Code, majorHead } from 'src/Model/master.model';
 
 @Component({
   selector: 'app-master-majorhead-forms',
@@ -13,96 +13,131 @@ import { majorHead } from 'src/Model/master.model';
   styleUrls: ['./master-majorhead-forms.component.scss']
 })
 export class MasterMajorheadFormsComponent implements OnInit {
-  tableData: any;
-  tableQueryParameters!: DynamicTableQueryParameters | any;
-  actionButtonConfig: ActionButtonConfig[] = [];
-  istableLoading:boolean = false;
-  alldata: number = 0;
- // apiUrl = 'http://localhost:5271/api/masterMajorHead/'
-  visible: boolean = false;
-  id: number = 0;
-  isExist !: boolean;
-  isSubUp: boolean = true;
-  headertext: string = 'Add MajorHeadData';
-  majorHeadService = inject(MastermajorheadService)
-  pgetData:(() => void) ;
-  userForm: FormGroup = new FormGroup({});
-  http = inject(HttpClient);
-  messageService = inject(MessageService)
-  fb = inject(FormBuilder);
+  id : number = 0;
+  isDisable : boolean = false;
+  getTCode : string = '';
   formMaster?: majorHead;
+  
+  codes: Code[] = [];
+  userForm: FormGroup = new FormGroup({});
+  dialogButts: number = 1;
+  pgetData:() => void;
+
+
+  fb = inject(FormBuilder);
+  masterService = inject(MastermajorheadService);
+  messageService = inject(MessageService);
+  isExist: any;
+  constructor(public config : DynamicDialogConfig, public ref : DynamicDialogRef) {
+    this.id = config.data.id;
+    this.codes = config.data.code;
+    this.isDisable = config.data.isDisable;
+    this.dialogButts = config.data.dialogButt;
+    this.pgetData = this.config.data.pgetData;
+    
+   }
+  getTcode(){
+    this.getTCode = this.userForm.value.TreasuryCode;
+  }
+
+  ngOnInit(): void {
+    // console.log(this.id, this.isDisable, this.dialogButts);
+    this.userForm = this.initializeMasterForm();
+    if(this.dialogButts == 2 || this.dialogButts == 3)
+    {
+      this.getDataById();
+    }
+  }
+
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     // console.log(this.theRegistration);
     const _newForm = this.fb.group({
-     // TreasuryCode: [{ value: this.formMaster?.treasuryCode ?? '', disabled: isDisabled }, Validators.required],
+     
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
-     // Designation: [{ value: this.formMaster?.designation ?? '', disabled: isDisabled }, Validators.required],
-      Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required],
-     // Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, [Validators.required, Validators.pattern('^[0-9]{10}$')]]
+      Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required]
+     
     });
 
     return _newForm;
   }
-  constructor(public config : DynamicDialogConfig, public ref : DynamicDialogRef) {    this.pgetData = this.config.data.pgetData; }
-
-  ngOnInit(): void {
-  }
-
-  cancel(form: FormGroup) {
-    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have Cancelled', life: 2000 });
-    form.reset();
-    this.isSubUp = true;
-    this.visible = false;
-    this.headertext = 'Add MajorHeadData';
-  }
-  hide(form: FormGroup) {
-    form.reset();
-    this.isSubUp = true;
-    this.visible = false;
-    this.headertext = 'Add MajorHeadData';
-  }
-
-  update(form: FormGroup) {
-    if (this.userForm.invalid) {
-      this.messageService.add({ severity: 'warn', summary: 'Error', detail: 'Form Update failed', life: 2000 });
-    }
-    else {
-      this.majorHeadService.update(this.id, this.userForm).subscribe((res: majorHead) => {
+  submit() {
+    if (this.userForm.valid) {
+      this.masterService.postData(this.userForm).subscribe((res: majorHead) => {
         console.log(res);
         this.pgetData();
-      });
-      form.reset();
-      this.isSubUp = true;
-      this.visible = false;
-      this.headertext = 'Add MajorHeadData';
-      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
+        this.ref.close();
+        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+      },
+      error => {
+        console.error('Error adding MasterMajorHead data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add  MasterMajorHead data', life: 2000 });
+        this.ref.close();
+      }
+    );
+      // form.reset();
+    }
+    else {
+      this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
+      this.userForm.markAllAsTouched();
+      this.userForm.markAsDirty();
     }
   }
-  onChangedata(event: any) {
+
+  getDataById() {
+    this.masterService.getdatabyid(this.id).subscribe((res: majorHead) => {
+      this.formMaster = res;
+      this.userForm = this.initializeMasterForm(this.isDisable);
+      // console.log(res, this,this.dialogButts);
+    },
+      error => {
+        console.error('Error fetching MasterMajorHead data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterMajorHead data by ID', life: 2000 });
+      }
+    );
+  }
+  
+  update() {
+    if (this.userForm.valid) {
+      this.masterService.update(this.id, this.userForm).subscribe((res: majorHead) => {
+        console.log(res);
+        this.pgetData();
+        this.ref.close();
+      },
+      error => {
+        console.error('Error adding MasterMajorHead data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add MasterMajorHead data', life: 2000 });
+        this.ref.close();
+      }    
+    );
+      this.dialogButts = 1;
+      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
+    }
+    else {
+      this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
+      this.userForm.markAllAsTouched();
+      this.userForm.markAsDirty();
+    }
+  }
+
+  
+  cancel() {
+    this.ref.close();
+    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have Cancelled', life: 2000 });
+    this.dialogButts = 1;
+  }
+  hide(){
+    this.ref.close();
+    this.dialogButts = 1;
+  }
+   onChangedata(event: any) {
     if (event.target.value == '') {
       this.isExist = true;
     }
     else {
-      this.majorHeadService.onChange(event.target.value).subscribe((res: any) => {
+      this.masterService.onChange(event.target.value).subscribe((res: any) => {
         this.isExist = res;
         console.log(res);
 
       });
-    }
-  }
-  submit(form: FormGroup) {
-    if (this.userForm.valid && !this.isExist) {
-      this.majorHeadService.postData(this.userForm).subscribe((res: majorHead) => {
-        console.log(res);
-        this.pgetData();
-        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
-      }
-      );
-      form.reset();
-      this.visible = false;
-    }
-    else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Major Head data', life: 2000 });
-    }
-  }
-}
+    }}}
+
