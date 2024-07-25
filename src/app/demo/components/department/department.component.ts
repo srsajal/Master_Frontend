@@ -230,9 +230,9 @@ export class DepartmentComponent implements OnInit {
     else if (event.buttonIdentifier == "view") {
       this.viewData(event.rowData.id);
     }
-    // else if (event.buttonIdentifier == "restore") {
-    //   this.restoreData(event.rowData.id);
-    // }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
+    }
   }
   handQueryParameterChange(event: any) {
     this.tableQueryParameters = {
