@@ -38,7 +38,7 @@ export class SubmajorheadComponent implements OnInit {
   constructor(public dialogService: DialogService, public config: DynamicDialogConfig) {
     this.items = [
       { label: 'Master Management' },
-      { label: 'Treasury' },
+      { label: 'Sub Major Head' },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
    }

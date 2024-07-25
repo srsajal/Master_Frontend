@@ -30,7 +30,7 @@ export class SubmajorheadService {
   return this.http.put<submajorhead>(this.submajorheadurl + 'UpdateMastersubMajorHead?id=' + `${id}` , userForm.value)
   }
   delsubMajorHeadData(tmpid: number) {
-    return this.http.delete(this.submajorheadurl + 'DeleteMasterMAJORHEAD?id=' + `${tmpid}`)
+    return this.http.delete(this.submajorheadurl + 'DeleteMastersubMajorHead?id=' + `${tmpid}`)
   }
   getMajorheadcode(){
     return this.http.get<MasterDetailHead[]>(this.submajorheadurl + 'GetMajorHeadcode', )
