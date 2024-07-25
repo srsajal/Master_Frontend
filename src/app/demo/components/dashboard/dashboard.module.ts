@@ -11,6 +11,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { DashboardsRoutingModule } from './dashboard-routing.module';
 import { DashboardskeletonComponent } from '../dashboardskeleton/dashboardskeleton.component';
 import { SkeletonModule } from 'primeng/skeleton';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { SkeletonModule } from 'primeng/skeleton';
         PanelMenuModule,
         ButtonModule,
         DashboardsRoutingModule,
-        SkeletonModule
+        SkeletonModule,
+        BreadcrumbModule
     ],
     declarations: [DashboardComponent, DashboardskeletonComponent]
 })

@@ -1,180 +1,21 @@
-<div class="card"
-  style="border: 1px solid;background-image: linear-gradient(to left, #243949 0%, #517fa4 100%);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; height: fit-content; display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
-  <h2 style="color: white;font-family: sans-serif;">Treasury Table</h2>
-  <p-button class="" (click)="showDeletedData()" label="SEE DELETED TREASURY">
-    <i class="pi pi-eye mr-2"></i>
-  </p-button>
-  <p-button class="" (click)="showNormalData()" label="SEE TREASURY">
-    <i class="pi pi-eye mr-2"></i>
-  </p-button>
-  <p-button class="mb-10" (click)="show()" label="ADD TREASURY">
-    <i class="pi pi-plus mr-2"></i>
-  </p-button>
+<div class="grid">
+  <div class="col-10">
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+  </div>
+  <div class="flex justify-content-end col">
+    <p-button class="mb-10" (click)="show()" label="ADD TREASURY">
+      <i class="pi pi-plus mr-2"></i>
+    </p-button>
+  </div>
+  
 </div>
-    
-    <!-- <form [formGroup]="userForm" >
-    <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
-        [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
+<p-button class="" (click)="showDeletedData()" label="SEE DELETED TREASURY">
+  <i class="pi pi-eye mr-2"></i>
+</p-button>
+<p-button class="" (click)="showNormalData()" label="SEE TREASURY">
+  <i class="pi pi-eye mr-2"></i>
+</p-button>
 
-
-      <div class="formgrid grid">
-        <div class="field col">
-          <label class="text-2xl" for="firstname2">Department Code <span class="red"> *</span></label>
-          <input id="firstname2" type="text"
-            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            formControlName="code">
-          <div class="error" *ngIf="userForm.get('code')?.touched && userForm.get('code')?.invalid">
-            <div *ngIf="userForm.get('code')?.errors?.['required']">
-              This field is required.
-            </div>
-            <div *ngIf="userForm.get('code')?.errors?.['minlength']">
-              Minimum length is 2 characters.
-            </div>
-            <div *ngIf="userForm.get('code')?.errors?.['maxlength']">
-              Maximum length is 2 characters.
-            </div>
-          </div>
-        </div>
-        <div class="field col">
-          <label class="text-2xl" for="lastname2">Department Name<span class="red"> *</span></label>
-          <input id="lastname2" type="text"
-            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            formControlName="name">
-          <div class="error" *ngIf="userForm.get('name')?.touched && userForm.get('name')?.invalid">
-            <div *ngIf="userForm.get('name')?.errors?.['required']">
-              This field is required.
-            </div>
-            <div *ngIf="userForm.get('name')?.errors?.['minlength']">
-              Minimum length is 2 characters.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="formgrid grid">
-        <div class="field col">
-          <label class="text-2xl" for="firstname2">Demand Code<span class="red"> *</span></label>
-          <input id="firstname2" type="text"
-            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            formControlName="demandCode">
-          <div class="error" *ngIf="userForm.get('demandCode')?.touched && userForm.get('demandCode')?.invalid">
-            <div *ngIf="userForm.get('demandCode')?.errors?.['required']">
-              This field is required.
-            </div>
-            <div *ngIf="userForm.get('demandCode')?.errors?.['minlength']">
-              Minimum length is 1 number.
-            </div>
-          </div>
-        </div>
-        <div class="field col">
-          <label class="text-2xl" for="firstname2">Address<span class="red"> *</span></label>
-          <input id="firstname2" type="text"
-            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            formControlName="address">
-          <div class="error" *ngIf="userForm.get('address')?.touched && userForm.get('address')?.invalid">
-            <div *ngIf="userForm.get('address')?.errors?.['required']">
-              This field is required.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="formgrid grid">
-        <div class="field col">
-          <label class="text-2xl" for="lastname2">Pin Code<span class="red"> *</span></label>
-          <input id="lastname2" type="text"
-            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            formControlName="pinCode">
-          <div class="error" *ngIf="userForm.get('pinCode')?.touched && userForm.get('pinCode')?.invalid">
-            <div *ngIf="userForm.get('pinCode')?.errors?.['required']">
-              This field is required.
-            </div>
-            <div *ngIf="userForm.get('pinCode')?.errors?.['pattern']">
-              Invalid Pin Code.
-            </div>
-           
-          </div>
-        </div>
-        <div class="field col">
-          <label class="text-2xl" for="firstname2">Phone No.<span class="red"> *</span></label>
-          <input id="firstname2" type="text"
-            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            formControlName="phoneNumber">
-          <div class="error" *ngIf="userForm.get('phoneNumber')?.touched && userForm.get('phoneNumber')?.invalid">
-            <div *ngIf="userForm.get('phoneNumber')?.errors?.['required']">
-              This field is required.
-            </div>
-            <div *ngIf="userForm.get('phoneNumber')?.errors?.['pattern']">
-              Invalid Phone Number.
-            </div>
-            
-          </div>
-        </div>
-      </div>
-
-      <div class="formgrid grid">
-        <div class="field col">
-          <label class="text-2xl" for="lastname2">Mobile No.<span class="red"> *</span></label>
-          <input id="lastname2" type="text"
-            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            formControlName="mobileNumber">
-          <div class="error" *ngIf="userForm.get('mobileNumber')?.touched && userForm.get('mobileNumber')?.invalid">
-            <div *ngIf="userForm.get('mobileNumber')?.errors?.['required']">
-              This field is required.
-            </div>
-            <div *ngIf="userForm.get('mobileNumber')?.errors?.['pattern']">
-              Invalid Mobile Number.
-            </div>
-            
-           
-          </div>
-        </div>
-        <div class="field col">
-          <label class="text-2xl" for="firstname2">Email<span class="red"> *</span></label>
-          <input id="firstname2" type="text"
-            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
-            formControlName="email">
-          <div class="error" *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid">
-            <div *ngIf="userForm.get('email')?.errors?.['required']">
-              This field is required.
-            </div>
-            <div *ngIf="userForm.get('email')?.errors?.['email']">
-              Invalid email address.
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="button-container" *ngIf="isSubUp; else elseBlock">
-        <div class="formgrid grid">
-          <div class="col-9">
-            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
-              icon="pi pi-times"styleClass="p-button-warning" iconPos="left" (click)="cancel(userForm)"></p-button>
-          </div>
-          <div class="field col">
-            <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Submit"
-              icon="pi pi-check" styleClass="p-button-success" iconPos="left" (click)="submit(userForm)"></p-button>
-          </div>
-        </div>
-      </div>
-      <ng-template #elseBlock>
-        <div class="formgrid grid">
-          <div class="col-9">
-            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
-              icon="pi pi-times" styleClass="p-button-warning" iconPos="left" (click)="cancel(userForm)"></p-button>
-          </div>
-          <div class="field col">
-            <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update"
-              icon="pi pi-check" styleClass="p-button-success" iconPos="left" (click)="update(userForm)"></p-button>
-          </div>
-        </div>
-      </ng-template>
-
-    </p-dialog>
-  </form> -->
-  
-  
   <p-toast></p-toast>
   <p-confirmDialog></p-confirmDialog>
   <mh-prime-dynamic-table size="small" [numberRowsShown]="10"

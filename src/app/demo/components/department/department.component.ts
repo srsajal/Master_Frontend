@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { Code, Masterdept } from 'src/Model/master.model';
 import { DepartmentServiceService } from '../../service/MasterService/department-service.service';
@@ -25,16 +25,22 @@ export class DepartmentComponent implements OnInit {
   visible: boolean = false;
   id: number = 0;
   codes: Code[] = [];
-  // headertext: string = 'ADD DDO DATA';
   dialogButts: number = 1;
+  items: MenuItem[];
+  home: MenuItem;
 
-  // http = inject(HttpClient);
   messageService = inject(MessageService);
   masterService = inject(DepartmentServiceService);
   confirmationService = inject(ConfirmationService);
 
   ref: DynamicDialogRef | undefined;
-  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) { }
+  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) {
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'Department' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+   }
   show() {
     this.ref = this.dialogService.open(DepartmentformsComponent, {
       data: {
@@ -49,22 +55,9 @@ export class DepartmentComponent implements OnInit {
       header: 'ADD TREASURY DATA'
     });
   }
-
-  // userForm: FormGroup = new FormGroup({
-  //   TreasuryCode: new FormControl('', [Validators.required, Validators.maxLength(3)]),
-  //   Code: new FormControl('', Validators.required),
-  //   Designation: new FormControl('', Validators.required),
-  //   Address: new FormControl(''),
-  //   Phone: new FormControl('', [Validators.required, Validators.maxLength(15)])
-  // });
-
   ngOnInit(): void {
-    // this.userForm.reset();
-    // this.userForm = this.initializeMasterForm();
     this.tableInitialize();
     this.getData();
-   // this.getCodeFromTreasury();
-    // console.log("table reloaded");
 
   }
 
@@ -96,11 +89,6 @@ export class DepartmentComponent implements OnInit {
     };
   }
   getData(isActive: boolean = true) {
-    // this.tableQueryParameters.filterParameters.push({
-    //   field: 'Id',
-    //   value: '1685',
-    //   operator:'equals'
-    // });
     this.istableLoading = true;
     this.masterService.getMasterDepartment(isActive, this.tableQueryParameters).subscribe((response: any) => {
       this.istableLoading = false;
@@ -110,26 +98,13 @@ export class DepartmentComponent implements OnInit {
       console.log(response);
     });
   }
-  // getCodeFromTreasury() {
-  //   this.masterService.getMasterCodeTreasury().subscribe((res: Code[]) => {
-  //     this.codes = res;
-  //     console.log(res);
-
-  //   },
-  //     error => {
-  //       console.error('Error fetching codes from Treasury:', error);
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
-  //     }
-  //   );
-  // }
-
   editData(tmpid: number) {
     this.ref = this.dialogService.open(DepartmentformsComponent, {
       data: {
         dialogButt: 2,
         code: this.codes,
         id: tmpid,
-        isDisable: false,
+        isDisable: true,
         pgetData: this.showNormalData.bind(this),
 
       },
@@ -164,17 +139,17 @@ export class DepartmentComponent implements OnInit {
       }
     );
   }
-  // restoreData(tmpid: number) {
-  //   this.masterService.restoreMasterTreasuryById(tmpid).subscribe(() => {
-  //     this.showDeletedData();
-  //     this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
-  //   },
-  //     error => {
-  //       console.error('Error deleting MasterDDO data:', error);
-  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
-  //     }
-  //   );
-  // }
+  restoreData(tmpid: number) {
+    this.masterService.restoreMasterDepartmentById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+      }
+    );
+  }
 
 
 
@@ -188,15 +163,12 @@ export class DepartmentComponent implements OnInit {
           code: this.codes,
           id: tmpid,
           isDisable: true,
-          // pgetData : this.getData.bind(this),
 
         },
         width: '50rem',
         modal: true,
         header: 'EDIT TREASURY DATA'
       });
-      //this.userForm.markAllAsTouched();
-      //this.userForm.markAsDirty();
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);
@@ -204,15 +176,6 @@ export class DepartmentComponent implements OnInit {
       }
     );
   }
-
-
-  // showDialog() {
-  // console.log("showdialog called");
-  // this.visible = true;
-  // this.userForm.reset();
-  // this.userForm = this.initializeMasterForm(false);
-  // console.log(this.userForm);
-  // }
 
   showDeletedData() {
     this.actionButtonConfig = [
@@ -281,17 +244,7 @@ export class DepartmentComponent implements OnInit {
     this.getData();
   }
   handleSearch(event: any) {
-    // this.tableQueryParameters.filterParameters = [];
-    // this.tableData.headers.forEach((element: { filterField: any; }) => {
-    //   this.tableQueryParameters.filterParameters.push({
-    //     field: element.filterField,
-    //     value: event,
-    //     operator: 'contains'
-    //   });
-    // });
     console.log(event);
-    // console.log(this.tableQueryParameters);
-    // this.getData();
   }
 
 }

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { Code, masterSchemeHead, minorheadid } from 'src/Model/master.model';
-import { ConfirmationService, ConfirmEventType, MessageService } from 'primeng/api';
+import { ConfirmationService, ConfirmEventType, MenuItem, MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { log } from 'console';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -31,21 +31,29 @@ export class SchemeheadComponent implements OnInit {
   isSubUp : boolean = true;
   totalActiveSchemeHead:number =0;
   totalInactiveSchemeHead:number =0;
+  items: MenuItem[];
+  home: MenuItem;
   http = inject(HttpClient);
   messageService = inject(MessageService)
   headertext:string = 'Add SchemeHeadData';
-  constructor(private schemeheadservice : SchemeHeadServiceService,private confirmationService: ConfirmationService, private dialogService:DialogService) { }
+  constructor(private schemeheadservice : SchemeHeadServiceService,private confirmationService: ConfirmationService, private dialogService:DialogService) {
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'Scheme Head' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+   }
 
   userForm: FormGroup = new FormGroup({
-    demandCode: new FormControl('', [Validators.required, Validators.maxLength(2)]),
-    code: new FormControl('',  [Validators.required, Validators.maxLength(3)]),
+    demandCode: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    code: new FormControl('',  [Validators.required, Validators.minLength(3)]),
     name: new FormControl('', Validators.required),
     minorHeadId: new FormControl('', Validators.required),
   });
  
 
   ngOnInit(): void {
-    this.getDataCount();
+   
     this.getCodeFromMinorhead();
 
 
@@ -79,6 +87,7 @@ export class SchemeheadComponent implements OnInit {
   }
 
   getData(isActive: boolean = true) {
+    this.getDataCount();
     this.istableLoading=true;
     this.schemeheadservice.getmasterSCHEME_HEAD (isActive,this.tableQueryParameters)
       .subscribe((response: any) => {

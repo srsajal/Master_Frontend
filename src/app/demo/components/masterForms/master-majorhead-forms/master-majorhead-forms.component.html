@@ -1,22 +1,8 @@
-<div class="grid">
-  <div class="col-10">
-    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
-  </div>
-  <div class="flex justify-content-end col">
-    <p-button (click)="showDialog()" label="ADD MajorHead">
-      <i class="pi pi-plus mr-3"></i>
-    </p-button>
-  </div>
-</div>
-
 <div class="flex flex-wrap align-items-center justify-content-end mb-5">
    
     <form [formGroup]="userForm" >
     <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
         [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
-  
-        
-        
           <div class="formgrid grid">
           <div class="field col">
             <label class="text-2xl" for="firstname2">Major Head Code<span class="red"> *</span></label>
@@ -64,16 +50,3 @@
   </form>
   <p-toast></p-toast>
   </div>
-  
-  <mh-prime-dynamic-table 
-    size="small"
-    [numberRowsShown]="10"
-    [rowsPerPageOptions]="[10, 30, 50]"
-    [data]="tableData"
-    rowSelectionMode="multiple"
-    [actionButtons]="actionButtonConfig"
-    (rowSelect)="handleRowSelection($event)"
-    (actionButtonClicked)="handleButtonClick($event)"
-    (queryParameterChange)="handQueryParameterChange($event)"[isLoading]="istableLoading" [showTopMenubar]="true" [showGlobalSearch]="false"
-  >
-  </mh-prime-dynamic-table>
