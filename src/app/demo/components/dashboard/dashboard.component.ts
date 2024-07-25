@@ -3,6 +3,7 @@ import { MasterService } from '../../service/MasterService/masterddo.service';
 import { DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { AllMasterCount } from 'src/Model/master.model';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 
 
 @Component({
@@ -30,11 +31,17 @@ export class DashboardComponent implements OnInit {
 
     isLoading: boolean = false;
 
+    items: MenuItem[];
+    home: MenuItem;
+
     tableQueryParameters!: DynamicTableQueryParameters | any;
     /**
      *
      */
-    constructor(private masterDdoService: MasterService, private router: Router) { }
+    constructor(private masterDdoService: MasterService, private router: Router) {
+        this.items = [];
+        this.home = { icon: 'pi pi-home', routerLink: '/' };
+    }
     ngOnInit(): void {
         this.getAllMasterCount();
     }

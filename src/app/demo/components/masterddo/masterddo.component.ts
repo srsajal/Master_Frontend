@@ -10,7 +10,7 @@ import { log } from 'console';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MasterddoformsComponent } from '../masterForms/masterddoforms/masterddoforms.component';
 import { MasterService } from '../../service/MasterService/masterddo.service';
-import {MenuItem} from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 
 
 @Component({
@@ -28,17 +28,23 @@ export class MasterddoComponent implements OnInit {
   id: number = 0;
   codes: Code[] = [];
   dialogButts: number = 1;
-  totalActiveDdo:number = 0;
-  totalInactiveDdo:number = 0;
-  // items: MenuItem[];
-  // home: MenuItem;
+  totalActiveDdo: number = 0;
+  totalInactiveDdo: number = 0;
+  items: MenuItem[];
+  home: MenuItem;
 
   messageService = inject(MessageService);
   masterService = inject(MasterService);
   confirmationService = inject(ConfirmationService);
 
   ref: DynamicDialogRef | undefined;
-  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) { }
+  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) { 
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'DDO' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+  }
   show() {
     this.ref = this.dialogService.open(MasterddoformsComponent, {
       data: {
@@ -59,6 +65,8 @@ export class MasterddoComponent implements OnInit {
     this.tableInitialize();
     this.getData();
     this.getCodeFromTreasury();
+    
+
   }
 
   tableInitialize() {
@@ -95,7 +103,7 @@ export class MasterddoComponent implements OnInit {
       this.istableLoading = false;
       this.tableData = response.result;
       console.log(response.result);
-      
+
       this.alldata = response.result.dataCount;
     });
   }
@@ -163,11 +171,11 @@ export class MasterddoComponent implements OnInit {
     );
   }
 
-  getDataCount(){
-    this.masterService.countMasterDdo(true,this.tableQueryParameters).subscribe((res:any)=> {
+  getDataCount() {
+    this.masterService.countMasterDdo(true, this.tableQueryParameters).subscribe((res: any) => {
       this.totalActiveDdo = res;
     });
-    this.masterService.countMasterDdo(false,this.tableQueryParameters).subscribe((res:any)=> {
+    this.masterService.countMasterDdo(false, this.tableQueryParameters).subscribe((res: any) => {
       this.totalInactiveDdo = res;
     });
   }
