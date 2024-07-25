@@ -1,1 +1,177 @@
-<p>departmentforms works!</p>
+<div class="custom-dialog">
+    <div class="flex flex-wrap align-items-center justify-content-end">
+        <form [formGroup]="userForm" >
+           
+        
+        
+              <div class="formgrid grid">
+                <div class="field col">
+                  <label class="text-2xl" for="firstname2">Department Code <span class="red"> *</span></label>
+                  <input id="firstname2" type="text"
+                    class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    formControlName="DeptCode">
+                  <div class="error" *ngIf="userForm.get('code')?.touched && userForm.get('code')?.invalid">
+                    <div *ngIf="userForm.get('code')?.errors?.['required']">
+                      This field is required.
+                    </div>
+                    <div *ngIf="userForm.get('code')?.errors?.['minlength']">
+                      Minimum length is 2 characters.
+                    </div>
+                    <div *ngIf="userForm.get('code')?.errors?.['maxlength']">
+                      Maximum length is 2 characters.
+                    </div>
+                  </div>
+                </div>
+                <div class="field col">
+                  <label class="text-2xl" for="lastname2">Department Name<span class="red"> *</span></label>
+                  <input id="lastname2" type="text"
+                    class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    formControlName="DeptName">
+                  <div class="error" *ngIf="userForm.get('name')?.touched && userForm.get('name')?.invalid">
+                    <div *ngIf="userForm.get('name')?.errors?.['required']">
+                      This field is required.
+                    </div>
+                    <div *ngIf="userForm.get('name')?.errors?.['minlength']">
+                      Minimum length is 2 characters.
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="formgrid grid">
+                <div class="field col">
+                  <label class="text-2xl" for="firstname2">Demand Code<span class="red"> *</span></label>
+                  <input id="firstname2" type="text"
+                    class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    formControlName="DemandCode">
+                  <div class="error" *ngIf="userForm.get('demandCode')?.touched && userForm.get('demandCode')?.invalid">
+                    <div *ngIf="userForm.get('demandCode')?.errors?.['required']">
+                      This field is required.
+                    </div>
+                    <div *ngIf="userForm.get('demandCode')?.errors?.['minlength']">
+                      Minimum length is 1 number.
+                    </div>
+                  </div>
+                </div>
+                <div class="field col">
+                  <label class="text-2xl" for="firstname2">Address<span class="red"> *</span></label>
+                  <input id="firstname2" type="text"
+                    class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    formControlName="Address">
+                  <div class="error" *ngIf="userForm.get('address')?.touched && userForm.get('address')?.invalid">
+                    <div *ngIf="userForm.get('address')?.errors?.['required']">
+                      This field is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="formgrid grid">
+                <div class="field col">
+                  <label class="text-2xl" for="lastname2">Pin Code<span class="red"> *</span></label>
+                  <input id="lastname2" type="text"
+                    class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    formControlName="PinCode">
+                  <div class="error" *ngIf="userForm.get('pinCode')?.touched && userForm.get('pinCode')?.invalid">
+                    <div *ngIf="userForm.get('pinCode')?.errors?.['required']">
+                      This field is required.
+                    </div>
+                    <div *ngIf="userForm.get('pinCode')?.errors?.['pattern']">
+                      Invalid Pin Code.
+                    </div>
+                   
+                  </div>
+                </div>
+                <div class="field col">
+                  <label class="text-2xl" for="firstname2">Phone No.<span class="red"> *</span></label>
+                  <input id="firstname2" type="text"
+                    class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    formControlName="PhoneNumber">
+                  <div class="error" *ngIf="userForm.get('phoneNumber')?.touched && userForm.get('phoneNumber')?.invalid">
+                    <div *ngIf="userForm.get('phoneNumber')?.errors?.['required']">
+                      This field is required.
+                    </div>
+                    <div *ngIf="userForm.get('phoneNumber')?.errors?.['pattern']">
+                      Invalid Phone Number.
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+        
+              <div class="formgrid grid">
+                <div class="field col">
+                  <label class="text-2xl" for="lastname2">Mobile No.<span class="red"> *</span></label>
+                  <input id="lastname2" type="text"
+                    class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    formControlName="MobileNumber">
+                  <div class="error" *ngIf="userForm.get('mobileNumber')?.touched && userForm.get('mobileNumber')?.invalid">
+                    <div *ngIf="userForm.get('mobileNumber')?.errors?.['required']">
+                      This field is required.
+                    </div>
+                    <div *ngIf="userForm.get('mobileNumber')?.errors?.['pattern']">
+                      Invalid Mobile Number.
+                    </div>
+                     
+                  </div>
+                </div>
+                <div class="field col">
+                  <label class="text-2xl" for="firstname2">Email<span class="red"> *</span></label>
+                  <input id="firstname2" type="text"
+                    class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                    formControlName="Email">
+                  <div class="error" *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid">
+                    <div *ngIf="userForm.get('email')?.errors?.['required']">
+                      This field is required.
+                    </div>
+                    <div *ngIf="userForm.get('email')?.errors?.['email']">
+                      Invalid email address.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="button-container" *ngIf="(dialogButts == 1); else elseBlock1">
+                <div class="formgrid grid">
+                    <div class="col-9">
+                        <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
+                            icon="pi pi-times" iconPos="left" styleClass="p-button-warning"
+                            (click)="cancel()"></p-button>
+                    </div>
+                    <div class="field col">
+                        <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4"
+                            styleClass="p-button-success" label="Submit" icon="pi pi-check" iconPos="left"
+                            (click)="submit()"></p-button>
+                    </div>
+                </div>
+            </div>
+            <ng-template #elseBlock1>
+                <div class="button-container" *ngIf="(dialogButts == 2);else elseBlock2">
+                    <div class="formgrid grid">
+                        <div class="col-9">
+                            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
+                                icon="pi pi-times" iconPos="left" styleClass="p-button-warning"
+                                (click)="cancel()"></p-button>
+                        </div>
+                        <div class="field col">
+                            <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4"
+                                label="Update" icon="pi pi-check" iconPos="left" styleClass="p-button-success"
+                                (click)="update()"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #elseBlock2>
+                <div class="button-container" *ngIf="(dialogButts == 3)">
+                  <div class="formgrid grid">
+                    <div class="col">
+                      <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Close"
+                        icon="pi pi-times" iconPos="left" (click)="hide()"></p-button>
+                    </div>
+                  </div>
+                </div>
+              </ng-template>
+        
+          </form>
+
+        </div>
+    </div>  
