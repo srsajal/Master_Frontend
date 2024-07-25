@@ -30,14 +30,14 @@
                 <label class="text-2xl" for="firstname2">Demand Code*</label>
                 <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="demandCode">
                 <div *ngIf="userForm.get('demandCode')?.invalid && userForm.get('demandCode')?.touched" class="error">
-                  Demand Code is required length 2 <div class=""></div>
+                  Demand Code is required length 2<div class=""></div>
                 </div>
             </div>
             <div class="field col">
                 <label class="text-2xl" for="firstname2">SchemeHead Code*</label>
                 <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="code">
                 <div *ngIf="userForm.get('code')?.invalid && userForm.get('code')?.touched" class="error">
-                  Code is required length 3.
+                  Code is required length 3 .
                 </div>
               </div>
           </div>
@@ -76,10 +76,20 @@
   <p-toast></p-toast>
   </div>
   <p-confirmDialog></p-confirmDialog>
+  <p-button class="flex justify-content-end" (click)="showDialog()" label="ADD SchemeHead">
+    <i class="pi pi-plus mr-3"></i>
+  </p-button>
   <p-tabView (onChange)="handleChange($event)">
-    <p-tabPanel header="Active SchemeHead" [tooltip]="totalActiveSchemeHead">
+   
+    <p-tabPanel header="Active  " >
+      <p>
+        There are {{totalActiveSchemeHead}} SchemeHead's are active out of {{totalActiveSchemeHead + totalInactiveSchemeHead}} SchemeHead's given below.
+      </p>
     </p-tabPanel>
-    <p-tabPanel header="Inactive SchemeHead" [tooltip]="totalInactiveSchemeHead">
+    <p-tabPanel header="Inactive " >
+      <p>
+        There are {{totalInactiveSchemeHead}} SchemeHead's are inactive out of {{totalActiveSchemeHead + totalInactiveSchemeHead}} SchemeHead's given below.
+      </p>
     </p-tabPanel>
 </p-tabView>
   <mh-prime-dynamic-table 
