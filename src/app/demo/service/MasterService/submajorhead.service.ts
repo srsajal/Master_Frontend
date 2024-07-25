@@ -34,7 +34,9 @@ export class SubmajorheadService {
   }
   getMajorheadcode(){
     return this.http.get<MasterDetailHead[]>(this.submajorheadurl + 'GetMajorHeadcode', )
-
+  }
+  restoreSubmajorhead(tmpid : number){
+    return this.http.delete(this.submajorheadurl + 'RestoreMasterSubMajorHead?id='  + `${tmpid}`);
   }
 
   countMasterSubMajorhead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
