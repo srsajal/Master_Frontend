@@ -3,11 +3,13 @@
     <p-chart type="pie" width="35rem" [data]="basicData" [options]="basicOptions"></p-chart>
 </div> -->
 
+
 <div *ngIf="isLoading; else showData">
 <app-dashboardskeleton></app-dashboardskeleton>
 </div>
 <ng-template #showData>
-    <div class="grid mt-3">
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+    <div class="grid mt-1">
         <div class="col">
             <p-card header="DDO" [style]="{width: '360px'}" styleClass="p-card-shadow">
                 <ng-template pTemplate="header">

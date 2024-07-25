@@ -1,7 +1,7 @@
 import { Component, OnInit , inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 
 import { HttpClient } from '@angular/common/http';
@@ -26,13 +26,21 @@ export class TreasuryComponent implements OnInit {
   id: number = 0;
   codes: Code[] = [];
   dialogButts: number = 1;
+  items: MenuItem[];
+  home: MenuItem;
 
   messageService = inject(MessageService);
   masterService = inject(MasterTreasuryService);
   confirmationService = inject(ConfirmationService);
 
   ref: DynamicDialogRef | undefined;
-  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) { }
+  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) {
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'Treasury' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+   }
   show() {
     this.ref = this.dialogService.open(MasterTreasuryFormsComponent, {
       data: {

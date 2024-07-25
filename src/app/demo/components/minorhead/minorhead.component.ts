@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { Code, minorHead } from 'src/Model/master.model';
 import { MinorheadService } from 'src/app/demo/service/MasterService/minorhead.service';
@@ -27,6 +27,8 @@ export class MinorheadComponent implements OnInit {
   codes: Code[] = [];
   // headertext: string = 'ADD DDO DATA';
   dialogButts: number = 1;
+  items: MenuItem[];
+  home: MenuItem;
 
   // http = inject(HttpClient);
   messageService = inject(MessageService);
@@ -34,7 +36,13 @@ export class MinorheadComponent implements OnInit {
   confirmationService = inject(ConfirmationService);
 
   ref: DynamicDialogRef | undefined;
-  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) { }
+  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) {
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'Minor Head' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+   }
   show() {
     this.ref = this.dialogService.open(MasterMinorheadFormsComponent, {
       data: {

@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActionButtonConfig, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MastersubdetailheadformComponent } from '../masterForms/mastersubdetailheadform/mastersubdetailheadform.component';
 import { MasterDetailHead, MasterSubDetailHead } from 'src/Model/master.model';
@@ -23,6 +23,8 @@ export class MastersubdetailheadComponent implements OnInit {
   istableLoading:boolean = false;
   totalActiveSubDetailHead :number = 0;
   totalInactiveSubDetailHead :number = 0;
+  items: MenuItem[];
+  home: MenuItem;
   
   // http = inject(HttpClient);
   messageService = inject(MessageService);
@@ -30,7 +32,13 @@ export class MastersubdetailheadComponent implements OnInit {
   confirmationService = inject(ConfirmationService);
 
   ref: DynamicDialogRef | undefined;
-  constructor(public dialogService: DialogService, public config : DynamicDialogConfig) { }
+  constructor(public dialogService: DialogService, public config : DynamicDialogConfig) {
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'Sub Detail Head' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+   }
   show() {
     this.ref = this.dialogService.open(MastersubdetailheadformComponent, {
       data:{

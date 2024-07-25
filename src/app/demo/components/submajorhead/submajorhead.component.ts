@@ -3,7 +3,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { log } from 'console';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { IapiResponce } from 'src/Model/iapi-responce';
 import { majorHead, MasterDetailHead } from 'src/Model/master.model';
 
@@ -27,11 +27,19 @@ export class SubmajorheadComponent implements OnInit {
   codes: MasterDetailHead[] = [];
   isSubUp : boolean = true;
   headertext:string = 'ADD SubMajorHead';
+  items: MenuItem[];
+  home: MenuItem;
   
 
   http = inject(HttpClient);
   messageService = inject(MessageService)
-  constructor() { }
+  constructor() {
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'Sub Major Head' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+   }
 
   userForm: FormGroup = new FormGroup({
     majorheadcode: new FormControl('', Validators.required),
