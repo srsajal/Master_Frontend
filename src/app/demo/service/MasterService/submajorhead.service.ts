@@ -17,22 +17,22 @@ export class SubmajorheadService {
 
 
   constructor() { }
-  getsubmajorheadData(isActive:boolean,tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+  getsubMajorHeadData(isActive:boolean,tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
     return this.http.post<IapiResponce<DynamicTable<submajorhead>>>(this.submajorheadurl + 'GetMastersubmajorhead?isActive='+ isActive, tableQueryParameters)
   }
-  postData(userForm : FormGroup){
+  postgetsubMajorHeadData(userForm : FormGroup){
     return  this.http.post<submajorhead>(this.submajorheadurl + 'AddMasterSubmajorHead', userForm.value)
   }
-  EditData(tmpid: number) {
+  getsubMajorHeadDataById(tmpid: number) {
     return this.http.get<submajorhead>(this.submajorheadurl + 'GetMasterMastersubMajorHeadById?id=' + `${tmpid}`)
   }
-  update(id: number,userForm : FormGroup){
+  updategetsubMajorHeadData(id: number,userForm : FormGroup){
   return this.http.put<submajorhead>(this.submajorheadurl + 'UpdateMastersubMajorHead?id=' + `${id}` , userForm.value)
   }
-  delData(tmpid: number) {
+  delsubMajorHeadData(tmpid: number) {
     return this.http.delete(this.submajorheadurl + 'DeleteMasterMAJORHEAD?id=' + `${tmpid}`)
   }
-  getsubmajorheadcode(){
+  getMajorheadcode(){
     return this.http.get<MasterDetailHead[]>(this.submajorheadurl + 'GetMajorHeadcode', )
 
   }
