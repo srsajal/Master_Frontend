@@ -13,12 +13,12 @@
   <p-tabView (onChange)="handleChange($event)">
       <p-tabPanel header="Active">
         <p>
-          There are {{totalActiveTreasury}} Treasury's are active out of {{totalActiveTreasury + totalInactiveTreasury}} Treasury's given below.
+          There are <span class="highlightActiveMaster">{{totalActiveTreasury}}</span> Treasury's are active out of <span class="highlightTotalMaster">{{totalActiveTreasury + totalInactiveTreasury}}</span> Treasury's given below.
         </p>
       </p-tabPanel>
       <p-tabPanel header="Inactive">
         <p>
-          There are {{totalInactiveTreasury}} Treasury's are inactive out of {{totalActiveTreasury + totalInactiveTreasury}} Treasury's given below.
+          There are <span class="highlightInactiveMaster">{{totalInactiveTreasury}}</span> Treasury's are inactive out of <span class="highlightTotalMaster">{{totalActiveTreasury + totalInactiveTreasury}}</span> Treasury's given below.
         </p>
       </p-tabPanel>
   </p-tabView>

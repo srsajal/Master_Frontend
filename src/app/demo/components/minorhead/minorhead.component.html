@@ -13,12 +13,12 @@
   <p-tabView (onChange)="handleChange($event)">
       <p-tabPanel header="Active">
         <p>
-          There are {{totalActiveMinorHead}} MinorHead's are active out of {{totalActiveMinorHead + totalInactiveMinorHead}} MinorHead's given below.
+          There are <span class="highlightActiveMaster">{{totalActiveMinorHead}}</span> MinorHead's are active out of <span class="highlightTotalMaster">{{totalActiveMinorHead + totalInactiveMinorHead}}</span> MinorHead's given below.
         </p>
       </p-tabPanel>
       <p-tabPanel header="Inactive">
         <p>
-          There are {{totalInactiveMinorHead}} MinorHead's are inactive out of {{totalActiveMinorHead + totalInactiveMinorHead}} MinorHead's given below.
+          There are <span class="highlightInactiveMaster">{{totalInactiveMinorHead}}</span> MinorHead's are inactive out of <span class="highlightTotalMaster">{{totalActiveMinorHead + totalInactiveMinorHead}}</span> MinorHead's given below.
         </p>
       </p-tabPanel>
   </p-tabView>

@@ -15,12 +15,12 @@
   <p-tabView (onChange)="handleChange($event)">
       <p-tabPanel header="Active">
         <p>
-          There are {{totalActiveDept}} Department's are active out of {{totalActiveDept + totalInactiveDept}} Department's given below.
+          There are <span class="highlightActiveMaster">{{totalActiveDept}}</span> Department's are active out of <span class="highlightTotalMaster">{{totalActiveDept + totalInactiveDept}}</span> Department's given below.
         </p>
       </p-tabPanel>
       <p-tabPanel header="Inactive">
         <p>
-          There are {{totalInactiveDept}} Department's are inactive out of {{totalActiveDept + totalInactiveDept}} Department's given below.
+          There are <span class="highlightInactiveMaster">{{totalInactiveDept}}</span> Department's are inactive out of <span class="highlightTotalMaster">{{totalActiveDept + totalInactiveDept}}</span> Department's given below.
         </p>
       </p-tabPanel>
   </p-tabView>

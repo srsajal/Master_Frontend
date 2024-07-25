@@ -15,12 +15,12 @@
   <p-tabView (onChange)="handleChange($event)">
       <p-tabPanel header="Active">
         <p>
-          There are {{totalActiveDdo}} DDO's are active out of {{totalActiveDdo + totalInactiveDdo}} DDO's given below.
+          There are <span class="highlightActiveMaster">{{totalActiveDdo}}</span> DDO's are active out of <span class="highlightTotalMaster">{{totalActiveDdo + totalInactiveDdo}}</span> DDO's given below.
         </p>
       </p-tabPanel>
       <p-tabPanel header="Inactive">
         <p>
-          There are {{totalInactiveDdo}} DDO's are inactive out of {{totalActiveDdo + totalInactiveDdo}} DDO's given below.
+          There are <span class="highlightInactiveMaster">{{totalInactiveDdo}}</span> DDO's are inactive out of <span class="highlightTotalMaster">{{totalActiveDdo + totalInactiveDdo}}</span> DDO's given below.
         </p>
       </p-tabPanel>
   </p-tabView>

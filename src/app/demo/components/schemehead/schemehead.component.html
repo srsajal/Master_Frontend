@@ -93,14 +93,14 @@
   <p-tabView (onChange)="handleChange($event)">
     <p-tabPanel header="Active  ">
       <p>
-        There are {{totalActiveSchemeHead}} SchemeHead's are active out of {{totalActiveSchemeHead +
-        totalInactiveSchemeHead}} SchemeHead's given below.
+        There are <span class="highlightActiveMaster">{{totalActiveSchemeHead}}</span> SchemeHead's are active out of <span class="highlightTotalMaster">{{totalActiveSchemeHead +
+        totalInactiveSchemeHead}}</span> SchemeHead's given below.
       </p>
     </p-tabPanel>
     <p-tabPanel header="Inactive ">
       <p>
-        There are {{totalInactiveSchemeHead}} SchemeHead's are inactive out of {{totalActiveSchemeHead +
-        totalInactiveSchemeHead}} SchemeHead's given below.
+        There are <span class="highlightInactiveMaster">{{totalInactiveSchemeHead}}</span> SchemeHead's are inactive out of <span class="highlightTotalMaster">{{totalActiveSchemeHead +
+        totalInactiveSchemeHead}}</span> SchemeHead's given below.
       </p>
     </p-tabPanel>
   </p-tabView>
