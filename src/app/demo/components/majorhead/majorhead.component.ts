@@ -37,7 +37,7 @@ export class MajorheadComponent implements OnInit {
   constructor(public dialogService: DialogService, public config: DynamicDialogConfig) {
     this.items = [
       { label: 'Master Management' },
-      { label: 'Treasury' },
+      { label: 'MajorHead' },
     ];
     this.home = { icon: 'pi pi-home', routerLink: '/' };
    }

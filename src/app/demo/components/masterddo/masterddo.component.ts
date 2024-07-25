@@ -38,7 +38,7 @@ export class MasterddoComponent implements OnInit {
   confirmationService = inject(ConfirmationService);
 
   ref: DynamicDialogRef | undefined;
-  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) { 
+  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) {
     this.items = [
       { label: 'Master Management' },
       { label: 'DDO' },
@@ -65,7 +65,7 @@ export class MasterddoComponent implements OnInit {
     this.tableInitialize();
     this.getData();
     this.getCodeFromTreasury();
-    
+
 
   }
 
@@ -256,6 +256,8 @@ export class MasterddoComponent implements OnInit {
     console.log("Download the details from above");
   }
   handleButtonClick(event: any) {
+    console.log(event);
+
     if (event.buttonIdentifier == "edit") {
       this.editData(event.rowData.id);
     }
@@ -279,6 +281,13 @@ export class MasterddoComponent implements OnInit {
   }
   handleSearch(event: any) {
     console.log(event);
+    
+    this.tableQueryParameters.filterParameters.push({
+      field: 'id',
+      value: event,
+      operator: 'contains'
+    })
+    this.showNormalData();
   }
   handleChange(event: any) {
     if (event.index === 0) {
