@@ -66,6 +66,7 @@ export class DepartmentformsComponent implements OnInit {
   }
   submit() {
     if (this.userForm.valid) {
+      if(this.isExist == false){
       this.masterService.postMasterDepartment(this.userForm).subscribe((res: Masterdept) => {
         console.log(res);
         this.pgetData();
@@ -78,6 +79,10 @@ export class DepartmentformsComponent implements OnInit {
         this.ref.close();
       }
     );
+  }
+  else{
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'This Demand code already exist in database', life: 2000 });
+  }
       // form.reset();
     }
     else {
@@ -135,12 +140,13 @@ export class DepartmentformsComponent implements OnInit {
   }
   onChangedata(event: any) {
     if (event.target.value == '') {
+
       this.isExist = true;
     }
     else {
       this.masterService.onChange(event.target.value).subscribe((res: any) => {
         this.isExist = res;
-        console.log(res);
+        // console.log(res);
 
       });
     }}
