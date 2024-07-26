@@ -1,4 +1,4 @@
-<div class="grid">
+<!-- <div class="grid">
   <div class="col-10">
     <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
   </div>
@@ -109,4 +109,40 @@
   rowSelectionMode="multiple" [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
   (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)"
   [isLoading]="istableLoading" [showTopMenubar]="true" [showGlobalSearch]="false">
+</mh-prime-dynamic-table> -->
+
+<div class="grid">
+  <div class="col-10">
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+  </div>
+  <div class="flex justify-content-end col">
+    <p-button (click)="show()" label="ADD SCHEMEHEAD">
+      <i class="pi pi-plus mr-2"></i>
+    </p-button>
+  </div>
+</div>
+
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<div class="mb-2">
+  <p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="Active  ">
+      <p>
+        There are <span class="highlightActiveMaster">{{totalActiveSchemeHead}}</span> SchemeHead's are active out of <span class="highlightTotalMaster">{{totalActiveSchemeHead +
+        totalInactiveSchemeHead}}</span> SchemeHead's given below.
+      </p>
+    </p-tabPanel>
+    <p-tabPanel header="Inactive ">
+      <p>
+        There are <span class="highlightInactiveMaster">{{totalInactiveSchemeHead}}</span> SchemeHead's are inactive out of <span class="highlightTotalMaster">{{totalActiveSchemeHead +
+        totalInactiveSchemeHead}}</span> SchemeHead's given below.
+      </p>
+    </p-tabPanel>
+  </p-tabView>
+</div>
+  
+<mh-prime-dynamic-table size="small" [numberRowsShown]="10"
+  [rowsPerPageOptions]="[10, 30, 50]"  [data]="tableData" rowSelectionMode="multiple" [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
+  (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)"
+  (searchKeyChange)="handleSearch($event)" [isLoading]="istableLoading" [showTopMenubar]="true" [showGlobalSearch]="false">
 </mh-prime-dynamic-table>

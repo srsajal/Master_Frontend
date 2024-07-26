@@ -63,11 +63,11 @@ export class SubMajorHeadFormsComponent implements OnInit {
           this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
         }
       },
-        error => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
-          this.ref.close();
-        }
-      );
+      error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add MasterSubMajorHead  data', life: 2000 });
+        this.ref.close();
+      }
+    );
     }
     else {
       this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
@@ -82,7 +82,7 @@ export class SubMajorHeadFormsComponent implements OnInit {
       this.userForm = this.initializeMasterForm(this.isDisable);
     },
       error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterSubMajorHead  data by ID', life: 2000 });
       }
     );
   }
@@ -93,12 +93,12 @@ export class SubMajorHeadFormsComponent implements OnInit {
         this.pgetData();
         this.ref.close();
       },
-        error => {
-          console.error('Error adding MasterDDO data:', error);
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
-          this.ref.close();
-        }
-      );
+      error => {
+        console.error('Error adding MasterDDO data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add MasterSubMajorHead  data', life: 2000 });
+        this.ref.close();
+      }    
+    );
       this.dialogButts = 1;
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
     }

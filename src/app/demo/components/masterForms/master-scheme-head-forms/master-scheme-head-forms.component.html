@@ -1,7 +1,6 @@
 <div class="custom-dialog">
-    <!-- <div class="flex flex-wrap align-items-center justify-content-end">
-        <div class="addstubutt"><p-button (click)="showDialog()" label="ADD DDO"></p-button>
-    </div> -->
+    <div class="flex flex-wrap align-items-center justify-content-end">
+
         <form [formGroup]="userForm">
             <div class="mb-4 mt-3">
                 <label class="text-2xl" for="firstname2">Select MinorHeadID<span class="red"> *</span> : </label>
@@ -98,15 +97,16 @@
             </ng-template>
             <ng-template #elseBlock2>
                 <div class="button-container" *ngIf="(dialogButts == 3)">
-                  <div class="formgrid grid">
-                    <div class="col">
-                      <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Close"
-                        icon="pi pi-times" iconPos="left" (click)="hide()"></p-button>
+                    <div class="formgrid grid">
+                        <div class="col">
+                            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Close"
+                                icon="pi pi-times" iconPos="left" (click)="hide()"></p-button>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </ng-template>
+            </ng-template>
 
         </form>
         <!-- <p-toast></p-toast> -->
     </div>
+</div>

@@ -52,7 +52,13 @@ export class MajorheadComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'ADD MAJORHEAD DATA'
+      header: 'ADD MAJORHEAD DATA',
+      contentStyle: {
+        'background-color': '#e0f7fa',
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#006064',
+      }
     });
   }
   ngOnInit(): void {
@@ -116,7 +122,13 @@ export class MajorheadComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'EDIT TREASURY DATA'
+      header: 'EDIT TREASURY DATA',
+      contentStyle: {
+        'background-color': '#fff3e0', 
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#e65100',
+      }
     });
   }
 
@@ -140,8 +152,8 @@ export class MajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
       error => {
-        console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterDDO record', life: 2000 });
+        console.error('Error deleting MasterMajorHead data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterMajorHead record', life: 2000 });
       }
     );
   }
@@ -151,8 +163,8 @@ export class MajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
     },
       error => {
-        console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+        console.error('Error deleting MasterMajorHead data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterMajorHead record', life: 2000 });
       }
     );
   }
@@ -173,12 +185,18 @@ export class MajorheadComponent implements OnInit {
         },
         width: '50rem',
         modal: true,
-        header: 'EDIT TREASURY DATA'
+        header: 'EDIT TREASURY DATA',
+        contentStyle: {
+          'background-color': '#f3e5f5',
+          'padding': '20px',
+          'border-radius': '8px',
+          'color': '#4a148c',
+        }
       });
     },
       error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        console.error('Error fetching MasterMajorHead data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterMajorHead data by ID', life: 2000 });
       }
     );
   }
