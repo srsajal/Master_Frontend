@@ -188,7 +188,7 @@ export class DepartmentComponent implements OnInit {
         },
         width: '50rem',
         modal: true,
-        header: 'EDIT DEPARTMENT DATA',
+        header: 'VIEW DEPARTMENT DATA',
         contentStyle: {
           'background-color': '#f3e5f5',
           'padding': '20px',

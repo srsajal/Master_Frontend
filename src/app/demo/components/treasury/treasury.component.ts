@@ -184,7 +184,7 @@ export class TreasuryComponent implements OnInit {
         },
         width: '50rem',
         modal: true,
-        header: 'EDIT TREASURY DATA',
+        header: 'VIEW TREASURY DATA',
         contentStyle: {
           'background-color': '#f3e5f5',
           'padding': '20px',

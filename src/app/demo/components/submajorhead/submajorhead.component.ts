@@ -154,8 +154,8 @@ export class SubmajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
     },
       error => {
-        console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+        console.error('Error deleting MasterSubMajorHead  data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterSubMajorHead  record', life: 2000 });
       }
     );
   }
@@ -179,8 +179,8 @@ export class SubmajorheadComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
       error => {
-        console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterDDO record', life: 2000 });
+        console.error('Error deleting MasterSubMajorHead  data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterSubMajorHead  record', life: 2000 });
       }
     );
   }
@@ -210,8 +210,8 @@ export class SubmajorheadComponent implements OnInit {
       });
     },
       error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        console.error('Error fetching MasterSubMajorHead  data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterSubMajorHead  data by ID', life: 2000 });
       }
     );
   }

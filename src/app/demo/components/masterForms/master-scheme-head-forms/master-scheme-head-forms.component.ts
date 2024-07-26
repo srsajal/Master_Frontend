@@ -67,8 +67,8 @@ export class MasterSchemeHeadFormsComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
       },
       error => {
-        console.error('Error adding MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        console.error('Error adding MasterSchemeHead data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add MasterSchemeHead data', life: 2000 });
         this.ref.close();
       }
     );
@@ -86,8 +86,8 @@ export class MasterSchemeHeadFormsComponent implements OnInit {
       this.userForm = this.initializeMasterForm(this.isDisable);
     },
       error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        console.error('Error fetching MasterSchemeHead data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterSchemeHead data by ID', life: 2000 });
       }
     );
   }
@@ -100,8 +100,8 @@ export class MasterSchemeHeadFormsComponent implements OnInit {
         this.ref.close();
       },
       error => {
-        console.error('Error adding MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        console.error('Error adding MasterSchemeHead data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add MasterSchemeHeaddata', life: 2000 });
         this.ref.close();
       }    
     );

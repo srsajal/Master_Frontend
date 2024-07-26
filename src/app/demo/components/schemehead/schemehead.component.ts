@@ -53,7 +53,7 @@ export class SchemeheadComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'ADD DDO DATA',
+      header: 'ADD SchemeHead DATA',
       contentStyle: {
         'background-color': '#e0f7fa',
         'padding': '20px',
@@ -114,7 +114,7 @@ export class SchemeheadComponent implements OnInit {
     },
       error => {
         console.error('Error fetching codes from Treasury:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from MinorHead', life: 2000 });
       }
     );
   }
@@ -131,7 +131,7 @@ export class SchemeheadComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'EDIT DDO DATA',
+      header: 'EDIT SCHEMEHEAD DATA',
       contentStyle: {
         'background-color': '#fff3e0', 
         'padding': '20px',
@@ -162,7 +162,7 @@ export class SchemeheadComponent implements OnInit {
     },
       error => {
         console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterDDO record', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete MasterSchemeHead record', life: 2000 });
       }
     );
   }
@@ -173,7 +173,7 @@ export class SchemeheadComponent implements OnInit {
     },
       error => {
         console.error('Error deleting MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterDDO record', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MasterSchemeHead record', life: 2000 });
       }
     );
   }
@@ -199,7 +199,7 @@ export class SchemeheadComponent implements OnInit {
         },
         width: '50rem',
         modal: true,
-        header: 'EDIT DDO DATA',
+        header: 'VIEW SCHEMEHEAD DATA',
         contentStyle: {
           'background-color': '#f3e5f5',
           'padding': '20px',
@@ -210,7 +210,7 @@ export class SchemeheadComponent implements OnInit {
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterSchemeHead data by ID', life: 2000 });
       }
     );
   }
