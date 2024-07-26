@@ -56,7 +56,8 @@ export class DepartmentformsComponent implements OnInit {
       DemandCode: [{ value: this.formMaster?.demandCode ?? '', disabled: isDisabled }, [Validators.required,Validators.minLength(1),Validators.maxLength(2)]],
       Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, [Validators.required,Validators.minLength(3)]],
       PinCode: [{ value: this.formMaster?.pinCode ?? '', disabled: isDisabled }, [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{6}$")]],
-      PhoneNumber: [{ value: this.formMaster?.phoneNumber ?? '', disabled: isDisabled },[Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.required]],
+      PhoneNumber: [{ value: this.formMaster?.phoneNumber ? this.formMaster?.phoneNumber.trim() : '', disabled: isDisabled },[Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.required]],
+      //PhoneNumber: [{ value: this.formMaster?.phoneNumber ?? '', disabled: isDisabled },[Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.required]],
       MobileNumber: [{ value: this.formMaster?.mobileNumber ?? '', disabled: isDisabled },[Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$"), Validators.required]],
       Email: [{ value: this.formMaster?.email ?? '', disabled: isDisabled }, [Validators.email,Validators.required]],
       

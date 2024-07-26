@@ -26,7 +26,7 @@ export class MinorheadService {
  
 
   postMasterMinorhead(userForm: FormGroup) {
-    return this.http.post<minorHead>(this.minorheadurl + 'AddmasterMinorHead', userForm.value)
+    return this.http.post<number>(this.minorheadurl + 'AddmasterMinorHead', userForm.value)
   }
 
   getMasterMinorheadById(tmpid: number) {

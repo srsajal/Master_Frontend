@@ -21,7 +21,7 @@ export class SubmajorheadService {
     return this.http.post<IapiResponce<DynamicTable<submajorhead>>>(this.submajorheadurl + 'GetMastersubmajorhead?isActive='+ isActive, tableQueryParameters)
   }
   postgetsubMajorHeadData(userForm : FormGroup){
-    return  this.http.post<submajorhead>(this.submajorheadurl + 'AddMasterSubmajorHead', userForm.value)
+    return  this.http.post<number>(this.submajorheadurl + 'AddMasterSubmajorHead', userForm.value)
   }
   getsubMajorHeadDataById(tmpid: number) {
     return this.http.get<submajorhead>(this.submajorheadurl + 'GetMasterMastersubMajorHeadById?id=' + `${tmpid}`)

@@ -51,16 +51,16 @@ export class MasterddoformsComponent implements OnInit {
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
       Designation: [{ value: this.formMaster?.designation ?? '', disabled: isDisabled }, Validators.required],
       Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, Validators.required],
-      Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, [Validators.required, Validators.pattern('^[0-9]{10}$')]]
-      // Phone: [{ value: this.formMaster?.phone.trim() ?? '', disabled: isDisabled }, [Validators.required, Validators.pattern('^[0-9]{10}$')]]
-      // Phone: [{ value: this.formMaster?.phone ? this.formMaster.phone.trim() : '', disabled: isDisabled }, 
-      //   [Validators.required, Validators.pattern('^[0-9]{10}$')]]
+      Phone: [{ value: this.formMaster?.phone ? this.formMaster.phone.trim() : '', disabled: isDisabled },[Validators.required, Validators.pattern('^[0-9]{10}$')]]
+      // Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, [Validators.required, Validators.pattern('^[0-9]{10}$')]]
     });
 
     return _newForm;
   }
   submit() {
     if (this.userForm.valid) {
+      console.log(this.userForm.value);
+      
       this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
         console.log(res);
         this.pgetData();
@@ -83,6 +83,8 @@ export class MasterddoformsComponent implements OnInit {
 
   getDataById() {
     this.masterService.getMasterDDOById(this.id).subscribe((res: MasterDdo) => {
+      console.log(res);
+      
       this.formMaster = res;
       this.userForm = this.initializeMasterForm(this.isDisable);
     },

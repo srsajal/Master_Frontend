@@ -131,6 +131,8 @@ export class MasterMajorheadFormsComponent implements OnInit {
     this.dialogButts = 1;
   }
   onChangedata(event: any) {
+    console.log(event);
+    
     if (event.target.value == '') {
       this.isExist = true;
     }

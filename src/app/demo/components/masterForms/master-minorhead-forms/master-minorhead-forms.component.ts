@@ -12,36 +12,35 @@ import { Code, minorHead } from 'src/Model/master.model';
 })
 export class MasterMinorheadFormsComponent implements OnInit {
 
-  id : number = 0;
-  isDisable : boolean = false;
-  getTCode : string = '';
+  id: number = 0;
+  isDisable: boolean = false;
+  getTCode: string = '';
   formMaster?: minorHead;
-  
+
   codes: Code[] = [];
   userForm: FormGroup = new FormGroup({});
   dialogButts: number = 1;
-  pgetData:() => void;
+  pgetData: () => void;
 
 
   fb = inject(FormBuilder);
   masterService = inject(MinorheadService);
   messageService = inject(MessageService);
-  constructor(public config : DynamicDialogConfig, public ref : DynamicDialogRef) {
+  constructor(public config: DynamicDialogConfig, public ref: DynamicDialogRef) {
     this.id = config.data.id;
     this.codes = config.data.code;
     this.isDisable = config.data.isDisable;
     this.dialogButts = config.data.dialogButt;
     this.pgetData = this.config.data.pgetData;
-    
-   }
-  getTcode(){
+
+  }
+  getTcode() {
     this.getTCode = this.userForm.value.TreasuryCode;
   }
 
   ngOnInit(): void {
     this.userForm = this.initializeMasterForm();
-    if(this.dialogButts == 2 || this.dialogButts == 3)
-    {
+    if (this.dialogButts == 2 || this.dialogButts == 3) {
       this.getDataById();
     }
   }
@@ -51,23 +50,29 @@ export class MasterMinorheadFormsComponent implements OnInit {
       SubMajorId: [{ value: this.formMaster?.subMajorId ?? '', disabled: isDisabled }, Validators.required],
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required]
-     
+
     });
 
     return _newForm;
   }
   submit() {
     if (this.userForm.valid) {
-      this.masterService.postMasterMinorhead(this.userForm).subscribe((res: minorHead) => {
-        this.pgetData();
-        this.ref.close();
-        this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+      this.masterService.postMasterMinorhead(this.userForm).subscribe((res: number) => {
+        console.log(res);
+        if (res == 0) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'This Sub Major Head Id and Given Code is already exist in database', life: 2000 });
+        }
+        else {
+          this.pgetData();
+          this.ref.close();
+          this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
+        }
       },
-      error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
-        this.ref.close();
-      }
-    );
+        error => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+          this.ref.close();
+        }
+      );
     }
     else {
       this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
@@ -86,18 +91,18 @@ export class MasterMinorheadFormsComponent implements OnInit {
       }
     );
   }
-  
+
   update() {
     if (this.userForm.valid) {
       this.masterService.updateMasterMinorheadById(this.id, this.userForm).subscribe((res: minorHead) => {
         this.pgetData();
         this.ref.close();
       },
-      error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
-        this.ref.close();
-      }    
-    );
+        error => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+          this.ref.close();
+        }
+      );
       this.dialogButts = 1;
       this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
     }
@@ -108,13 +113,13 @@ export class MasterMinorheadFormsComponent implements OnInit {
     }
   }
 
-  
+
   cancel() {
     this.ref.close();
     this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have Cancelled', life: 2000 });
     this.dialogButts = 1;
   }
-  hide(){
+  hide() {
     this.ref.close();
     this.dialogButts = 1;
   }

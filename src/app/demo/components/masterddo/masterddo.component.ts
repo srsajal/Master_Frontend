@@ -1,12 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
+import { ActionButtonConfig, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { IapiResponce } from 'src/Model/iapi-responce';
 import { Code, MasterDdo } from 'src/Model/master.model';
-import { MhPrimeDynamicTableModule } from 'mh-prime-dynamic-table';
-import { log } from 'console';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MasterddoformsComponent } from '../masterForms/masterddoforms/masterddoforms.component';
 import { MasterService } from '../../service/MasterService/masterddo.service';
