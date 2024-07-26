@@ -5,12 +5,12 @@ import { DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-tabl
 import { Observable } from 'rxjs';
 import { environment,  } from 'src/environments/environment';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import { masterSchemeHead } from 'src/Model/master.model';
+import { Code, masterSchemeHead, minorheadid } from 'src/Model/master.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SchemeHeadServiceService {
+export class MasterSCHEMEHEADService {
 
  private schemehead = environment.BaseURL+'masterSCHEME_HEAD/';
   http = inject(HttpClient);
@@ -22,7 +22,7 @@ export class SchemeHeadServiceService {
   }
 
   postmasterSCHEME_HEAD(userForm: FormGroup) {
-    return this.http.post<masterSchemeHead>('http://localhost:5271/api/masterSCHEME_HEAD/AddMasterSCHEME_HEAD', userForm.value)
+    return this.http.post<masterSchemeHead>(this.schemehead +'AddmasterSCHEME-HEAD', userForm.value)
   }
 
   GetMasterSCHEME_HEADById(tmpid: number) {
@@ -34,6 +34,10 @@ export class SchemeHeadServiceService {
   }
   deletemasterSCHEME_HEAD(tmpid : number){
     return  this.http.delete('http://localhost:5271/api/masterSCHEME_HEAD/DeleteMasterSchemeHead?id=' + `${tmpid}`)
+  }
+
+  getMasterCodeMinorHead(){
+    return this.http.get<minorheadid[]>('http://localhost:5271/api/masterSCHEME_HEAD/GetMasterSCHEME_HEADfromMINORHEADId');
   }
   countMasterSchemeHead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
     return this.http.post<IapiResponce<DynamicTable<masterSchemeHead>>>('http://localhost:5271/api/masterSCHEME_HEAD/CountMasterSchemeHead?isActive='+isActive, tableQueryParameters)
