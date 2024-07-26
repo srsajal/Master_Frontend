@@ -54,7 +54,13 @@ export class TreasuryComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'ADD TREASURY DATA'
+      header: 'ADD TREASURY DATA',
+      contentStyle: {
+        'background-color': '#e0f7fa',
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#006064',
+      }
     });
   }
 
@@ -112,7 +118,13 @@ export class TreasuryComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'EDIT TREASURY DATA'
+      header: 'EDIT TREASURY DATA',
+      contentStyle: {
+        'background-color': '#fff3e0', 
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#e65100',
+      }
     });
   }
 
@@ -172,7 +184,13 @@ export class TreasuryComponent implements OnInit {
         },
         width: '50rem',
         modal: true,
-        header: 'EDIT TREASURY DATA'
+        header: 'EDIT TREASURY DATA',
+        contentStyle: {
+          'background-color': '#f3e5f5',
+          'padding': '20px',
+          'border-radius': '8px',
+          'color': '#4a148c',
+        }
       });
     },
       error => {

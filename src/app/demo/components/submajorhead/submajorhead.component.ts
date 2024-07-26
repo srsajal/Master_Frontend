@@ -53,7 +53,13 @@ export class SubmajorheadComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'ADD SUBMAJORHEAD DATA'
+      header: 'ADD SUBMAJORHEAD DATA',
+      contentStyle: {
+        'background-color': '#e0f7fa',
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#006064',
+      }
     });
   }
 
@@ -133,7 +139,13 @@ export class SubmajorheadComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'EDIT SUBMAJORHEAD DATA'
+      header: 'EDIT SUBMAJORHEAD DATA',
+      contentStyle: {
+        'background-color': '#fff3e0', 
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#e65100',
+      }
     });
   }
   restoreData(tmpid: number) {
@@ -188,7 +200,13 @@ export class SubmajorheadComponent implements OnInit {
         },
         width: '50rem',
         modal: true,
-        header: 'EDIT SUBMAJORHEAD DATA'
+        header: 'EDIT SUBMAJORHEAD DATA',
+        contentStyle: {
+          'background-color': '#f3e5f5',
+          'padding': '20px',
+          'border-radius': '8px',
+          'color': '#4a148c',
+        }
       });
     },
       error => {

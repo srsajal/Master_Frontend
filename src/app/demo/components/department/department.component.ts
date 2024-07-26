@@ -54,7 +54,13 @@ export class DepartmentComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'ADD DEPARTMENT DATA'
+      header: 'ADD DEPARTMENT DATA',
+      contentStyle: {
+        'background-color': '#e0f7fa',
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#006064',
+      }
     });
   }
   ngOnInit(): void {
@@ -119,7 +125,13 @@ export class DepartmentComponent implements OnInit {
       },
       width: '50rem',
       modal: true,
-      header: 'EDIT DEPATMENT DATA'
+      header: 'EDIT DEPATMENT DATA',
+      contentStyle: {
+        'background-color': '#fff3e0', 
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#e65100',
+      }
     });
   }
 
@@ -176,7 +188,13 @@ export class DepartmentComponent implements OnInit {
         },
         width: '50rem',
         modal: true,
-        header: 'EDIT DEPARTMENT DATA'
+        header: 'EDIT DEPARTMENT DATA',
+        contentStyle: {
+          'background-color': '#f3e5f5',
+          'padding': '20px',
+          'border-radius': '8px',
+          'color': '#4a148c',
+        }
       });
     },
       error => {
