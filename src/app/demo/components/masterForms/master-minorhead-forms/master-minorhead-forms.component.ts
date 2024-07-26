@@ -64,7 +64,7 @@ export class MasterMinorheadFormsComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
       },
       error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add MINORHEAD data', life: 2000 });
         this.ref.close();
       }
     );
@@ -82,7 +82,7 @@ export class MasterMinorheadFormsComponent implements OnInit {
       this.userForm = this.initializeMasterForm(this.isDisable);
     },
       error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MINORHEAD data by ID', life: 2000 });
       }
     );
   }
@@ -94,7 +94,7 @@ export class MasterMinorheadFormsComponent implements OnInit {
         this.ref.close();
       },
       error => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add MINORHEAD data', life: 2000 });
         this.ref.close();
       }    
     );
