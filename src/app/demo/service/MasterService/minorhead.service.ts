@@ -5,7 +5,7 @@ import { DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-tabl
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import { minorHead } from 'src/Model/master.model';
+import { Code, minorHead } from 'src/Model/master.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,12 +16,17 @@ export class MinorheadService {
 
   constructor() { }
 
-  getmasterMinoread(tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<minorHead>>>(this.minorheadurl + 'GetmasterMinorHead', tableQueryParameters)
+  getmasterMinorhead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+    return this.http.post<IapiResponce<DynamicTable<minorHead>>>(this.minorheadurl + 'GetmasterMinorHead?isActive=' + isActive, tableQueryParameters)
   }
 
+  getMasterCodeSubmajorhead(){
+    return this.http.get<Code[]>(this.minorheadurl + 'GetSubMajorHeadCode')
+  }
+ 
+
   postMasterMinorhead(userForm: FormGroup) {
-    return this.http.post<minorHead>(this.minorheadurl + 'AddmasterMinorHead', userForm.value)
+    return this.http.post<number>(this.minorheadurl + 'AddmasterMinorHead', userForm.value)
   }
 
   getMasterMinorheadById(tmpid: number) {
@@ -34,4 +39,14 @@ export class MinorheadService {
   deleteMasterMinorheadById(tmpid : number){
     return  this.http.delete(this.minorheadurl + 'DeletemasterMinorHead?id=' + `${tmpid}`)
   }
+
+  countMasterMinorhead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<minorHead>>>(this.minorheadurl + 'CountMasterMinorHead?isActive='+isActive, tableQueryParameters)
+  }
+  
+  restoreMasterMinorheadById(tmpid : number){
+    return this.http.delete(this.minorheadurl + 'RestoreMasterMinorHead?id='  + `${tmpid}`);
+  }
+
+  
 }

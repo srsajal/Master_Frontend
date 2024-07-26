@@ -11,6 +11,7 @@ import { MasterdetailheadComponent } from './demo/components/masterdetailhead/ma
 import { MastersubdetailheadComponent } from './demo/components/mastersubdetailhead/mastersubdetailhead.component';
 import { MinorheadComponent } from './demo/components/minorhead/minorhead.component';
 import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhead.component';
+import { DashboardskeletonComponent } from './demo/components/dashboardskeleton/dashboardskeleton.component';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhe
                     { path:'treasury', component:TreasuryComponent},
                     { path:'minorhead', component:MinorheadComponent},
                     { path:'submajorhead', component:SubmajorheadComponent},
+                    { path:'dashboardSkelelon', component:DashboardskeletonComponent}
                 ]
             },
            

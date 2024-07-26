@@ -1,11 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionButtonConfig, DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
-import { MessageService } from 'primeng/api';
-import { IapiResponce } from 'src/Model/iapi-responce';
-import { minorHead } from 'src/Model/master.model';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { Code, minorHead } from 'src/Model/master.model';
 import { MinorheadService } from 'src/app/demo/service/MasterService/minorhead.service';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MasterMinorheadFormsComponent } from '../masterForms/master-minorhead-forms/master-minorhead-forms.component';
 @Component({
   selector: 'app-minorhead',
   templateUrl: './minorhead.component.html',
@@ -16,36 +15,66 @@ export class MinorheadComponent implements OnInit {
   tableData: any;
   tableQueryParameters!: DynamicTableQueryParameters | any;
   actionButtonConfig: ActionButtonConfig[] = [];
+  istableLoading: boolean = false;
   alldata: number = 0;
-  headertext = 'Add Minor Head';
   visible: boolean = false;
   id: number = 0;
-  isSubUp: boolean = true;
+  codes: Code[] = [];
+  dialogButts: number = 1;
+  items: MenuItem[];
+  home: MenuItem;
+  totalActiveMinorHead: number = 0;
+  totalInactiveMinorHead: number = 0;
 
-  http = inject(HttpClient);
-  messageService = inject(MessageService)
-  constructor(private minorheadservice: MinorheadService) { }
+  // http = inject(HttpClient);
+  messageService = inject(MessageService);
+  masterService = inject(MinorheadService);
+  confirmationService = inject(ConfirmationService);
 
-  userForm: FormGroup = new FormGroup({
-    code: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2)]),
-    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    sub_major_id: new FormControl(''),
-    // demandCode: new FormControl('', [Validators.required, Validators.minLength(1)]),
-    // address: new FormControl('', [Validators.required]),
-    // pinCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{6}')]),
-    // phoneNumber: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-    // mobileNumber: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-    // email: new FormControl('', [Validators.required, Validators.email])
-  });
+  ref: DynamicDialogRef | undefined;
+  constructor(public dialogService: DialogService, public config: DynamicDialogConfig) {
+    this.items = [
+      { label: 'Master Management' },
+      { label: 'Minor Head' },
+    ];
+    this.home = { icon: 'pi pi-home', routerLink: '/' };
+   }
+  show() {
+    this.ref = this.dialogService.open(MasterMinorheadFormsComponent, {
+      data: {
+        dialogButt: 1,
+        code: this.codes,
+        isDisable: false,
+        pgetData: this.showNormalData.bind(this),
+
+      },
+      width: '50rem',
+      modal: true,
+      header: 'ADD MINOR HEAD DATA',
+      contentStyle: {
+        'background-color': '#e0f7fa',
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#006064',
+      }
+    });
+  }
 
   ngOnInit(): void {
+    this.tableInitialize();
+    this.getData();
+    this.getCodeFromTreasury();
+
+  }
+
+  tableInitialize() {
     this.actionButtonConfig = [
-      // {
-      //   buttonIdentifier: 'view',
-      //   class: 'p-button-rounded p-button-raised',
-      //   icon: 'pi pi-eye',
-      //   lable: 'View',
-      // },
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
       {
         buttonIdentifier: 'edit',
         class: 'p-button-warning p-button-rounded p-button-raised',
@@ -64,107 +93,172 @@ export class MinorheadComponent implements OnInit {
       pageIndex: 0,
       filterParameters: [],
     };
-    this.getData();
-    console.log(this.tableData);
   }
-
-  getData() {
-    this.minorheadservice.getmasterMinoread(this.tableQueryParameters).subscribe((response: any) => {
+  getData(isActive: boolean = true) {
+    this.istableLoading = true;
+    this.getDataCount();
+    this.masterService.getmasterMinorhead(isActive, this.tableQueryParameters).subscribe((response: any) => {
+      this.istableLoading = false;
       this.tableData = response.result;
       this.alldata = response.result.dataCount;
-      console.log(this.tableData, response);
-
-
     });
   }
 
-  submit(form: FormGroup) {
-    if (!this.userForm.invalid) {
-      console.log(this.userForm.value);
-      this.minorheadservice.postMasterMinorhead(this.userForm).subscribe((res: minorHead) => {
-        console.log(res);
-        this.getData();
-      });
-      form.reset();
-      this.visible = false;
-      this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
-    }
-    else {
-      this.messageService.add({ severity: 'warn', summary: 'warn', detail: 'Form  Invalid !!', life: 2000 });
-    }
-
+  getDataCount() {
+    this.masterService.countMasterMinorhead(true, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalActiveMinorHead = res;
+    });
+    this.masterService.countMasterMinorhead(false, this.tableQueryParameters).subscribe((res: any) => {
+      this.totalInactiveMinorHead = res;
+    });
+  }
+  getCodeFromTreasury() {
+    this.masterService.getMasterCodeSubmajorhead().subscribe((res: Code[]) => {
+      this.codes = res;
+    },
+      error => {
+        console.error('Error fetching codes from Treasury:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch codes from Treasury', life: 2000 });
+      }
+    );
   }
 
   editData(tmpid: number) {
+    this.ref = this.dialogService.open(MasterMinorheadFormsComponent, {
+      data: {
+        dialogButt: 2,
+        code: this.codes,
+        id: tmpid,
+        isDisable: false,
+        pgetData: this.showNormalData.bind(this),
 
-    this.minorheadservice.getMasterMinorheadById(tmpid).subscribe((res: minorHead) => {
-      console.log(res);
-      this.userForm.patchValue({
-        code: res.code,
-        name: res.name,
-        sub_major_id: res.sub_major_id,
-        // demandCode: res.demandCode,
-        // address: res.address,
-        // pinCode: res.pinCode,
-        // phoneNumber: res.phoneNumber,
-        // mobileNumber: res.mobileNumber,
-        // email: res.email
-      });
-      this.headertext = 'Edit Profile';
-      this.userForm.markAllAsTouched();
-      this.userForm.markAsDirty();
-    },
-      error => {
-        console.error('Error fetching department data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch department data by ID', life: 2000 });
+      },
+      width: '50rem',
+      modal: true,
+      header: 'EDIT MINOR DATA',
+      contentStyle: {
+        'background-color': '#fff3e0', 
+        'padding': '20px',
+        'border-radius': '8px',
+        'color': '#e65100',
       }
-    );
-    this.visible = true;
-    this.id = tmpid;
-    this.isSubUp = false;
-  }
-  cancel(form: FormGroup) {
-    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have Cancelled', life: 2000 });
-    form.reset();
-    this.isSubUp = true;
-    this.visible = false;
-    this.headertext = 'Add Minorhead';
-  }
-  hide(form: FormGroup) {
-    form.reset();
-    this.isSubUp = true;
-    this.visible = false;
-    this.headertext = 'Add Minorhead';
+    });
   }
 
-  update(form: FormGroup) {
-    this.minorheadservice.updateMasterMinorheadById(this.id, this.userForm).subscribe((res: any) => {
-      console.log(res);
-      this.getData();
+  confirmDelete(id: number) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.delData(id);
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+      }
     });
-    form.reset();
-    this.isSubUp = true;
-    this.visible = false;
-    this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Updated', life: 2000 });
   }
 
   delData(tmpid: number) {
-    this.minorheadservice.deleteMasterMinorheadById(tmpid).subscribe(() => {
-      this.getData();
+    this.masterService.deleteMasterMinorheadById(tmpid).subscribe(() => {
+      this.showNormalData();
       this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 2000 });
     },
       error => {
-        console.error('Error deleting student data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete record', life: 2000 });
+        console.error('Error deleting MINORHEAD data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete Master MINORHEAD record', life: 2000 });
+      }
+    );
+  }
+  restoreData(tmpid: number) {
+    this.masterService.restoreMasterMinorheadById(tmpid).subscribe(() => {
+      this.showDeletedData();
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record restored', life: 2000 });
+    },
+      error => {
+        console.error('Error deleting MINORHEAD data:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to restore MINORHEAD record', life: 2000 });
       }
     );
   }
 
-  showDialog() {
-    // console.log("showdialog called");
-    this.visible = true;
+
+
+
+
+  viewData(tmpid: number) {
+    this.masterService.getMasterMinorheadById(tmpid).subscribe((res: minorHead) => {
+      this.ref = this.dialogService.open(MasterMinorheadFormsComponent, {
+        data: {
+          dialogButt: 3,
+          code: this.codes,
+          id: tmpid,
+          isDisable: true,
+
+        },
+        width: '50rem',
+        modal: true,
+        header: 'EDIT MINOR DATA',
+        contentStyle: {
+          'background-color': '#f3e5f5',
+          'padding': '20px',
+          'border-radius': '8px',
+          'color': '#4a148c',
+        }
+      });
+    },
+      error => {
+        console.error('Error fetching MINORHEAD data by ID:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MINORHEAD data by ID', life: 2000 });
+      }
+    );
   }
 
+  showDeletedData() {
+    this.actionButtonConfig = [
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
+      {
+        buttonIdentifier: 'restore',
+        class: 'p-button-warning p-button-rounded p-button-raised',
+        icon: 'pi pi-undo',
+        lable: 'Restore',
+      },
+    ];
+    this.getData(false);
+  }
+  showNormalData() {
+    this.actionButtonConfig = [
+      {
+        buttonIdentifier: 'view',
+        class: 'p-button-rounded p-button-raised',
+        icon: 'pi pi-eye',
+        lable: 'View',
+      },
+      {
+        buttonIdentifier: 'edit',
+        class: 'p-button-warning p-button-rounded p-button-raised',
+        icon: 'pi pi-file-edit',
+        lable: 'Edit',
+      },
+      {
+        buttonIdentifier: 'del',
+        class: 'p-button-danger p-button-rounded p-button-raised',
+        icon: 'pi pi-trash',
+        lable: 'Delete',
+      }
+    ];
+    this.tableQueryParameters = {
+      pageSize: 10,
+      pageIndex: 0,
+      filterParameters: [],
+    };
+    this.getData(true);
+  }
   handleRowSelection($event: any) {
     console.log("Download the details from above");
   }
@@ -173,10 +267,13 @@ export class MinorheadComponent implements OnInit {
       this.editData(event.rowData.id);
     }
     else if (event.buttonIdentifier == "del") {
-      this.delData(event.rowData.id);
+      this.confirmDelete(event.rowData.id);
     }
-    else {
-
+    else if (event.buttonIdentifier == "view") {
+      this.viewData(event.rowData.id);
+    }
+    else if (event.buttonIdentifier == "restore") {
+      this.restoreData(event.rowData.id);
     }
   }
   handQueryParameterChange(event: any) {
@@ -187,5 +284,16 @@ export class MinorheadComponent implements OnInit {
     };
     this.getData();
   }
+  handleSearch(event: any) {
+
+  }
+  handleChange(event: any) {
+    if (event.index === 0) {
+      this.showNormalData();
+    } else if (event.index === 1) {
+      this.showDeletedData();
+    }
+  }
+ 
 
 }

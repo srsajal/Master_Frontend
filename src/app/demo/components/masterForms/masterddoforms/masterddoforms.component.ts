@@ -38,7 +38,6 @@ export class MasterddoformsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // console.log(this.id, this.isDisable, this.dialogButts);
     this.userForm = this.initializeMasterForm();
     if(this.dialogButts == 2 || this.dialogButts == 3)
     {
@@ -47,13 +46,13 @@ export class MasterddoformsComponent implements OnInit {
   }
 
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
-    // console.log(this.theRegistration);
     const _newForm = this.fb.group({
       TreasuryCode: [{ value: this.formMaster?.treasuryCode ?? '', disabled: isDisabled }, Validators.required],
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, Validators.required],
       Designation: [{ value: this.formMaster?.designation ?? '', disabled: isDisabled }, Validators.required],
       Address: [{ value: this.formMaster?.address ?? '', disabled: isDisabled }, Validators.required],
-      Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, Validators.required]
+      Phone: [{ value: this.formMaster?.phone ? this.formMaster.phone.trim() : '', disabled: isDisabled },[Validators.required, Validators.pattern('^[0-9]{10}$')]]
+      // Phone: [{ value: this.formMaster?.phone ?? '', disabled: isDisabled }, [Validators.required, Validators.pattern('^[0-9]{10}$')]]
     });
 
     return _newForm;
@@ -61,7 +60,6 @@ export class MasterddoformsComponent implements OnInit {
   submit() {
     if (this.userForm.valid) {
       this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
-        console.log(res);
         this.pgetData();
         this.ref.close();
         this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
@@ -72,7 +70,6 @@ export class MasterddoformsComponent implements OnInit {
         this.ref.close();
       }
     );
-      // form.reset();
     }
     else {
       this.messageService.add({ severity: 'info', summary: 'Error', detail: 'The form is invalid', life: 2000 });
@@ -83,9 +80,10 @@ export class MasterddoformsComponent implements OnInit {
 
   getDataById() {
     this.masterService.getMasterDDOById(this.id).subscribe((res: MasterDdo) => {
+      console.log(res);
+      
       this.formMaster = res;
       this.userForm = this.initializeMasterForm(this.isDisable);
-      // console.log(res, this,this.dialogButts);
     },
       error => {
         console.error('Error fetching MasterDDO data by ID:', error);
@@ -93,7 +91,7 @@ export class MasterddoformsComponent implements OnInit {
       }
     );
   }
-
+  
   update() {
     if (this.userForm.valid) {
       this.masterService.updateMasterDDOById(this.id, this.userForm).subscribe((res: MasterDdo) => {

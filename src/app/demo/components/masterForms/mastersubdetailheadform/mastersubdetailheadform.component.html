@@ -5,8 +5,8 @@
         <form [formGroup]="userForm">
             <div class="mb-4 mt-3">
                 <label class="text-2xl" for="firstname2">Select Detail Head<span class="red"> *</span> : </label>
-                <p-dropdown class="ml-3" [style]="{'width':'67%'}" [options]="codes" formControlName="DetailHeadId"
-                    placeholder="Select Treasury" optionLabel="name" optionValue="id">
+                <p-dropdown class="ml-3" [style]="{'width':'67%'}" [options]="codes" [virtualScroll]="true" [virtualScrollItemSize]="30" formControlName="DetailHeadId"
+                    placeholder="Select Detail" optionLabel="name" optionValue="id">
                     <ng-template let-option pTemplate="item">
                         {{ option.code }} : {{ option.name }}
                     </ng-template>

@@ -5,7 +5,7 @@ import { DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-tabl
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import { Code, MasterDdo, Masterdept } from 'src/Model/master.model';
+import { Masterdept } from 'src/Model/master.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +17,8 @@ export class DepartmentServiceService {
 
   constructor() { }
 
-  getMasterDepartment(tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<Masterdept>>>(this.departmenturl + 'GetMasterDepartment', tableQueryParameters)
+  getMasterDepartment(isActive:boolean,tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+    return this.http.post<IapiResponce<DynamicTable<Masterdept>>>(this.departmenturl + 'GetMasterDepartment?isActive='+isActive, tableQueryParameters)
   }
 
   postMasterDepartment(userForm: FormGroup) {
@@ -35,4 +35,16 @@ export class DepartmentServiceService {
   deleteMasterDepartmentById(tmpid : number){
     return  this.http.delete(this.departmenturl + 'DeleteMasterDepartment?id=' + `${tmpid}`)
   }
+  countMasterDepartment(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<Masterdept>>>(this.departmenturl + 'CountMasterDepartment?isActive='+isActive, tableQueryParameters)
+  }
+
+  restoreMasterDepartmentById(tmpid : number){
+    return this.http.delete(this.departmenturl + 'RestoreMasterDepartment?id='  + `${tmpid}`);
+  }
+  onChange(tmpid: string){
+    return this.http.get(this.departmenturl + 'CheckMasterDepartmentDemandCode/' + tmpid)
+  }
+
+
   }

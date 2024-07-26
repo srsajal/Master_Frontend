@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { log } from 'console';
 import { DynamicTable, DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IapiResponce } from 'src/Model/iapi-responce';
-import { Code, MasterDdo } from 'src/Model/master.model';
+import { AllMasterCount, Code, MasterDdo } from 'src/Model/master.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,17 +15,16 @@ export class MasterService {
 
   ddourl = environment.BaseURL + 'masterDDO/';
   http = inject(HttpClient);
-
   constructor() { }
 
-  getMasterDDO(tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'GetMasterDdo', tableQueryParameters)
+  getMasterDDO(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'GetMasterDdo?isActive='+isActive, tableQueryParameters)
   }
 
   getMasterCodeTreasury(){
     return this.http.get<Code[]>(this.ddourl + 'GetTreasuryCode')
   }
-
+  
   postMasterDDO(userForm: FormGroup) {
     return this.http.post<MasterDdo>(this.ddourl + 'AddMasterDdo', userForm.value)
   }
@@ -38,6 +38,16 @@ export class MasterService {
   }
   deleteMasterDDOById(tmpid : number){
     return  this.http.delete(this.ddourl + 'DeleteMasterDdo?id=' + `${tmpid}`)
+  }
+  restoreMasterDdoById(tmpid : number){
+    return this.http.delete(this.ddourl + 'RestoreMasterDdo?id='  + `${tmpid}`);
+  }
+  countMasterDdo(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<MasterDdo>>>(this.ddourl + 'CountMasterDdo?isActive='+isActive, tableQueryParameters)
+  }
+
+  countAllMaster(){
+    return this.http.get<AllMasterCount>(this.ddourl + 'CountAllMaster')
   }
 
 }

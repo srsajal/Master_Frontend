@@ -1,103 +1,233 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { MasterService } from '../../service/MasterService/masterddo.service';
+import { DynamicTableQueryParameters } from 'mh-prime-dynamic-table';
+import { AllMasterCount } from 'src/Model/master.model';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { Product } from '../../api/product';
-import { ProductService } from '../../service/product.service';
-import { Subscription } from 'rxjs';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
+
 
 @Component({
     templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent implements OnInit {
+    // basicData: any;
 
-    items!: MenuItem[];
+    ddoData: any;
+    detailHeadData: any;
+    subDetailHeadData: any;
+    departmentData: any;
+    majorHeadData: any;
+    schemeHeadData: any;
+    minorHeadData: any;
+    subMajorHeadData: any;
+    treasuryData: any;
+    allMasterData!: AllMasterCount;
+    countCall: number = 0;
+    openGraph: boolean = false;
 
-    products!: Product[];
+    basicOptions: any;
 
-    chartData: any;
+    isActive: boolean = true;
 
-    chartOptions: any;
+    isLoading: boolean = false;
 
-    subscription!: Subscription;
+    items: MenuItem[];
+    home: MenuItem;
 
-    constructor(private productService: ProductService, public layoutService: LayoutService) {
-        this.subscription = this.layoutService.configUpdate$.subscribe(() => {
-            this.initChart();
+    tableQueryParameters!: DynamicTableQueryParameters | any;
+    /**
+     *
+     */
+    constructor(private masterDdoService: MasterService, private router: Router) {
+        this.items = [];
+        this.home = { icon: 'pi pi-home', routerLink: '/' };
+    }
+    ngOnInit(): void {
+        this.getAllMasterCount();
+    }
+
+    getAllMasterCount() {
+        this.isLoading = true;
+        this.masterDdoService.countAllMaster().subscribe((res: AllMasterCount) => {
+            this.allMasterData = res;
+            this.showGraph();
+            this.isLoading = false;
+
         });
     }
 
-    ngOnInit() {
-        this.initChart();
-        this.productService.getProductsSmall().then(data => this.products = data);
+    showGraph() {
+        // this.basicData = {
+        //     labels: ['DDO', 'DETAIL HEAD', 'SUB DETAIL HEAD', 'DEPARTMENT', 'MAJOR HEAD', 'MINOR HEAD', 'SCHEME HEAD', 'TREASURY', 'SUB MAJOR HEAD'],
+        //     datasets: [
+        //         {
+        //             label: 'Active',
+        //             backgroundColor: '#42A5F5',
+        //             data: [this.allMasterData.totalActiveDdo, this.allMasterData.totalActiveDetailHead, this.allMasterData.totalActiveSubDetailHead, this.allMasterData.totalActiveDepartment, this.allMasterData.totalActiveMajorHead, this.allMasterData.totalActiveMinorHead, this.allMasterData.totalActiveSchemeHead, this.allMasterData.totalActiveTreasury, this.allMasterData.totalActiveSubMajorHead],
+        //             hoverBackgroundColor: [
+        //                 "#64B5F6",
+        //                 "#81C784",
+        //                 "#FFB74D"
+        //             ]
+        //         },
+        //         {
+        //             label: 'Inactive',
+        //             backgroundColor: '#FFA726',
+        //             data: [this.allMasterData.totalInactiveDdo, this.allMasterData.totalInactiveDetailHead, this.allMasterData.totalInactiveSubDetailHead, this.allMasterData.totalInactiveDepartment, this.allMasterData.totalInactiveMajorHead, this.allMasterData.totalInactiveMinorHead, this.allMasterData.totalInactiveSchemeHead, this.allMasterData.totalInactiveTreasury, this.allMasterData.totalInactiveSubMajorHead],
+        //             hoverBackgroundColor: [
+        //                 "#64B5F6",
+        //                 "#81C784",
+        //                 "#FFB74D"
+        //             ]
+        //         }
+        //     ]
+        // };
 
-        this.items = [
-            { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-            { label: 'Remove', icon: 'pi pi-fw pi-minus' }
-        ];
-    }
-
-    initChart() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-        this.chartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        this.ddoData = {
+            labels: ['DDO'],
             datasets: [
                 {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
-                    borderColor: documentStyle.getPropertyValue('--bluegray-700'),
-                    tension: .4
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.allMasterData.totalActiveDdo]
                 },
                 {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--green-600'),
-                    borderColor: documentStyle.getPropertyValue('--green-600'),
-                    tension: .4
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.allMasterData.totalInactiveDdo]
+                }
+            ]
+        }
+        this.detailHeadData = {
+            labels: ['DETAIL HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.allMasterData.totalActiveDetailHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.allMasterData.totalInactiveDetailHead]
                 }
             ]
         };
 
-        this.chartOptions = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
+        this.subDetailHeadData = {
+            labels: ['SUB DETAIL HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.allMasterData.totalActiveSubDetailHead]
                 },
-                y: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.allMasterData.totalInactiveSubDetailHead]
                 }
-            }
+            ]
         };
+
+        this.departmentData = {
+            labels: ['DEPARTMENT'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.allMasterData.totalActiveDepartment]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.allMasterData.totalInactiveDepartment]
+                }
+            ]
+        };
+
+        this.majorHeadData = {
+            labels: ['MAJOR HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.allMasterData.totalActiveMajorHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.allMasterData.totalInactiveMajorHead]
+                }
+            ]
+        };
+
+        this.minorHeadData = {
+            labels: ['MINOR HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.allMasterData.totalActiveMinorHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.allMasterData.totalInactiveMinorHead]
+                }
+            ]
+        };
+
+        this.schemeHeadData = {
+            labels: ['SCHEME HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.allMasterData.totalActiveSchemeHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.allMasterData.totalInactiveSchemeHead]
+                }
+            ]
+        };
+
+        this.treasuryData = {
+            labels: ['TREASURY'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.allMasterData.totalActiveTreasury]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.allMasterData.totalInactiveTreasury]
+                }
+            ]
+        };
+
+        this.subMajorHeadData = {
+            labels: ['SUB MAJOR HEAD'],
+            datasets: [
+                {
+                    label: 'Active',
+                    backgroundColor: '#42A5F5',
+                    data: [this.allMasterData.totalActiveSubMajorHead]
+                },
+                {
+                    label: 'Inactive',
+                    backgroundColor: '#FFA726',
+                    data: [this.allMasterData.totalInactiveSubMajorHead]
+                }
+            ]
+        };
+
+
     }
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-    }
+
 }

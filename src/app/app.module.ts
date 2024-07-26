@@ -37,6 +37,25 @@ import { MasterdetailheadformComponent } from './demo/components/masterForms/mas
 import { MastersubdetailheadformComponent } from './demo/components/masterForms/mastersubdetailheadform/mastersubdetailheadform.component';
 import { MinorheadComponent } from './demo/components/minorhead/minorhead.component';
 import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhead.component';
+import {ConfirmPopupModule} from 'primeng/confirmpopup';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import {CardModule} from 'primeng/card';
+import {ChartModule} from 'primeng/chart';
+import { MasterTreasuryFormsComponent } from './demo/components/masterForms/master-treasury-forms/master-treasury-forms.component';
+import { MasterMinorheadFormsComponent } from './demo/components/masterForms/master-minorhead-forms/master-minorhead-forms.component';
+
+import {TabViewModule} from 'primeng/tabview';
+import {SkeletonModule} from 'primeng/skeleton';
+import { DepartmentformsComponent } from './demo/components/masterForms/departmentforms/departmentforms.component';
+import { MasterSchemeHeadFormsComponent } from './demo/components/masterForms/master-scheme-head-forms/master-scheme-head-forms.component';
+import {BadgeModule} from 'primeng/badge';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import {MenuItem} from 'primeng/api';
+import { MasterMajorheadFormsComponent } from './demo/components/masterForms/master-majorhead-forms/master-majorhead-forms.component';
+
+import { SubMajorHeadFormsComponent } from './demo/components/masterForms/sub-major-head-forms/sub-major-head-forms.component';
+
 
 
 
@@ -54,7 +73,15 @@ import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhe
         MasterdetailheadformComponent,
         MastersubdetailheadformComponent,
         MinorheadComponent,
-        SubmajorheadComponent,    
+        SubmajorheadComponent,
+        MasterTreasuryFormsComponent,
+        MasterMinorheadFormsComponent,
+        DepartmentformsComponent,
+        MasterSchemeHeadFormsComponent,
+        SubMajorHeadFormsComponent,
+       
+        MasterMajorheadFormsComponent,
+          
     ],
     imports: [
         AppRoutingModule,
@@ -72,12 +99,21 @@ import { SubmajorheadComponent } from './demo/components/submajorhead/submajorhe
         BrowserAnimationsModule,
         HttpClientModule,
         DropdownModule,
-        DynamicDialogModule,      
+        DynamicDialogModule,
+        ConfirmPopupModule,
+        ConfirmDialogModule,
+        CardModule,
+        ChartModule,
+        TabViewModule,
+        SkeletonModule,
+        BadgeModule,
+        BreadcrumbModule,
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService, CustomerService, EventService, IconService, NodeService,
-        PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient, DialogService, DynamicDialogConfig
+        PhotoService, ProductService, BrowserAnimationsModule, MessageService, HttpClient, DialogService, DynamicDialogConfig,
+        ConfirmationService
     ],
     bootstrap: [AppComponent]
 })

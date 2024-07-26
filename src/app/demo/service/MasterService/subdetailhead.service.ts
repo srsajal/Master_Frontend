@@ -16,8 +16,8 @@ export class SubdetailheadService {
 
   constructor() { }
 
-  getMasterSubDetailHead(tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
-    return this.http.post<IapiResponce<DynamicTable<MasterSubDetailHead>>>(this.ddourl + 'GetMasterSubDetailHead', tableQueryParameters)
+  getMasterSubDetailHead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any) : Observable<IapiResponce> {
+    return this.http.post<IapiResponce<DynamicTable<MasterSubDetailHead>>>(this.ddourl + 'GetMasterSubDetailHead?isActive='+isActive, tableQueryParameters)
   }
 
   getDetailHeadCode(){
@@ -38,4 +38,11 @@ export class SubdetailheadService {
   deleteMasterSubDetailHeadById(tmpid : number){
     return  this.http.delete(this.ddourl + 'DeleteMasterSubDetailHead?id=' + `${tmpid}`)
   }
+  restoreMasterSubDetailHeadById(tmpid : number){
+    return this.http.delete(this.ddourl + 'RestoreMasterSubDetailHead?id='  + `${tmpid}`);
+  }
+  countMasterSubDetailHead(isActive:boolean, tableQueryParameters: DynamicTableQueryParameters | any){
+    return this.http.post<IapiResponce<DynamicTable<MasterSubDetailHead>>>(this.ddourl + 'CountMasterSubDetailHead?isActive='+isActive, tableQueryParameters)
+  }
+
 }

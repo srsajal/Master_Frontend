@@ -29,6 +29,7 @@ export class MastersubdetailheadformComponent implements OnInit {
     this.isDisable = config.data.isDisable;
     this.dialogButts = config.data.dialogButt;
     this.pgetData = this.config.data.pgetData;
+    console.log(this.codes);
     
    }
 
@@ -42,7 +43,7 @@ export class MastersubdetailheadformComponent implements OnInit {
 
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
     const _newForm = this.fb.group({
-      DetailHeadId : [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required],
+      DetailHeadId : [{ value: this.formMaster?.detailHeadId ?? '', disabled: isDisabled }, Validators.required],
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required, Validators.maxLength(2)]],
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled }, Validators.required],
       
@@ -59,8 +60,7 @@ export class MastersubdetailheadformComponent implements OnInit {
         this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });
       },
       error => {
-        console.error('Error adding MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master Sub Detail Head data', life: 2000 });
         this.ref.close();
       }
     );
@@ -75,12 +75,12 @@ export class MastersubdetailheadformComponent implements OnInit {
 
   getDataById() {
     this.subDetailHeadService.getMasterSubDetailHeadById(this.id).subscribe((res: MasterSubDetailHead) => {
+      console.log(res);      
       this.formMaster = res;
       this.userForm = this.initializeMasterForm(this.isDisable);
     },
       error => {
-        console.error('Error fetching MasterDDO data by ID:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch MasterDDO data by ID', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to fetch Master Sub Detail Head data by ID', life: 2000 });
       }
     );
   }
@@ -93,8 +93,7 @@ export class MastersubdetailheadformComponent implements OnInit {
         this.ref.close();
       },
       error => {
-        console.error('Error adding MasterDDO data:', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master DDO data', life: 2000 });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to add Master Sub Detail Head data', life: 2000 });
         this.ref.close();
       }    
     );

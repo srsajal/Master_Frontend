@@ -1,105 +1,148 @@
-<div class=" mb-5">
-  <div class="card" style="border: 1px solid;background-image: linear-gradient(to left, #243949 0%, #517fa4 100%);
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; height: fit-content; display: flex; justify-content: space-between; align-items: center; padding: 1rem;">
-    <h2 style="color: white;font-family: sans-serif;">SchemeHead Table</h2>
-    <p-button class="mb-10" (click)="showDialog()" label="ADD SchemeHead">
+<!-- <div class="grid">
+  <div class="col-10">
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
+  </div>
+  <div class="flex justify-content-end col">
+    <p-button (click)="showDialog()" label="ADD SchemeHead">
       <i class="pi pi-plus mr-3"></i>
     </p-button>
   </div>
+</div>
 <div class="flex flex-wrap align-items-center justify-content-end mb-5">
-    <!-- <div class="addstubutt"><p-button (click)="showDialog()"
-      label="ADD SchemeHead"></p-button>
-    </div> -->
-    <form [formGroup]="userForm" >
-    <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true"
-        [(visible)]="visible" [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
-  
-        
-          <div class="formgrid grid">
-            <div class="field col">
-                <label class="text-2xl" for="firstname2">Demand Code*</label>
-                <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="demandCode">
-                <div *ngIf="userForm.get('demandCode')?.invalid && userForm.get('demandCode')?.touched" class="error">
-                  Demand Code is required length 2 <div class=""></div>
-                </div>
-            </div>
-            <div class="field col">
-                <label class="text-2xl" for="firstname2">SchemeHead Code*</label>
-                <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="code">
-                <div *ngIf="userForm.get('code')?.invalid && userForm.get('code')?.touched" class="error">
-                  Code is required length 3.
-                </div>
-              </div>
-          </div>
-          <div class="formgrid grid">
-          <div class="field col">
-            <label class="text-2xl" for="firstname2">SchemeHead Name*</label>
-            <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="name">
-            <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched" class="error">
-              Designation Mstld is required.
-            </div>
-          </div>
-          </div>
-          <div class="formgrid grid">
-          <div class="field col">
-            <label class="text-2xl" for="lastname2">Minor Head Id*</label>
-            <input id="lastname2" type="number" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="minorHeadId">
-            <div *ngIf="userForm.get('minorHeadId')?.invalid && userForm.get('minorHeadId')?.touched" class="error">
-              Minor Head ID is required.
-            </div>
-          </div>
-          <!-- <div class="field col">
-            <label class="text-2xl" for="firstname2">Phone*</label>
-            <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Phone">
-            <div *ngIf="userForm.get('Phone')?.invalid && userForm.get('Phone')?.touched" class="error">
-              Phone is required.
-            </div>
-          </div> -->
-          </div>
-          <!-- <div class="formgrid grid">
-            <div class="field col">
-              <label class="text-2xl" for="firstname2">Address</label>
-              <input id="firstname2" type="text" class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" formControlName="Address">
-            </div>
-          </div> -->
-  
-          <div class="button-container" *ngIf="isSubUp; else elseBlock">
-            <div class="formgrid grid">
-              <div class="col-9">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel" styleClass="p-button-warning" icon="pi pi-times" iconPos="left" (click)="cancel(userForm)" ></p-button>
-              </div>
-              <div class="field col">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Submit" icon="pi pi-check" styleClass="p-button-success" iconPos="left" (click)="submit(userForm)" [disabled]="userForm.invalid" ></p-button>
-              </div>
-            </div>
-          </div>
-          <ng-template #elseBlock>
-            <div class="formgrid grid">
-              <div class="col-9">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel" icon="pi pi-times" styleClass="p-button-warning" iconPos="left" (click)="cancel(userForm)" ></p-button>
-              </div>
-              <div class="field col">
-                <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update" icon="pi pi-check" styleClass="p-button-success" iconPos="left" (click)="update(userForm)" [disabled]="userForm.invalid" ></p-button>
-              </div>
-            </div>
+  <form [formGroup]="userForm">
+    <p-dialog class="custom-dialog" [header]="headertext" [closable]="true" [modal]="true" [(visible)]="visible"
+      [style]="{ width: '50rem' }" (onHide)="hide(userForm)">
+
+      <div class="mb-4 mt-3">
+        <label class="text-2xl" for="firstname2">Select MinorHeadID<span class="red"> *</span> : </label>
+        <p-dropdown class="ml-3" [virtualScroll]="true" [virtualScrollItemSize]="30" [style]="{'width':'65%'}"
+          [options]="codes" formControlName="minorHeadId" placeholder="Select MinorHead ID" optionLabel="name"
+          optionValue="id">
+          <ng-template let-option pTemplate="item">
+            {{ option.code }} : {{ option.name }}
           </ng-template>
-      
+        </p-dropdown>
+        <div *ngIf="userForm.get('minorHeadId')?.invalid && userForm.get('minorHeadId')?.touched" class="error">
+          MinorHeadID is required.
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col">
+          <label class="text-2xl" for="firstname2">Demand Code*</label>
+          <input id="firstname2" type="text"
+            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            formControlName="demandCode">
+          <div *ngIf="userForm.get('demandCode')?.invalid && userForm.get('demandCode')?.touched" class="error">
+            Demand Code is required length 2<div class=""></div>
+          </div>
+        </div>
+        <div class="field col">
+          <label class="text-2xl" for="firstname2">SchemeHead Code*</label>
+          <input id="firstname2" type="text"
+            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            formControlName="code">
+          <div *ngIf="userForm.get('code')?.invalid && userForm.get('code')?.touched" class="error">
+            Code is required length 3 .
+          </div>
+        </div>
+      </div>
+      <div class="formgrid grid">
+        <div class="field col">
+          <label class="text-2xl" for="firstname2">SchemeHead Name*</label>
+          <input id="firstname2" type="text"
+            class="text-base text-color surface-overlay p-3 hover:shadow-1 border-2 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            formControlName="name">
+          <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched" class="error">
+            SchemeHead Name is required.
+          </div>
+        </div>
+      </div>
+      <div class="button-container" *ngIf="isSubUp; else elseBlock">
+        <div class="formgrid grid">
+          <div class="col-9">
+            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
+              styleClass="p-button-warning" icon="pi pi-times" iconPos="left" (click)="cancel(userForm)"></p-button>
+          </div>
+          <div class="field col">
+            <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Submit"
+              icon="pi pi-check" styleClass="p-button-success" iconPos="left" (click)="submit(userForm)"
+              [disabled]="userForm.invalid"></p-button>
+          </div>
+        </div>
+      </div>
+      <ng-template #elseBlock>
+        <div class="formgrid grid">
+          <div class="col-9">
+            <p-button class="flex flex-wrap align-items-center justify-content-end mt-4" label="Cancel"
+              icon="pi pi-times" styleClass="p-button-warning" iconPos="left" (click)="cancel(userForm)"></p-button>
+          </div>
+          <div class="field col">
+            <p-button class="flex flex-wrap align-items-center justify-content-end mr-5 mt-4" label="Update"
+              icon="pi pi-check" styleClass="p-button-success" iconPos="left" (click)="update(userForm)"
+              [disabled]="userForm.invalid"></p-button>
+          </div>
+        </div>
+      </ng-template>
+
     </p-dialog>
   </form>
   <p-toast></p-toast>
+</div>
+<p-confirmDialog></p-confirmDialog>
+<div class="mb-2">
+  <p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="Active  ">
+      <p>
+        There are <span class="highlightActiveMaster">{{totalActiveSchemeHead}}</span> SchemeHead's are active out of <span class="highlightTotalMaster">{{totalActiveSchemeHead +
+        totalInactiveSchemeHead}}</span> SchemeHead's given below.
+      </p>
+    </p-tabPanel>
+    <p-tabPanel header="Inactive ">
+      <p>
+        There are <span class="highlightInactiveMaster">{{totalInactiveSchemeHead}}</span> SchemeHead's are inactive out of <span class="highlightTotalMaster">{{totalActiveSchemeHead +
+        totalInactiveSchemeHead}}</span> SchemeHead's given below.
+      </p>
+    </p-tabPanel>
+  </p-tabView>
+</div>
+<mh-prime-dynamic-table size="small" [numberRowsShown]="10" [rowsPerPageOptions]="[10, 30, 50]" [data]="tableData"
+  rowSelectionMode="multiple" [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
+  (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)"
+  [isLoading]="istableLoading" [showTopMenubar]="true" [showGlobalSearch]="false">
+</mh-prime-dynamic-table> -->
+
+<div class="grid">
+  <div class="col-10">
+    <p-breadcrumb [model]="items" [home]="home"></p-breadcrumb>
   </div>
+  <div class="flex justify-content-end col">
+    <p-button (click)="show()" label="ADD SCHEMEHEAD">
+      <i class="pi pi-plus mr-2"></i>
+    </p-button>
+  </div>
+</div>
+
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<div class="mb-2">
+  <p-tabView (onChange)="handleChange($event)">
+    <p-tabPanel header="Active  ">
+      <p>
+        There are <span class="highlightActiveMaster">{{totalActiveSchemeHead}}</span> SchemeHead's are active out of <span class="highlightTotalMaster">{{totalActiveSchemeHead +
+        totalInactiveSchemeHead}}</span> SchemeHead's given below.
+      </p>
+    </p-tabPanel>
+    <p-tabPanel header="Inactive ">
+      <p>
+        There are <span class="highlightInactiveMaster">{{totalInactiveSchemeHead}}</span> SchemeHead's are inactive out of <span class="highlightTotalMaster">{{totalActiveSchemeHead +
+        totalInactiveSchemeHead}}</span> SchemeHead's given below.
+      </p>
+    </p-tabPanel>
+  </p-tabView>
+</div>
   
-  <mh-prime-dynamic-table *ngIf="tableData!=null||tableData!=undefined"
-    size="small"
-    [numberRowsShown]="10"
-    [rowsPerPageOptions]="[10, 30, 50]"
-    [headers]="tableData.headers"
-    [data]="tableData.data"
-    rowSelectionMode="multiple"
-    [dataCount]="alldata"
-    [actionButtons]="actionButtonConfig"
-    (rowSelect)="handleRowSelection($event)"
-    (actionButtonClicked)="handleButtonClick($event)"
-    (queryParameterChange)="handQueryParameterChange($event)"
-  >
-  </mh-prime-dynamic-table>
+<mh-prime-dynamic-table size="small" [numberRowsShown]="10"
+  [rowsPerPageOptions]="[10, 30, 50]"  [data]="tableData" rowSelectionMode="multiple" [actionButtons]="actionButtonConfig" (rowSelect)="handleRowSelection($event)"
+  (actionButtonClicked)="handleButtonClick($event)" (queryParameterChange)="handQueryParameterChange($event)"
+  (searchKeyChange)="handleSearch($event)" [isLoading]="istableLoading" [showTopMenubar]="true" [showGlobalSearch]="false">
+</mh-prime-dynamic-table>

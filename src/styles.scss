@@ -18,6 +18,19 @@ $gutter: 1rem; //for primeflex grid system
 	/* Sets thumb color and transparent track */
 }
 
+.highlightTotalMaster{
+	font-weight: bold;
+	color: rgb(28, 15, 70);
+}
+.highlightActiveMaster{
+	font-weight: bold;
+	color: rgb(4, 144, 4);
+}
+.highlightInactiveMaster{
+	font-weight: bold;
+	color: red;
+}
+
 /* width */
 ::-webkit-scrollbar {
 	width: 7px;

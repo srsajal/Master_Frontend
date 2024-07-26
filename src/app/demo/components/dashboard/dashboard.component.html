@@ -1,239 +1,260 @@
-    <!-- <div class="grid">
-        <div class="col-12 lg:col-6 xl:col-3">
-            <div class="card mb-0">
-                <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">Orders</span>
-                        <div class="text-900 font-medium text-xl">152</div>
-                    </div>
-                    <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                        <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-                    </div>
-                </div>
-                <span class="text-green-500 font-medium">24 new </span>
-                <span class="text-500">since last visit</span>
-            </div>
-        </div>
-        <div class="col-12 lg:col-6 xl:col-3">
-            <div class="card mb-0">
-                <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">Revenue</span>
-                        <div class="text-900 font-medium text-xl">$2.100</div>
-                    </div>
-                    <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                        <i class="pi pi-map-marker text-orange-500 text-xl"></i>
-                    </div>
-                </div>
-                <span class="text-green-500 font-medium">%52+ </span>
-                <span class="text-500">since last week</span>
-            </div>
-        </div>
-        <div class="col-12 lg:col-6 xl:col-3">
-            <div class="card mb-0">
-                <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">Customers</span>
-                        <div class="text-900 font-medium text-xl">28441</div>
-                    </div>
-                    <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                        <i class="pi pi-inbox text-cyan-500 text-xl"></i>
-                    </div>
-                </div>
-                <span class="text-green-500 font-medium">520  </span>
-                <span class="text-500">newly registered</span>
-            </div>
-        </div>
-        <div class="col-12 lg:col-6 xl:col-3">
-            <div class="card mb-0">
-                <div class="flex justify-content-between mb-3">
-                    <div>
-                        <span class="block text-500 font-medium mb-3">Comments</span>
-                        <div class="text-900 font-medium text-xl">152 Unread</div>
-                    </div>
-                    <div class="flex align-items-center justify-content-center bg-purple-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                        <i class="pi pi-comment text-purple-500 text-xl"></i>
-                    </div>
-                </div>
-                <span class="text-green-500 font-medium">85 </span>
-                <span class="text-500">responded</span>
-            </div>
-        </div>
+<!-- <div  class="card" style="text-align: center;">
+    <h5>Master Graph</h5>
+    <p-chart type="pie" width="35rem" [data]="basicData" [options]="basicOptions"></p-chart>
+</div> -->
 
-        <div class="col-12 xl:col-6">
-            <div class="card">
-                <h5>Recent Sales</h5>
-                <p-table [value]="products" [paginator]="true" [rows]="5" responsiveLayout="scroll">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Image</th>
-                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                            <th>View</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-product>
-                        <tr>
-                            <td style="width: 15%; min-width: 5rem;">
-                                <img src="assets/demo/images/product/{{product.image}}" class="shadow-4" alt="{{product.name}}" width="50">
-                            </td>
-                            <td style="width: 35%; min-width: 7rem;">{{product.name}}</td>
-                            <td style="width: 35%; min-width: 8rem;">{{product.price | currency:'USD'}}</td>
-                            <td style="width: 15%;">
-                                <button pButton pRipple type="button" icon="pi pi-search" class="p-button p-component p-button-text p-button-icon-only"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-            <div class="card">
-                <div class="flex justify-content-between align-items-center mb-5">
-                    <h5>Best Selling Products</h5>
-                    <div>
-                        <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain" (click)="menu.toggle($event)"></button>
-                        <p-menu #menu [popup]="true" [model]="items"></p-menu>
-                    </div>
-                </div>
-                <ul class="list-none p-0 m-0">
-                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                        <div>
-                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Space T-Shirt</span>
-                            <div class="mt-1 text-600">Clothing</div>
-                        </div>
-                        <div class="mt-2 md:mt-0 flex align-items-center">
-                            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                                <div class="bg-orange-500 h-full" [ngStyle]="{width: '50%'}"></div>
-                            </div>
-                            <span class="text-orange-500 ml-3 font-medium">%50</span>
-                        </div>
-                    </li>
-                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                        <div>
-                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Portal Sticker</span>
-                            <div class="mt-1 text-600">Accessories</div>
-                        </div>
-                        <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                                <div class="bg-cyan-500 h-full" [ngStyle]="{width: '16%'}"></div>
-                            </div>
-                            <span class="text-cyan-500 ml-3 font-medium">%16</span>
-                        </div>
-                    </li>
-                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                        <div>
-                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Supernova Sticker</span>
-                            <div class="mt-1 text-600">Accessories</div>
-                        </div>
-                        <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                                <div class="bg-pink-500 h-full" [ngStyle]="{width: '67%'}"></div>
-                            </div>
-                            <span class="text-pink-500 ml-3 font-medium">%67</span>
-                        </div>
-                    </li>
-                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                        <div>
-                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Wonders Notebook</span>
-                            <div class="mt-1 text-600">Office</div>
-                        </div>
-                        <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                                <div class="bg-green-500 h-full" [ngStyle]="{width: '35%'}"></div>
-                            </div>
-                            <span class="text-green-500 ml-3 font-medium">%35</span>
-                        </div>
-                    </li>
-                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                        <div>
-                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Mat Black Case</span>
-                            <div class="mt-1 text-600">Accessories</div>
-                        </div>
-                        <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                                <div class="bg-purple-500 h-full" [ngStyle]="{width: '75%'}"></div>
-                            </div>
-                            <span class="text-purple-500 ml-3 font-medium">%75</span>
-                        </div>
-                    </li>
-                    <li class="flex flex-column md:flex-row md:align-items-center md:justify-content-between mb-4">
-                        <div>
-                            <span class="text-900 font-medium mr-2 mb-1 md:mb-0">Robots T-Shirt</span>
-                            <div class="mt-1 text-600">Clothing</div>
-                        </div>
-                        <div class="mt-2 md:mt-0 ml-0 md:ml-8 flex align-items-center">
-                            <div class="surface-300 border-round overflow-hidden w-10rem lg:w-6rem" [ngStyle]="{height: '8px'}">
-                                <div class="bg-teal-500 h-full" [ngStyle]="{width: '40%'}"></div>
-                            </div>
-                            <span class="text-teal-500 ml-3 font-medium">%40</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
 
-        <div class="col-12 xl:col-6">
-            <div class="card">
-                <h5>Sales Overview</h5>
-                <p-chart type="line" [data]="chartData" [options]="chartOptions"></p-chart>
-            </div>
-
-            <div class="card">
-                <div class="flex align-items-center justify-content-between mb-4">
-                    <h5>Notifications</h5>
-                    <div>
-                        <button pButton type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text p-button-plain" (click)="menu.toggle($event)"></button>
-                        <p-menu #menu [popup]="true" [model]="items"></p-menu>
-                    </div>
-                </div>
-
-                <span class="block text-600 font-medium mb-3">TODAY</span>
-                <ul class="p-0 mx-0 mt-0 mb-4 list-none">
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-dollar text-xl text-blue-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3">Richard Jones
-                    <span class="text-700"> has purchased a blue t-shirt for <span class="text-blue-500">79$</span></span>
-                </span>
-                    </li>
-                    <li class="flex align-items-center py-2">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-orange-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-download text-xl text-orange-500"></i>
-                        </div>
-                        <span class="text-700 line-height-3">Your request for withdrawal of <span class="text-blue-500 font-medium">2500$</span> has been initiated.</span>
-                    </li>
-                </ul>
-
-                <span class="block text-600 font-medium mb-3">YESTERDAY</span>
-                <ul class="p-0 m-0 list-none">
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-blue-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-dollar text-xl text-blue-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3">Keyser Wick
-                    <span class="text-700"> has purchased a black jacket for <span class="text-blue-500">59$</span></span>
-                </span>
-                    </li>
-                    <li class="flex align-items-center py-2 border-bottom-1 surface-border">
-                        <div class="w-3rem h-3rem flex align-items-center justify-content-center bg-pink-100 border-circle mr-3 flex-shrink-0">
-                            <i class="pi pi-question text-xl text-pink-500"></i>
-                        </div>
-                        <span class="text-900 line-height-3">Jane Davis<span class="text-700"> has posted a new questions about your product.</span></span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="px-4 py-5 shadow-2 flex flex-column md:flex-row md:align-items-center justify-content-between mb-3" [ngStyle]="{borderRadius: '1rem', background: 'linear-gradient(0deg, rgba(0, 123, 255, 0.5), rgba(0, 123, 255, 0.5)), linear-gradient(92.54deg, #1C80CF 47.88%, #FFFFFF 100.01%)'}">
-           <div>
-               <div class="text-blue-100 font-medium text-xl mt-2 mb-3">TAKE THE NEXT STEP</div>
-               <div class="text-white font-medium text-5xl">Try PrimeBlocks</div>
-           </div>
-           <div class="mt-4 mr-auto md:mt-0 md:mr-0">
-               <a target="_blank" href="https://www.primefaces.org/primeblocks-ng" class="p-button font-bold px-5 py-3 p-button-warning p-button-rounded p-button-raised">
-                   Get Started
-               </a>
-           </div>
-        </div>
-    </div>
+<div *ngIf="isLoading; else showData">
+<app-dashboardskeleton></app-dashboardskeleton>
 </div>
- -->
+<ng-template #showData>
+    <p-breadcrumb [model]="items" [home]="home" [style]="{'width': '95.8%'}"></p-breadcrumb>
+    <div class="grid mt-1">
+        <div class="col">
+            <p-card header="DDO" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" width="24rem" [data]="ddoData" [options]="basicOptions"></p-chart>
+                </ng-template>
+
+                <p style="font-size: large;">Total DDO
+
+                    <span style="margin-left: 28%;">:</span>
+                    <span id="totalDDO" style="margin-left: 7%;">{{allMasterData.totalActiveDdo +
+                        allMasterData.totalInactiveDdo}}</span>
+                </p>
+                <p style="font-size: large;">Total Active DDO
+                    <span style="margin-left: 12%;">:</span>
+                    <span id="totalActiveDDO" style="margin-left: 7%;">{{allMasterData.totalActiveDdo}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive DDO
+                    <span style="margin-left: 8%;">:</span>
+                    <span id="totalInactiveDDO" style="margin-left: 7%;">{{allMasterData.totalInactiveDdo}}</span>
+                </p>
+
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/masterDDO"></p-button>
+                </ng-template>
+            </p-card>
+        </div>
+
+        <div class="col">
+            <p-card header="DETAIL HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="detailHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total DETAIL HEAD
+                    <span style="margin-left: 22%;">:</span>
+                    <span id="totalDetailHead" style="margin-left: 7%;">{{ allMasterData.totalActiveDetailHead +
+                        allMasterData.totalInactiveDetailHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active DETAIL HEAD
+                    <span style="margin-left: 6%;">:</span>
+                    <span id="totalActiveDetailHead" style="margin-left: 7%;">{{
+                        allMasterData.totalActiveDetailHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive DETAIL HEAD
+                    <span style="margin-left: 3%;">:</span>
+                    <span id="totalInactiveDetailHead"
+                        style="margin-left: 7%;">{{allMasterData.totalInactiveDetailHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/detailHead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="SUB DEATIL HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="subDetailHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total SUBDEATIL HEAD
+                    <span style="margin-left: 20%;">:</span>
+                    <span id="totalSubDetailHead" style="margin-left: 5%;">{{ allMasterData.totalActiveSubDetailHead +
+                        allMasterData.totalInactiveSubDetailHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active SUBDEATIL HEAD
+                    <span style="margin-left: 4%;">:</span>
+                    <span id="totalActiveSubDetailHead" style="margin-left: 5%;">{{
+                        allMasterData.totalActiveSubDetailHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive SUBDEATIL HEAD
+                    <span style="margin-left: 1%;">:</span>
+                    <span id="totalInactiveSubDetailHead" style="margin-left: 5%;">{{allMasterData.
+                        totalInactiveSubDetailHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/subDetailHead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="DEPARTMENT" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="departmentData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total DEPARTMENT
+                    <span style="margin-left: 27%;">:</span>
+                    <span id="totalDepartment" style="margin-left: 5%;">{{allMasterData. totalActiveDepartment +
+                        allMasterData. totalInactiveDepartment}}</span>
+                </p>
+                <p style="font-size: large;">Total Active DEPARTMENT
+                    <span style="margin-left: 11%;">:</span>
+                    <span id="totalActiveDepartment"
+                        style="margin-left: 5%;">{{allMasterData.totalActiveDepartment}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive DEPARTMENT
+                    <span style="margin-left: 7%;">:</span>
+                    <span id="totalInactiveDepartment" style="margin-left: 5%;">{{allMasterData.
+                        totalInactiveDepartment}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/department"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="MAJOR HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="majorHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total MAJOR HEAD
+                    <span style="margin-left: 22%;">:</span>
+                    <span id="totalMajorHead" style="margin-left: 7%;">{{ allMasterData.totalActiveMajorHead +
+                        allMasterData. totalInactiveMajorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active MAJOR HEAD
+                    <span style="margin-left: 6%;">:</span>
+                    <span id="totalActiveMajorHead" style="margin-left: 7%;">{{
+                        allMasterData.totalActiveMajorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive MAJOR HEAD
+                    <span style="margin-left: 2%;">:</span>
+                    <span id="totalInactiveMajorHead" style="margin-left: 7%;">{{allMasterData.
+                        totalInactiveMajorHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/majorHead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="SCHEME HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="schemeHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total SCHEME HEAD
+                    <span style="margin-left: 25%;">:</span>
+                    <span id="totalSchemeHead" style="margin-left: 5%;">{{ allMasterData.totalActiveSchemeHead +
+                        allMasterData. totalInactiveSchemeHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active SCHEME HEAD
+                    <span style="margin-left: 9%;">:</span>
+                    <span id="totalActiveSchemeHead" style="margin-left: 5%;">{{allMasterData.
+                        totalActiveSchemeHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive SCHEME HEAD
+                    <span style="margin-left: 5.55%;">:</span>
+                    <span id="totalInactiveSchemeHead" style="margin-left: 5%;">{{
+                        allMasterData.totalInactiveSchemeHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/schemeHead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="Treasury" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="treasuryData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total TREASURY
+                    <span style="margin-left: 27%;">:</span>
+                    <span id="totalDepartment" style="margin-left: 5%;">{{allMasterData.totalActiveTreasury +
+                        allMasterData. totalInactiveTreasury}}</span>
+                </p>
+                <p style="font-size: large;">Total Active TREASURY
+                    <span style="margin-left: 11%;">:</span>
+                    <span id="totalActiveDepartment" style="margin-left: 5%;">{{
+                        allMasterData.totalActiveTreasury}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive TREASURY
+                    <span style="margin-left: 7%;">:</span>
+                    <span id="totalInactiveDepartment" style="margin-left: 5%;">{{
+                        allMasterData.totalInactiveTreasury}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/treasury"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="col">
+            <p-card header="MINOR HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="minorHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total MINOR HEAD
+                    <span style="margin-left: 26%;">:</span>
+                    <span id="totalMinorHead" style="margin-left: 5%;">{{allMasterData.totalActiveMinorHead +
+                        allMasterData.totalInactiveMinorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active MINOR HEAD
+                    <span style="margin-left: 10%;">:</span>
+                    <span id="totalActiveMinorHead"
+                        style="margin-left: 5%;">{{allMasterData.totalActiveMinorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive MINOR HEAD
+                    <span style="margin-left: 6%;">:</span>
+                    <span id="totalInactiveMinorHead"
+                        style="margin-left: 5%;">{{allMasterData.totalInactiveMinorHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/minorhead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+
+        <div class="col">
+            <p-card header="SUB MAJOR HEAD" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <p-chart type="bar" width="24rem" [data]="subMajorHeadData" [options]="basicOptions"></p-chart>
+                </ng-template>
+                <p style="font-size: large;">Total SUBMAJORHEAD
+                    <span style="margin-left: 18%;">:</span>
+                    <span id="totalSubMajorHead" style="margin-left: 2%;">{{allMasterData.totalActiveSubMajorHead +
+                        allMasterData.totalInactiveSubMajorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Active SUBMAJORHEAD
+                    <span style="margin-left: 2%;">:</span>
+                    <span id="totalActiveSubMajorHead"
+                        style="margin-left: 2%;">{{allMasterData.totalActiveSubMajorHead}}</span>
+                </p>
+                <p style="font-size: large;">Total Inactive SUBMAJORHEAD
+                    <span>:</span>
+                    <span id="totalInactiveSubMajorHead"
+                        style="margin-left: 2%;">{{allMasterData.totalInactiveSubMajorHead}}</span>
+                </p>
+                <ng-template pTemplate="footer">
+                    <p-button label="View Details" [style]="{'width': '23.3rem'}" icon="pi pi-eye"
+                        routerLink="/submajorhead"></p-button>
+
+                </ng-template>
+            </p-card>
+        </div>
+
+    </div>
+</ng-template>
