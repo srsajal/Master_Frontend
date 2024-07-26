@@ -59,10 +59,7 @@ export class MasterddoformsComponent implements OnInit {
   }
   submit() {
     if (this.userForm.valid) {
-      console.log(this.userForm.value);
-      
       this.masterService.postMasterDDO(this.userForm).subscribe((res: MasterDdo) => {
-        console.log(res);
         this.pgetData();
         this.ref.close();
         this.messageService.add({ severity: 'success', summary: 'Confirmed', detail: 'Form Submitted', life: 2000 });

@@ -49,7 +49,6 @@ export class DepartmentformsComponent implements OnInit {
   }
 
   initializeMasterForm(isDisabled: boolean = false): FormGroup {
-    // console.log(this.theRegistration);
     const _newForm = this.fb.group({
       Code: [{ value: this.formMaster?.code ?? '', disabled: isDisabled }, [Validators.required,Validators.maxLength(2),Validators.minLength(2)]],
       Name: [{ value: this.formMaster?.name ?? '', disabled: isDisabled },[,Validators.maxLength(100),,Validators.minLength(2)]],
